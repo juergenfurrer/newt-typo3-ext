@@ -70,10 +70,12 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.type',
             'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim,required',
-                'default' => ''
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'size' => 1,
+                'minitems' => 1,
+                'maxitems' => 1,
+                'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getAvailableMethods',
             ],
         ],
         'users' => [
