@@ -1,0 +1,33 @@
+plugin.tx_newt {
+  settings {
+    # cat=plugin.tx_newt/settings/010; type=int; label=Page ID to use for url-build the API-Link
+    apiPageId =
+    # cat=plugin.tx_newt/settings/020; type=string; label=Page TypeNum for the API
+    apiTypeNum = 1201
+    # cat=plugin.tx_newt/settings/030; type=string; label=Base-URL in case you use "/" in site-configuration
+    apiBaseUrl =
+  }
+  persistence {
+    # cat=plugin.tx_newt//a; type=string; label=Default storage PID
+    storagePid =
+  }
+  view {
+    # cat=plugin.tx_newt/file; type=string; label=Path to template root (FE)
+    templateRootPath = EXT:newt/Resources/Private/Templates/
+    # cat=plugin.tx_newt/file; type=string; label=Path to template partials (FE)
+    partialRootPath = EXT:newt/Resources/Private/Partials/
+    # cat=plugin.tx_newt/file; type=string; label=Path to template layouts (FE)
+    layoutRootPath = EXT:newt/Resources/Private/Layouts/
+  }
+}
+
+module.tx_newt_admin {
+  view {
+    # cat=module.tx_newt_admin/file; type=string; label=Path to template root (BE)
+    templateRootPath = EXT:newt/Resources/Private/Backend/Templates/
+    # cat=module.tx_newt_admin/file; type=string; label=Path to template partials (BE)
+    partialRootPath = EXT:newt/Resources/Private/Backend/Partials/
+    # cat=module.tx_newt_admin/file; type=string; label=Path to template layouts (BE)
+    layoutRootPath = EXT:newt/Resources/Private/Backend/Layouts/
+  }
+}

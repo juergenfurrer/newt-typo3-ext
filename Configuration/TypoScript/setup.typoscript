@@ -1,0 +1,56 @@
+plugin.tx_newt {
+  settings {
+    apiPageId = {$plugin.tx_newt.settings.apiPageId}
+    apiTypeNum = {$plugin.tx_newt.settings.apiTypeNum}
+    apiBaseUrl = {$plugin.tx_newt.settings.apiBaseUrl}
+  }
+  view {
+    templateRootPaths.0 = EXT:newt/Resources/Private/Templates/
+    templateRootPaths.1 = {$plugin.tx_newt.view.templateRootPath}
+    partialRootPaths.0 = EXT:newt/Resources/Private/Partials/
+    partialRootPaths.1 = {$plugin.tx_newt.view.partialRootPath}
+    layoutRootPaths.0 = EXT:newt/Resources/Private/Layouts/
+    layoutRootPaths.1 = {$plugin.tx_newt.view.layoutRootPath}
+  }
+  persistence {
+    storagePid = {$plugin.tx_newt.persistence.storagePid}
+    #recursive = 1
+  }
+  features {
+    #skipDefaultArguments = 1
+    # if set to 1, the enable fields are ignored in BE context
+    ignoreAllEnableFieldsInBe = 0
+  }
+  mvc {
+    #callDefaultActionIfActionCantBeResolved = 1
+  }
+}
+
+# Module configuration
+module.tx_newt_tools_newtadmin {
+  persistence {
+    storagePid = {$plugin.tx_newt.persistence.storagePid}
+  }
+  view {
+    templateRootPaths.0 = EXT:newt/Resources/Private/Backend/Templates/
+    templateRootPaths.1 = {$module.tx_newt_admin.view.templateRootPath}
+    partialRootPaths.0 = EXT:newt/Resources/Private/Backend/Partials/
+    partialRootPaths.1 = {$module.tx_newt_admin.view.partialRootPath}
+    layoutRootPaths.0 = EXT:newt/Resources/Private/Backend/Layouts/
+    layoutRootPaths.1 = {$module.tx_newt_admin.view.layoutRootPath}
+  }
+}
+
+newt_api_page = PAGE
+newt_api_page {
+  typeNum = {$plugin.tx_newt.settings.apiTypeNum}
+  10 < tt_content.list.20.newt_api
+  config {
+    disableAllHeaderCode = 1
+    additionalHeaders = Content-type:application/json
+    xhtml_cleaning = 0
+    admPanel = 0
+    debug = 0
+    no_cache = 1
+  }
+}

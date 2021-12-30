@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:newt/Resources/Private/Language/locallang.xlf" date="2021-12-25T10:42:58Z" product-name="newt">
+		<header/>
+		<body>
+			<trans-unit id="tx_newt_domain_model_method" resname="tx_newt_domain_model_method">
+				<source>Method</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_method.type" resname="tx_newt_domain_model_method.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_method.users" resname="tx_newt_domain_model_method.users">
+				<source>Users</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint" resname="tx_newt_domain_model_endpoint">
+				<source>Endpoint</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.name" resname="tx_newt_domain_model_endpoint.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.description" resname="tx_newt_domain_model_endpoint.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class" resname="tx_newt_domain_model_endpoint.endpoint_class">
+				<source>Endpoint Class</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.page_uid" resname="tx_newt_domain_model_endpoint.page_uid">
+				<source>Page UID</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.methods" resname="tx_newt_domain_model_endpoint.methods">
+				<source>Methods</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_backenduser" resname="tx_newt_domain_model_backenduser">
+				<source>Backend User</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
