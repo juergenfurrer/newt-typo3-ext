@@ -33,6 +33,21 @@
 			<trans-unit id="tx_newt_domain_model_backenduser" resname="tx_newt_domain_model_backenduser">
 				<source>Backend User</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.scan" resname="tx_newt_admin.index.scan">
+				<source>Scan this code with the Newt-App</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.username" resname="tx_newt_admin.index.username">
+				<source>Username:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.url" resname="tx_newt_admin.index.url">
+				<source>URL:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.token" resname="tx_newt_admin.index.token">
+				<source>Token:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.endpoints" resname="tx_newt_admin.index.endpoints">
+				<source>Endpoints:</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

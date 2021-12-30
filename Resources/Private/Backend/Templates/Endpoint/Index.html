@@ -1,0 +1,61 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    xmlns:infonique="http://typo3.org/ns/Infonique/Newt/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Buttons">
+</f:section>
+
+<f:section name="Content">
+    <h3><f:translate key="tx_newt_admin.index.scan" /></h3>
+
+    <div class="d-flex flex-row col-md-8 mb-3">
+        <div class="me-3 mr-3">
+            <img src="{infonique:qrcode(content: '{qr_content}')}" class="qr-code">
+        </div>
+        <div class="flex-grow-1 align-self-center">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.username" /></div>
+                        <div class="col-md-8">{data.user}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.url" /></div>
+                        <div class="col-md-8">{data.url}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.token" /></div>
+                        <div class="col-md-8">{data.token}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <h4><f:translate key="tx_newt_admin.index.endpoints" /></h4>
+    <table class="tx_newt table">
+        <tr>
+            <th><f:translate key="tx_newt_domain_model_endpoint.name" /></th>
+            <th><f:translate key="tx_newt_domain_model_endpoint.description" /></th>
+            <th><f:translate key="tx_newt_domain_model_endpoint.endpoint_class" /></th>
+        </tr>
+        <f:for each="{endpoints}" as="endpoint">
+            <tr>
+                <td>{endpoint.name}</td>
+                <td>{endpoint.description}</td>
+                <td>{endpoint.endpointClass}</td>
+            </tr>
+        </f:for>
+    </table>
+
+</f:section>
+
+</html>
