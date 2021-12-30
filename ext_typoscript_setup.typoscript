@@ -1,12 +1,9 @@
-
 config.tx_extbase {
   persistence {
     classes {
-
       TYPO3\CMS\Beuser\Domain\Model\BackendUser {
         subclasses {
           Tx_Newt_BackendUser = Infonique\Newt\Domain\Model\BackendUser
-
         }
       }
       Infonique\Newt\Domain\Model\BackendUser {
@@ -15,7 +12,6 @@ config.tx_extbase {
           recordType = Tx_Newt_BackendUser
         }
       }
-
     }
   }
 }

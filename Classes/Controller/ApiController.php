@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Infonique\Newt\Controller;
 
-use Infonique\Newt\Domain\Model\BackendUser;
 use Infonique\Newt\Domain\Model\Endpoint;
-use Infonique\Newt\Domain\Model\Method;
 use Infonique\Newt\NewtApi\Field;
 use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
@@ -139,7 +137,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($userUid < 1) {
             $response->setError(403, "User/Token not valid");
         } else {
-            $endpointUid = GeneralUtility::_GET("uid");
+            $endpointUid = 0;
+            if ($this->request->hasArgument('uid')) {
+                $endpointUid = $this->request->getArgument('uid');
+            }
             /** @var Endpoint */
             $endpoint = $this->endpointRepository->findByUid(intval($endpointUid));
             if (!$endpoint) {

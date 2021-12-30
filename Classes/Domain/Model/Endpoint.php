@@ -111,9 +111,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                         ->setCreateAbsoluteUri(true)
                         ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))
                         ->setTargetPageType(intval($settings['apiTypeNum']))
-                        ->setArguments([
-                            "uid" => $this->getUid()
-                        ])
+                        ->setArguments(['tx_newt_api' => ["uid" => $this->getUid()]])
                         ->uriFor($method->getType(), [], "Api", "Newt", "Api");
 
                     $apiBaseUrl = trim($settings['apiBaseUrl']);
