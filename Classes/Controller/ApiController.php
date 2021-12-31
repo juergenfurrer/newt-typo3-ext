@@ -10,7 +10,10 @@ use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
 use Infonique\Newt\NewtApi\MethodType;
 use Infonique\Newt\NewtApi\Response;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -170,6 +173,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                     $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
                                 } else if ($field->getType() == FieldType::TIME) {
                                     $prams[$fieldName] = new \DateTime("1900-01-01 " . $_POST[$fieldName]);
+                                } else if ($field->getType() == FieldType::IMAGE) {
+                                    if (strlen($_POST[$fieldName]) > 0) {
+                                        $prams[$fieldName] = $this->setImageFromBase64(md5($_POST[$fieldName]).".jpg", $_POST[$fieldName], "be_user_" . $userUid);
+                                    }
                                 } else {
                                     $prams[$fieldName] = $_POST[$fieldName];
                                 }
@@ -233,5 +240,51 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->setVariablesToRender(array(
             'json'
         ));
+    }
+
+
+    /**
+     * Save the image into filadmin and returns the file-ref
+     *
+     * @param string $imageName
+     * @param string $imageBase64
+     * @param string $subfolder
+     * @return \Infonique\Newt\Domain\Model\FileReference|null
+     */
+    public function setImageFromBase64($imageName, $imageBase64, $subfolder = null)
+    {
+        if ($imageBase64 && strlen($imageBase64) < 10) {
+            return null;
+        }
+        /** @var ObjectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var StorageRepository */
+        $storageRepository = $objectManager->get(StorageRepository::class);
+
+        $storage = $storageRepository->getDefaultStorage();
+        $folder = "newt" . ($subfolder ? ('/' . $subfolder) : '');
+        $targetFolder = null;
+        if ($storage->hasFolder($folder)) {
+            $targetFolder = $storage->getFolder($folder);
+        } else {
+            $targetFolder = $storage->createFolder($folder);
+        }
+        $tempFilePath = tempnam(sys_get_temp_dir(), 'media');
+        // Write the file
+        $content = base64_decode($imageBase64);
+        $file = fopen($tempFilePath, "wb");
+        fwrite($file, $content);
+        fclose($file);
+
+        if (file_exists($tempFilePath)) {
+            $movedNewFile = $storage->addFile($tempFilePath, $targetFolder, $imageName);
+            /** @var \Infonique\Newt\Domain\Model\FileReference */
+            $newFileReference = $objectManager->get(\Infonique\Newt\Domain\Model\FileReference::class);
+            $newFileReference->setFile($movedNewFile);
+            if ($newFileReference) {
+                return $newFileReference;
+            }
+        }
+        return null;
     }
 }

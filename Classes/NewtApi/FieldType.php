@@ -18,4 +18,5 @@ class FieldType
     const DATETIME = 'datetime';
     const SELECT   = 'select';
     const LABEL    = 'label';
+    const IMAGE    = 'image';
 }
