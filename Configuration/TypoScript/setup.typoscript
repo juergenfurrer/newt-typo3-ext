@@ -3,6 +3,7 @@ plugin.tx_newt {
     apiPageId = {$plugin.tx_newt.settings.apiPageId}
     apiTypeNum = {$plugin.tx_newt.settings.apiTypeNum}
     apiBaseUrl = {$plugin.tx_newt.settings.apiBaseUrl}
+    tokenExpiration = {$plugin.tx_newt.settings.tokenExpiration}
   }
   view {
     templateRootPaths.0 = EXT:newt/Resources/Private/Templates/

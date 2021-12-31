@@ -13,5 +13,6 @@ CREATE TABLE tx_newt_domain_model_endpoint (
 );
 
 CREATE TABLE be_users (
-	tx_newt_token varchar(100) DEFAULT '' NOT NULL
+	tx_newt_token varchar(100) DEFAULT '' NOT NULL,
+	tx_newt_token_issued int(11) DEFAULT '0' NOT NULL
 );

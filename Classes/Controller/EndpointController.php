@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infonique\Newt\Controller;
 
+use DateTimeZone;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -82,17 +83,40 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $data["user"] = $GLOBALS['BE_USER']->user['username'];
         $data["url"] = $apiBaseUrl . $uri;
         $userToken = $GLOBALS['BE_USER']->user['tx_newt_token'];
+        $tokenIssed = $GLOBALS['BE_USER']->user['tx_newt_token_issued'];
         if (empty($userToken)) {
             $userToken = $this->backendUserRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
         }
         $data["token"] = $userToken;
 
-        $this->view->assign('data', $data);
-        $this->view->assign('qr_content', json_encode((object)$data));
+        $timeZoneUtc = new DateTimeZone('UTC');
+        $timeZoneDefault = date_default_timezone_get();
+        $this->view->assign('timeZone', $timeZoneDefault);
+
+        $tokenIssedDate = new \DateTime('@' . $tokenIssed, $timeZoneUtc);
+        $tokenIssedDate->setTimezone(new \DateTimeZone($timeZoneDefault));
+        $this->view->assign('tokenIssedDate', $tokenIssedDate);
+
+        // Calculate if the token is expired
+        if (intval($settings['tokenExpiration']) > 0) {
+            $tokenExpireDate = new \DateTime('@' . $tokenIssed, $timeZoneUtc);
+            $tokenExpireDate->setTimezone(new \DateTimeZone($timeZoneDefault));
+            $tokenExpireDate->add(new \DateInterval("PT{$settings['tokenExpiration']}S"));
+            $this->view->assign('tokenExpireDate', $tokenExpireDate);
+
+            $now = new \DateTime();
+            if ($tokenExpireDate->getTimestamp() < $now->getTimestamp()) {
+                $this->view->assign('tokenExpired', true);
+            }
+        }
 
         $endpoints = $this->endpointRepository->findAll();
         $this->view->assign('endpoints', $endpoints);
+
         $this->view->assign('tooken', $userToken);
+        $this->view->assign('data', $data);
+        $this->view->assign('qr_content', json_encode((object)$data));
+
         return $this->htmlResponse();
     }
 

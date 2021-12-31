@@ -37,13 +37,19 @@
 				<source>Scan this code with the Newt-App</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_admin.index.username" resname="tx_newt_admin.index.username">
-				<source>Username:</source>
+				<source>API-User:</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_admin.index.url" resname="tx_newt_admin.index.url">
-				<source>URL:</source>
+				<source>API-URL:</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_admin.index.token" resname="tx_newt_admin.index.token">
-				<source>Token:</source>
+				<source>API-Token:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.token_isseud" resname="tx_newt_admin.index.token_isseud">
+				<source>Token issued:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.token_expires" resname="tx_newt_admin.index.token_expires">
+				<source>Token expires:</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_admin.index.endpoints" resname="tx_newt_admin.index.endpoints">
 				<source>Endpoints:</source>

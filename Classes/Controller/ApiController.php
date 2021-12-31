@@ -76,17 +76,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function endpointsAction()
     {
-        $userUid = $this->backendUserRepository->findUserUidByRequest($this->request);
-        if ($userUid < 1) {
-            $response = new Response();
-            $response->setError(403, "User/Token not valid");
-            $response->setSuccess(false);
-
-            $this->view->assign("json", $response->getJson());
-            $this->view->setVariablesToRender([
-                "json"
-            ]);
-        } else {
+        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUser($userData);
+        if ($userUid > 0) {
             $endpoints = $this->endpointRepository->findAll();
             $json = [];
             /** @var Endpoint $endpoint */
@@ -136,10 +128,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = new Response();
         $result = false;
 
-        $userUid = $this->backendUserRepository->findUserUidByRequest($this->request);
-        if ($userUid < 1) {
-            $response->setError(403, "User/Token not valid");
-        } else {
+        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUser($userData);
+        if ($userUid > 0) {
             $endpointUid = 0;
             if ($this->request->hasArgument('uid')) {
                 $endpointUid = $this->request->getArgument('uid');
@@ -200,13 +191,13 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     }
                 }
             }
-        }
-        $response->setSuccess($result);
+            $response->setSuccess($result);
 
-        $this->view->assign("json", $response->getJson());
-        $this->view->setVariablesToRender([
-            "json"
-        ]);
+            $this->view->assign("json", $response->getJson());
+            $this->view->setVariablesToRender([
+                "json"
+            ]);
+        }
     }
 
     /**
@@ -240,6 +231,51 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->setVariablesToRender(array(
             'json'
         ));
+    }
+
+
+    /**
+     * Validate the user-data and returns the user-uid in case it was successfully
+     *
+     * @param array $userData
+     * @return integer
+     */
+    private function validateUser($userData): int
+    {
+        $userUid = intval($userData['uid']);
+        if ($userUid < 1) {
+            $response = new Response();
+            $response->setError(403, "User/Token not valid");
+            $response->setSuccess(false);
+
+            $this->view->assign("json", $response->getJson());
+            $this->view->setVariablesToRender([
+                "json"
+            ]);
+            return -1;
+        }
+
+        // Check the User-Data
+        $tokenExpiration = intval($this->settings['tokenExpiration']);
+        $tokenIssued = intval($userData['tx_newt_token_issued']);
+        if ($tokenExpiration > 0 && $tokenIssued > 0) {
+            $now = new \DateTime();
+            $tokenExpireDate = new \DateTime('@' . $tokenIssued);
+            $tokenExpireDate->add(new \DateInterval("PT{$tokenExpiration}S"));
+            if ($tokenExpireDate->getTimestamp() < $now->getTimestamp()) {
+                $response = new Response();
+                $response->setError(403, "Token expired");
+                $response->setSuccess(false);
+
+                $this->view->assign("json", $response->getJson());
+                $this->view->setVariablesToRender([
+                    "json"
+                ]);
+                return -1;
+            }
+        }
+
+        return $userUid;
     }
 
 

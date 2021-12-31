@@ -21,23 +21,32 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BackendUserRepository
 {
-    public function findUserUidByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request): int
+    /**
+     * Find user-data from the request (header)
+     *
+     * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     * @return array
+     */
+    public function findUserDataByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request): array
     {
         $user = $request->getHeader("user")[0];
         $token = $request->getHeader("token")[0];
 
         /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $userUid = $connectionPool->getConnectionForTable('be_users')->select(
-            ['uid'],
+        $userData = $connectionPool->getConnectionForTable('be_users')->select(
+            ['uid', 'tx_newt_token', 'tx_newt_token_issued'],
             'be_users',
             [
                 'username' => $user,
                 'tx_newt_token' => $token,
             ]
-        )->fetchOne();
+        )->fetch();
+        if (is_countable($userData)) {
+            return $userData;
+        }
 
-        return intval($userUid);
+        return [];
     }
 
     /**
@@ -51,7 +60,10 @@ class BackendUserRepository
         /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $connectionPool->getConnectionForTable('be_users')
-            ->update('be_users', ['tx_newt_token' => $userToken], ['uid' => $userUid]);
+            ->update('be_users', [
+                'tx_newt_token' => $userToken,
+                'tx_newt_token_issued' => time()
+            ], ['uid' => $userUid]);
         return $userToken;
     }
 }

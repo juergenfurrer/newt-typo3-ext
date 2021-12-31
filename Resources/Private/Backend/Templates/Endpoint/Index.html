@@ -40,6 +40,24 @@
                         <div class="col-md-8"><f:link.action action="tokenRefresh" class="btn btn-sm btn-danger t3js-modal-trigger" additionalAttributes="{'data-title':'{f:translate(key: \'tx_newt_admin.tokenRefresh.title\')}', 'data-bs-content':'{f:translate(key: \'tx_newt_admin.tokenRefresh.message\')}'}"><f:translate key="tx_newt_admin.tokenRefresh.title" /></f:link.action></div>
                     </div>
                 </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.token_isseud" /></div>
+                        <div class="col-md-8">
+                            <f:format.date format="d.m.Y H:i:s">{tokenIssedDate}</f:format.date> ({timeZone})
+                        </div>
+                    </div>
+                </li>
+                <f:if condition="{tokenExpireDate}">
+                    <li class="list-group-item {f:if(condition:'{tokenExpired}', then:'list-group-item-danger', else:'list-group-item-success')}">
+                        <div class="row">
+                            <div class="col-md-4"><f:translate key="tx_newt_admin.index.token_expires" /></div>
+                            <div class="col-md-8">
+                                <f:format.date format="d.m.Y H:i:s">{tokenExpireDate}</f:format.date> ({timeZone})
+                            </div>
+                        </div>
+                    </li>
+                </f:if>
             </ul>
         </div>
     </div>

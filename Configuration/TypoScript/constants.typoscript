@@ -6,6 +6,8 @@ plugin.tx_newt {
     apiTypeNum = 1201
     # cat=plugin.tx_newt/settings/030; type=string; label=Base-URL in case you use "/" in site-configuration
     apiBaseUrl =
+    # cat=plugin.tx_newt/settings/040; type=string; label=Token expiration in seconds (0 = infinit)
+    tokenExpiration =
   }
   persistence {
     # cat=plugin.tx_newt//a; type=string; label=Default storage PID
