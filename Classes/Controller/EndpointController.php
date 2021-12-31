@@ -103,6 +103,7 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $tokenExpireDate->setTimezone(new \DateTimeZone($timeZoneDefault));
             $tokenExpireDate->add(new \DateInterval("PT{$settings['tokenExpiration']}S"));
             $this->view->assign('tokenExpireDate', $tokenExpireDate);
+            $data['expire'] = $tokenExpireDate->getTimestamp();
 
             $now = new \DateTime();
             if ($tokenExpireDate->getTimestamp() < $now->getTimestamp()) {
