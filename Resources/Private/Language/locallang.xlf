@@ -48,6 +48,12 @@
 			<trans-unit id="tx_newt_admin.index.endpoints" resname="tx_newt_admin.index.endpoints">
 				<source>Endpoints:</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_admin.tokenRefresh.title" resname="tx_newt_admin.tokenRefresh.title">
+				<source>Create new Token</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.tokenRefresh.message" resname="tx_newt_admin.tokenRefresh.message">
+				<source>This will generate a new Token for this user! All clients of this user will have to be reconfigured. Do you want to proceed?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

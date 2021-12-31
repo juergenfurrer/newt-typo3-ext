@@ -35,6 +35,10 @@
                         <div class="col-md-4"><f:translate key="tx_newt_admin.index.token" /></div>
                         <div class="col-md-8">{data.token}</div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8"><f:link.action action="tokenRefresh" class="btn btn-sm btn-danger t3js-modal-trigger" additionalAttributes="{'data-title':'{f:translate(key: \'tx_newt_admin.tokenRefresh.title\')}', 'data-bs-content':'{f:translate(key: \'tx_newt_admin.tokenRefresh.message\')}'}"><f:translate key="tx_newt_admin.tokenRefresh.title" /></f:link.action></div>
+                    </div>
                 </li>
             </ul>
         </div>

@@ -8,7 +8,7 @@ defined('TYPO3') || die();
         'admin',
         '',
         [
-            \Infonique\Newt\Controller\EndpointController::class => 'index'
+            \Infonique\Newt\Controller\EndpointController::class => 'index, tokenRefresh'
         ],
         [
             'access' => 'user,group',

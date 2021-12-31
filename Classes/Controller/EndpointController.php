@@ -95,4 +95,15 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->assign('tooken', $userToken);
         return $this->htmlResponse();
     }
+
+    /**
+     * action tokenRefresh
+     *
+     * @return void
+     */
+    public function tokenRefreshAction()
+    {
+        $this->backendUserRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
+        $this->redirect("index");
+    }
 }
