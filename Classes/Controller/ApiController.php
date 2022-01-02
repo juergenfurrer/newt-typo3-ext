@@ -144,11 +144,20 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::CREATE);
-                if (! $currentMethod || ! $currentMethod->isUserAllowed($userUid)) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
-                    if (!class_exists($className)) {
+                    $classExists = false;
+                    try {
+                        if (class_exists($className)) {
+                            $classExists = true;
+                        }
+                    } catch (\Exception $e) {
+                        $classExists = false;
+                    }
+
+                    if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
                         /** @var \Infonique\Newt\NewtApi\EndpointInterface */
@@ -169,7 +178,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                     $prams[$fieldName] = new \DateTime("1900-01-01 " . $_POST[$fieldName]);
                                 } else if ($field->getType() == FieldType::IMAGE) {
                                     if (strlen($_POST[$fieldName]) > 0) {
-                                        $prams[$fieldName] = $this->setImageFromBase64(md5($_POST[$fieldName]).".jpg", $_POST[$fieldName], "be_user_" . $userUid);
+                                        $prams[$fieldName] = $this->setImageFromBase64(md5($_POST[$fieldName]) . ".jpg", $_POST[$fieldName], "be_user_" . $userUid);
                                     }
                                 } else {
                                     $prams[$fieldName] = $_POST[$fieldName];
@@ -182,7 +191,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 }
                             }
                         }
-                        if (! $isValid) {
+                        if (!$isValid) {
                             $response->setError(400, "Form not valid");
                         } else {
                             $methodCreateModel = new MethodCreateModel();

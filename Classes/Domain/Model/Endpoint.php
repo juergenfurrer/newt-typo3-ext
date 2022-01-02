@@ -72,7 +72,11 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         // Create an instance of the requested class
         $className = $this->getEndpointClass();
-        if (! class_exists($className)) {
+        try {
+            if (! class_exists($className)) {
+                return null;
+            }
+        } catch (\Exception $e) {
             return null;
         }
 
