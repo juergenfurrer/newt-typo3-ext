@@ -12,7 +12,7 @@
 <f:section name="Content">
     <h3><f:translate key="tx_newt_admin.index.scan" /></h3>
 
-    <div class="d-flex flex-row col-md-8 mb-3">
+    <div class="d-flex flex-row mb-3">
         <div class="me-3 mr-3">
             <img src="{infonique:qrcode(content: '{qr_content}')}" class="qr-code">
         </div>
@@ -20,30 +20,30 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.url" /></div>
-                        <div class="col-md-8">{data.url}</div>
+                        <div class="col-md-3"><f:translate key="tx_newt_admin.index.url" /></div>
+                        <div class="col-md-9">{data.url}</div>
                     </div>
                 </li>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.username" /></div>
-                        <div class="col-md-8">{data.user}</div>
+                        <div class="col-md-3"><f:translate key="tx_newt_admin.index.username" /></div>
+                        <div class="col-md-9">{data.user}</div>
                     </div>
                 </li>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.token" /></div>
-                        <div class="col-md-8">{data.token}</div>
+                        <div class="col-md-3"><f:translate key="tx_newt_admin.index.token" /></div>
+                        <div class="col-md-9">{data.token}</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-8"><f:link.action action="tokenRefresh" class="btn btn-sm btn-danger t3js-modal-trigger" additionalAttributes="{'data-title':'{f:translate(key: \'tx_newt_admin.tokenRefresh.title\')}', 'data-bs-content':'{f:translate(key: \'tx_newt_admin.tokenRefresh.message\')}'}"><f:translate key="tx_newt_admin.tokenRefresh.title" /></f:link.action></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9"><f:link.action action="tokenRefresh" class="btn btn-sm btn-danger t3js-modal-trigger" additionalAttributes="{'data-title':'{f:translate(key: \'tx_newt_admin.tokenRefresh.title\')}', 'data-bs-content':'{f:translate(key: \'tx_newt_admin.tokenRefresh.message\')}'}"><f:translate key="tx_newt_admin.tokenRefresh.title" /></f:link.action></div>
                     </div>
                 </li>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-4"><f:translate key="tx_newt_admin.index.token_isseud" /></div>
-                        <div class="col-md-8">
+                        <div class="col-md-3"><f:translate key="tx_newt_admin.index.token_isseud" /></div>
+                        <div class="col-md-9">
                             <f:format.date format="d.m.Y H:i:s">{tokenIssedDate}</f:format.date> ({timeZone})
                         </div>
                     </div>
@@ -51,8 +51,8 @@
                 <f:if condition="{tokenExpireDate}">
                     <li class="list-group-item {f:if(condition:'{tokenExpired}', then:'list-group-item-danger', else:'list-group-item-success')}">
                         <div class="row">
-                            <div class="col-md-4"><f:translate key="tx_newt_admin.index.token_expires" /></div>
-                            <div class="col-md-8">
+                            <div class="col-md-3"><f:translate key="tx_newt_admin.index.token_expires" /></div>
+                            <div class="col-md-9">
                                 <f:format.date format="d.m.Y H:i:s">{tokenExpireDate}</f:format.date> ({timeZone})
                             </div>
                         </div>

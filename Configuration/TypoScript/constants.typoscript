@@ -13,14 +13,6 @@ plugin.tx_newt {
     # cat=plugin.tx_newt//a; type=string; label=Default storage PID
     storagePid =
   }
-  view {
-    # cat=plugin.tx_newt/file; type=string; label=Path to template root (FE)
-    templateRootPath = EXT:newt/Resources/Private/Templates/
-    # cat=plugin.tx_newt/file; type=string; label=Path to template partials (FE)
-    partialRootPath = EXT:newt/Resources/Private/Partials/
-    # cat=plugin.tx_newt/file; type=string; label=Path to template layouts (FE)
-    layoutRootPath = EXT:newt/Resources/Private/Layouts/
-  }
 }
 
 module.tx_newt_admin {

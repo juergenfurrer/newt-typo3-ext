@@ -180,4 +180,17 @@ class Field
         $this->items = $items;
         return $this;
     }
+
+    /**
+     * Set the value of items
+     *
+     * @param FieldItem $items
+     *
+     * @return self
+     */
+    public function addItem(FieldItem $item): self
+    {
+        $this->items[] = $item;
+        return $this;
+    }
 }

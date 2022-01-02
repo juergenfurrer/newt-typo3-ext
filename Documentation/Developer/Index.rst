@@ -6,9 +6,21 @@
 Developer Corner
 ================
 
-Use this section to provide examples of code or detail any information that would be deemed relevant to a developer.
+To implement an endpoint into your own extension, you have to implement the EndpointInterface.
 
-For example explain how a certain feature was implemented.
+.. code-block:: php
+
+   class MyEndpoint implements \Infonique\Newt\NewtApi\EndpointInterface {
+      // implement the interface here
+   }
+
+As an example, please see EXT:newt4news/Classes/Bewt/NewsEndpoint
+
+For the Extension to know the available endpoint-implementations you have to add this Hook into your ext_localconf.php:
+
+.. code-block:: php
+
+   $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['Newt']['Implementation'][] = \Infonique\Newt4News\Newt\NewsEndpoint::class;
 
 
 .. _developer-api:
@@ -16,23 +28,4 @@ For example explain how a certain feature was implemented.
 API
 ===
 
-How to use the API...
-
-.. code-block:: php
-
-   $stuff = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-      '\\Foo\\Bar\\Utility\\Stuff'
-   );
-   $stuff->do();
-
-or some other language:
-
-.. code-block:: javascript
-   :linenos:
-   :emphasize-lines: 2-4
-
-   $(document).ready(
-      function () {
-         doStuff();
-      }
-   );
+TBD

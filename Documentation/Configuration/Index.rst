@@ -6,45 +6,45 @@
 Configuration
 =============
 
-How is the extension configured?
-Aim to provide simple instructions detailing how the extension is configured.
-Always assume that the user has no prior experience of using the extension.
+To configurate this extension, you have to add the static template of Newt
 
-Try and provide a typical use case for your extension
-and detail each of the steps required to get the extension running.
+After adding the static, you will find the constants in the Constant editor:
 
-Typical Example
-===============
+======================================  ==========  ==================================================================  =======================================
+Property:                               Data type:  Description:                                                        Default:
+======================================  ==========  ==================================================================  =======================================
+settings.apiPageId                      string      Page ID to use for url-build the API-Link
+                                                    Point to the page you like to use as API
+                                                    Because the Extension uses a typNum, it will work with any page
+                                                    This is just to have a nice URL...
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+settings.apiTypeNum                     string      Page TypeNum for the API                                            1201
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+settings.apiBaseUrl                     string      Base-URL in case you use "/" in site-configuration
+                                                    For the API to work, it is important to have a full-URL
+                                                    When creating URL's with the site-configuration, this is sometimes
+                                                    hard to get working, in case you use "/" as base-url, place the
+                                                    sites Host here (e.g.: https://example.com)
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+settings.tokenExpiration                string      Token expiration in seconds (0 = infinit)
+                                                    Insert here the lifetime of the token in seconds
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+persistence.storagePid                  string      Default storage PID
+                                                    Defines the placement of the endpoint-configurations
+======================================  ==========  ==================================================================  =======================================
 
-- Does the integrator need to include a static template?
-- For example add a code snippet with comments
+[tsref:plugin.tx_newt]
 
-Minimal example of TypoScript:
 
-- Code-blocks have support for syntax highlighting
-- Use any supported language
+======================================  ==========  ==================================================================  =======================================
+Property:                               Data type:  Description:                                                        Default:
+======================================  ==========  ==================================================================  =======================================
+view.templateRootPath                   string      Defines the path where the admin-template are located               EXT:newt/Resources/Backend/Templates/
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+view.partialRootPath                    string      Defines the path where the admin-partials are located               EXT:newt/Resources/Backend/Partials/
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+view.layoutRootPath                     string      Defines the path where the admin-layout are located                 EXT:newt/Resources/Backend/Layouts/
+======================================  ==========  ==================================================================  =======================================
 
-.. code-block:: typoscript
+[tsref:plugin.tx_newt_admin]
 
-   plugin.tx_myextension.settings {
-      # configure basic email settings
-      email {
-         subject = Some subject
-         from = someemail@domain.de
-      }
-   }
-
-.. _configuration-typoscript:
-
-TypoScript Reference
-====================
-
-Possible subsections: Reference of TypoScript options.
-The construct below show the recommended structure for TypoScript properties listing and description.
-
-When detailing data types or standard TypoScript features,
-don't hesitate to cross-link to the TypoScript Reference as shown below.
-
-See :ref:`h2document:how-to-document-hyperlinks` for information about how to use cross-references.
-
-See the :file:`Settings.cfg` file for the declaration of cross-linking keys.

@@ -5,14 +5,6 @@ plugin.tx_newt {
     apiBaseUrl = {$plugin.tx_newt.settings.apiBaseUrl}
     tokenExpiration = {$plugin.tx_newt.settings.tokenExpiration}
   }
-  view {
-    templateRootPaths.0 = EXT:newt/Resources/Private/Templates/
-    templateRootPaths.1 = {$plugin.tx_newt.view.templateRootPath}
-    partialRootPaths.0 = EXT:newt/Resources/Private/Partials/
-    partialRootPaths.1 = {$plugin.tx_newt.view.partialRootPath}
-    layoutRootPaths.0 = EXT:newt/Resources/Private/Layouts/
-    layoutRootPaths.1 = {$plugin.tx_newt.view.layoutRootPath}
-  }
   persistence {
     storagePid = {$plugin.tx_newt.persistence.storagePid}
     #recursive = 1

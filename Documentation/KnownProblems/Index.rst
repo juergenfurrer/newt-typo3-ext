@@ -6,4 +6,6 @@
 Known Problems
 ==============
 
-Use this section for informing about any type of of problem.
+- Only create is implemented so far
+- Not a lot of endpoints available (until now, its an early alpha)
+- Documentation is quick and dirty, if you have any questions, please contact me (info@infonique.ch)

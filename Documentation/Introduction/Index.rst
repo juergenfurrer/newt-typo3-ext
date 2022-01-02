@@ -6,50 +6,28 @@
 Introduction
 ============
 
-.. tip::
-
-   New to reStructuredText and Sphinx?
-
-   Get an introduction:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Index.html
-
-   Use this cheat sheet as reference:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/CheatSheet.html
-
 .. _what-it-does:
 
 What does it do?
 ================
 
-The aim of this chapter is to provide a general overview of your extension.
+The plugin allows you to implement the Newt-API into your TYPO3 installation.
 
-* What does it do?
-* What problems does it solve?
-* Who is the target audience?
+Newt is a mobile-app available for free to manage Data on any server (not only TYPO3)
 
-This chapter should provide information that will help inform 
-potential users and assist them in deciding if they should 
-install and use this extension.
+With this extension you are able to create simple Endpoints for the app and grant your backend-users individually
 
-.. important::
+The main goal is to insert data without login into TYPO3 and provide a unified UI on a native-app
 
-   Don't forget to set extension's version number in :file:`Settings.cfg` file,
-   in the :code:`release` property.
-   It will be automatically picked up on the cover page by the :code:`|release|` substitution.
+The extension creats a QR-Code, which can be scanned with the Newt-App to create fast and easy configuration.
+
 
 .. _screenshots:
 
 Screenshots
 ===========
 
-This chapter should help people understand how the extension works.
-Remove it if it is not relevant.
-
-.. figure:: ../Images/IntroductionPackage.png
+.. figure:: ../Images/backend-01.jpg
    :class: with-shadow
-   :alt: Introduction Package
+   :alt: Newt-Server QR-Code
    :width: 300px
-
-   Introduction Package after installation (caption of the image).
-
-How the Frontend of the Introduction Package looks like after installation (legend of the image).

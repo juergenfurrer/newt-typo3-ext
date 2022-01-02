@@ -6,8 +6,10 @@
 Installation
 ============
 
-- How is the extension installed?
-- Are there any dependencies that need to be resolved?
+The extension can be installed via Extension-Manager.
 
-References to general TYPO3 documentation are possible,
-for example the :ref:`t3install:start`.
+However, there are no endpoints in the base-extension.
+
+To have your first Endpoint, you can install Newt4News.
+
+This Extension will provide a Newt-Endpoint for the News-Extension.

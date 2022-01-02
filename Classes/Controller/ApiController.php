@@ -105,6 +105,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                                 'validation' => [
                                                     '_descendAll' => [],
                                                 ],
+                                                'items' => [
+                                                    '_descendAll' => [],
+                                                ],
                                             ],
                                         ],
                                     ],
