@@ -80,6 +80,7 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $apiBaseUrl = trim($settings['apiBaseUrl']);
 
         $data = [];
+        $data["name"] = !empty($settings['apiName']) ? substr($settings['apiName'], 0, 25) : '';
         $data["user"] = $GLOBALS['BE_USER']->user['username'];
         $data["url"] = $apiBaseUrl . $uri;
         $userToken = $GLOBALS['BE_USER']->user['tx_newt_token'];

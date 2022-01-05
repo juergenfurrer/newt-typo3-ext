@@ -1,5 +1,6 @@
 plugin.tx_newt {
   settings {
+    apiName = {$plugin.tx_newt.settings.apiName}
     apiPageId = {$plugin.tx_newt.settings.apiPageId}
     apiTypeNum = {$plugin.tx_newt.settings.apiTypeNum}
     apiBaseUrl = {$plugin.tx_newt.settings.apiBaseUrl}

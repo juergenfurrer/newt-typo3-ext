@@ -1,8 +1,59 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:newt/Resources/Private/Language/locallang.xlf" date="2021-12-25T10:42:58Z" product-name="newt">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:newt/Resources/Private/Language/locallang.xlf" date="2022-01-05T20:00:45Z" product-name="newt">
 		<header/>
 		<body>
+			<trans-unit id="tx_newt_admin.index.endpoints" resname="tx_newt_admin.index.endpoints">
+				<source>Endpoints:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.name" resname="tx_newt_admin.index.name">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.scan" resname="tx_newt_admin.index.scan">
+				<source>Scan this code with the Newt-App</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.token" resname="tx_newt_admin.index.token">
+				<source>API-Token:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.token_expires" resname="tx_newt_admin.index.token_expires">
+				<source>Token expires:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.token_isseud" resname="tx_newt_admin.index.token_isseud">
+				<source>Token issued:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.url" resname="tx_newt_admin.index.url">
+				<source>API-URL:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.username" resname="tx_newt_admin.index.username">
+				<source>API-User:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.tokenRefresh.message" resname="tx_newt_admin.tokenRefresh.message">
+				<source>This will generate a new Token for this user! All clients of this user will have to be reconfigured. Do you want to proceed?</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_admin.tokenRefresh.title" resname="tx_newt_admin.tokenRefresh.title">
+				<source>Create new Token</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_backenduser" resname="tx_newt_domain_model_backenduser">
+				<source>Backend User</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint" resname="tx_newt_domain_model_endpoint">
+				<source>Endpoint</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.description" resname="tx_newt_domain_model_endpoint.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class" resname="tx_newt_domain_model_endpoint.endpoint_class">
+				<source>Endpoint Class</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.methods" resname="tx_newt_domain_model_endpoint.methods">
+				<source>Methods</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.name" resname="tx_newt_domain_model_endpoint.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.page_uid" resname="tx_newt_domain_model_endpoint.page_uid">
+				<source>Page UID</source>
+			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_method" resname="tx_newt_domain_model_method">
 				<source>Method</source>
 			</trans-unit>
@@ -11,54 +62,6 @@
 			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_method.users" resname="tx_newt_domain_model_method.users">
 				<source>Users</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint" resname="tx_newt_domain_model_endpoint">
-				<source>Endpoint</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.name" resname="tx_newt_domain_model_endpoint.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.description" resname="tx_newt_domain_model_endpoint.description">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class" resname="tx_newt_domain_model_endpoint.endpoint_class">
-				<source>Endpoint Class</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.page_uid" resname="tx_newt_domain_model_endpoint.page_uid">
-				<source>Page UID</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.methods" resname="tx_newt_domain_model_endpoint.methods">
-				<source>Methods</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_backenduser" resname="tx_newt_domain_model_backenduser">
-				<source>Backend User</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.scan" resname="tx_newt_admin.index.scan">
-				<source>Scan this code with the Newt-App</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.username" resname="tx_newt_admin.index.username">
-				<source>API-User:</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.url" resname="tx_newt_admin.index.url">
-				<source>API-URL:</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.token" resname="tx_newt_admin.index.token">
-				<source>API-Token:</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.token_isseud" resname="tx_newt_admin.index.token_isseud">
-				<source>Token issued:</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.token_expires" resname="tx_newt_admin.index.token_expires">
-				<source>Token expires:</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.index.endpoints" resname="tx_newt_admin.index.endpoints">
-				<source>Endpoints:</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.tokenRefresh.title" resname="tx_newt_admin.tokenRefresh.title">
-				<source>Create new Token</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_admin.tokenRefresh.message" resname="tx_newt_admin.tokenRefresh.message">
-				<source>This will generate a new Token for this user! All clients of this user will have to be reconfigured. Do you want to proceed?</source>
 			</trans-unit>
 		</body>
 	</file>

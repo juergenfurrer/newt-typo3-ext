@@ -1,12 +1,14 @@
 plugin.tx_newt {
   settings {
-    # cat=plugin.tx_newt/settings/010; type=int; label=Page ID to use for url-build the API-Link
+    # cat=plugin.tx_newt/settings/010; type=string; label=Name of this API, this will be sent to the client, the user is able to change it (optional)
+    apiName =
+    # cat=plugin.tx_newt/settings/030; type=int; label=Page ID to use for url-build the API-Link
     apiPageId =
-    # cat=plugin.tx_newt/settings/020; type=string; label=Page TypeNum for the API
+    # cat=plugin.tx_newt/settings/040; type=string; label=Page TypeNum for the API
     apiTypeNum = 1201
-    # cat=plugin.tx_newt/settings/030; type=string; label=Base-URL in case you use "/" in site-configuration
+    # cat=plugin.tx_newt/settings/050; type=string; label=Base-URL in case you use "/" in site-configuration
     apiBaseUrl =
-    # cat=plugin.tx_newt/settings/040; type=string; label=Token expiration in seconds (0 = infinit)
+    # cat=plugin.tx_newt/settings/060; type=int; label=Token expiration in seconds (0 = infinit)
     tokenExpiration =
   }
   persistence {

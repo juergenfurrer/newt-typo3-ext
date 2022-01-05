@@ -18,6 +18,14 @@
         </div>
         <div class="flex-grow-1 align-self-center">
             <ul class="list-group">
+                <f:if condition="{data.name}">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3"><f:translate key="tx_newt_admin.index.name" /></div>
+                            <div class="col-md-9">{data.name}</div>
+                        </div>
+                    </li>
+                </f:if>
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-3"><f:translate key="tx_newt_admin.index.url" /></div>
