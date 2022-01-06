@@ -112,7 +112,7 @@ If you fill in the Page UID, the records created from the client will be stored 
 
 Add at least one Method
 
-.. figure:: ../Images/demo-archery-corner.png
+.. figure:: ../Images/backend-02.jpg
    :class: with-shadow
    :alt: Methods of this endpoint
 
