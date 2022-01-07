@@ -46,12 +46,13 @@ Examples
 
 .. figure:: ../Images/demo-archery-corner.png
    :class: with-shadow
-   :width: 100px
+   :width: 300px
    :alt: archery-corner.org
+
 
 .. figure:: ../Images/demo-infonique.png
    :class: with-shadow
-   :width: 100px
+   :width: 300px
    :alt: infonique.ch
 
 
