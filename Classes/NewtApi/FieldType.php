@@ -19,4 +19,5 @@ class FieldType
     const SELECT   = 'select';
     const LABEL    = 'label';
     const IMAGE    = 'image';
+    const FILE     = 'file';
 }

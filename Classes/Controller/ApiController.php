@@ -176,9 +176,21 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                     $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
                                 } else if ($field->getType() == FieldType::TIME) {
                                     $prams[$fieldName] = new \DateTime("1900-01-01 " . $_POST[$fieldName]);
-                                } else if ($field->getType() == FieldType::IMAGE) {
+                                } else if ($field->getType() == FieldType::IMAGE || $field->getType() == FieldType::FILE) {
                                     if (strlen($_POST[$fieldName]) > 0) {
-                                        $prams[$fieldName] = $this->setImageFromBase64(md5($_POST[$fieldName]) . ".jpg", $_POST[$fieldName], "be_user_" . $userUid);
+                                        $token = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+                                        $fileName = md5($_POST[$fieldName] . $token);
+                                        $extension = "any";
+                                        if ($field->getType() == FieldType::IMAGE) {
+                                            $extension = "jpg";
+                                        } else {
+                                            if (isset($_POST[$fieldName . "FileName"])) {
+                                                $pathinfo = pathinfo($_POST[$fieldName . "FileName"]);
+                                                $fileName .= "_" . $pathinfo['filename'];
+                                                $extension = $pathinfo['extension'];
+                                            }
+                                        }
+                                        $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
                                     }
                                 } else {
                                     $prams[$fieldName] = $_POST[$fieldName];
@@ -299,7 +311,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param string $subfolder
      * @return \Infonique\Newt\Domain\Model\FileReference|null
      */
-    public function setImageFromBase64($imageName, $imageBase64, $subfolder = null)
+    public function setFileFromBase64($imageName, $imageBase64, $subfolder = null)
     {
         if ($imageBase64 && strlen($imageBase64) < 10) {
             return null;
