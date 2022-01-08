@@ -20,4 +20,5 @@ class FieldType
     const LABEL    = 'label';
     const IMAGE    = 'image';
     const FILE     = 'file';
+    const BARCODE  = 'barcode';
 }
