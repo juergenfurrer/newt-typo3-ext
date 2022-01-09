@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.4.0
+-------------
+Add list method
+
 Version 1.3.0
 -------------
 Add field-type barcode

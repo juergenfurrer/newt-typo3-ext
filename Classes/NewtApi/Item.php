@@ -6,15 +6,40 @@ namespace Infonique\Newt\NewtApi;
 
 class Item
 {
-    private string $title = '';
+    protected string $id = '';
 
-    private string $description = '';
+    protected string $title = '';
+
+    protected string $description = '';
 
     /**
      * @var array<ItemValue>
      */
-    private array $values = [];
+    protected array $values = [];
 
+
+    /**
+     * Get the value of id
+     *
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param string $id
+     *
+     * @return self
+     */
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * Get the value of title

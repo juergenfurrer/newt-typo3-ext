@@ -11,4 +11,5 @@ class MethodType
     const READ = 'read';
     const UPDATE = 'update';
     const DELETE = 'delete';
+    const LIST = 'list';
 }

@@ -10,17 +10,17 @@ interface EndpointInterface
      * Create new Item
      *
      * @param MethodCreateModel $model
-     * @return bool
+     * @return string
      */
-    public function methodCreate(MethodCreateModel $model): bool;
+    public function methodCreate(MethodCreateModel $model): string;
 
     /**
-     * List of items
+     * Read Item
      *
      * @param MethodReadModel $model
-     * @return array<Item>
+     * @return Item
      */
-    public function methodRead(MethodReadModel $model): array;
+    public function methodRead(MethodReadModel $model): Item;
 
     /**
      * Update Item
@@ -37,6 +37,14 @@ interface EndpointInterface
      * @return bool
      */
     public function methodDelete(MethodDeleteModel $model): bool;
+
+    /**
+     * List of Items
+     *
+     * @param MethodListModel $model
+     * @return array<Item>
+     */
+    public function methodList(MethodListModel $model): array;
 
 
     /**

@@ -6,30 +6,31 @@ namespace Infonique\Newt\NewtApi;
 
 class ItemValue
 {
-    private string $name = '';
+    protected string $key = '';
 
-    private string $value = '';
+    protected string $value = '';
+
 
     /**
-     * Get the value of name
+     * Get the value of key
      *
      * @return string
      */
-    public function getName(): string
+    public function getKey(): string
     {
-        return $this->name;
+        return $this->key;
     }
 
     /**
-     * Set the value of name
+     * Set the value of key
      *
-     * @param string $name
+     * @param string $key
      *
      * @return self
      */
-    public function setName(string $name): self
+    public function setKey(string $key): self
     {
-        $this->name = $name;
+        $this->key = $key;
         return $this;
     }
 

@@ -4,13 +4,24 @@ declare(strict_types=1);
 
 namespace Infonique\Newt\NewtApi;
 
-class Response
+class ResponseBase
 {
     protected bool $success = false;
 
     protected string $error = '';
 
-    protected int $code = 0;
+    protected int $code = 200;
+
+
+    /**
+     * Get the value of success
+     *
+     * @return bool
+     */
+    public function getSuccess(): bool
+    {
+        return $this->success;
+    }
 
     /**
      * Set the value of success
@@ -26,6 +37,16 @@ class Response
     }
 
     /**
+     * Get the value of error
+     *
+     * @return string
+     */
+    public function getError(): string
+    {
+        return $this->error;
+    }
+
+    /**
      * Set the value of error
      *
      * @param string $error
@@ -36,27 +57,8 @@ class Response
     {
         $this->code = $code;
         $this->error = $error;
+        $this->success = false;
         return $this;
-    }
-
-    /**
-     * Get the value of success
-     *
-     * @return bool
-     */
-    public function getSuccess(): bool
-    {
-        return $this->success;
-    }
-
-    /**
-     * Get the value of error
-     *
-     * @return string
-     */
-    public function getError(): string
-    {
-        return $this->error;
     }
 
     /**

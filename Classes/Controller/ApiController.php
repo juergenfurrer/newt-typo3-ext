@@ -8,12 +8,17 @@ use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\NewtApi\Field;
 use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
+use Infonique\Newt\NewtApi\MethodListModel;
 use Infonique\Newt\NewtApi\MethodType;
-use Infonique\Newt\NewtApi\Response;
+use Infonique\Newt\NewtApi\ResponseBase;
+use Infonique\Newt\NewtApi\ResponseCreate;
+use Infonique\Newt\NewtApi\ResponseDelete;
+use Infonique\Newt\NewtApi\ResponseList;
+use Infonique\Newt\NewtApi\ResponseRead;
+use Infonique\Newt\NewtApi\ResponseUpdate;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -128,12 +133,14 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction()
     {
-        $response = new Response();
-        $result = false;
+        $response = new ResponseCreate();
+        $result = 0;
 
         $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
         $userUid = $this->validateUser($userData);
-        if ($userUid > 0) {
+        if ($userUid < 1) {
+            return;
+        } else {
             $endpointUid = 0;
             if ($this->request->hasArgument('uid')) {
                 $endpointUid = $this->request->getArgument('uid');
@@ -211,15 +218,16 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $methodCreateModel->setParams($prams);
                             $methodCreateModel->setPageUid($endpoint->getPageUid());
                             $result = $endpointImplementation->methodCreate($methodCreateModel);
+                            $response->setCreatedId($result);
                         }
                     }
                 }
             }
-            $response->setSuccess($result);
+            $response->setSuccess(intval($result) > 0);
 
-            $this->view->assign("json", $response->getJson());
+            $this->view->assign("response", $response);
             $this->view->setVariablesToRender([
-                "json"
+                "response"
             ]);
         }
     }
@@ -229,9 +237,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function readAction()
     {
-        $this->view->assign('json', []);
+        $this->view->assign("response", new ResponseRead());
         $this->view->setVariablesToRender(array(
-            'json'
+            "response"
         ));
     }
 
@@ -240,9 +248,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateAction()
     {
-        $this->view->assign('json', false);
+        $this->view->assign("response", new ResponseUpdate());
         $this->view->setVariablesToRender(array(
-            'json'
+            "response"
         ));
     }
 
@@ -251,10 +259,84 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function deleteAction()
     {
-        $this->view->assign('json', false);
+        $this->view->assign("response", new ResponseDelete());
         $this->view->setVariablesToRender(array(
-            'json'
+            "response"
         ));
+    }
+
+    /**
+     * action list
+     */
+    public function listAction()
+    {
+        $response = new ResponseList();
+        $result = [];
+
+        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUser($userData);
+        if ($userUid < 1) {
+            return;
+        } else {
+            $endpointUid = 0;
+            if ($this->request->hasArgument('uid')) {
+                $endpointUid = $this->request->getArgument('uid');
+            }
+            /** @var Endpoint */
+            $endpoint = $this->endpointRepository->findByUid(intval($endpointUid));
+            if (!$endpoint) {
+                $response->setError(404, "Endpoint not found");
+            } else {
+                $currentMethod = $endpoint->getMethodByType(MethodType::LIST);
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                    $response->setError(403, "User not allowed");
+                } else {
+                    $className = $endpoint->getEndpointClass();
+                    $classExists = false;
+                    try {
+                        if (class_exists($className)) {
+                            $classExists = true;
+                        }
+                    } catch (\Exception $e) {
+                        $classExists = false;
+                    }
+
+                    if (!$classExists) {
+                        $response->setError(404, "EndpointClass not found");
+                    } else {
+                        /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                        $endpointImplementation = new $className();
+                        $methodListModel = new MethodListModel();
+                        $methodListModel->setBackendUserUid($userUid);
+                        $methodListModel->setPageUid($endpoint->getPageUid());
+                        $result = $endpointImplementation->methodList($methodListModel);
+                        $response->setSuccess(true);
+                    }
+                }
+            }
+            $response->setItems($result);
+        }
+
+        $this->view->assign("response", $response);
+        $this->view->setVariablesToRender(array(
+            "response"
+        ));
+
+        $this->view->setConfiguration([
+            'response' => [
+                '_descend' => [
+                    'items' => [
+                        '_descendAll' => [
+                            '_descend' => [
+                                'values' => [
+                                    '_descendAll' => [],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 
 
@@ -266,15 +348,15 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     private function validateUser($userData): int
     {
+        $response = new ResponseBase();
+
         $userUid = intval($userData['uid']);
         if ($userUid < 1) {
-            $response = new Response();
             $response->setError(403, "User/Token not valid");
-            $response->setSuccess(false);
 
-            $this->view->assign("json", $response->getJson());
+            $this->view->assign("response", $response);
             $this->view->setVariablesToRender([
-                "json"
+                "response"
             ]);
             return -1;
         }
@@ -287,13 +369,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $tokenExpireDate = new \DateTime('@' . $tokenIssued);
             $tokenExpireDate->add(new \DateInterval("PT{$tokenExpiration}S"));
             if ($tokenExpireDate->getTimestamp() < $now->getTimestamp()) {
-                $response = new Response();
                 $response->setError(403, "Token expired");
-                $response->setSuccess(false);
-
-                $this->view->assign("json", $response->getJson());
+                $this->view->assign("response", $response);
                 $this->view->setVariablesToRender([
-                    "json"
+                    "response"
                 ]);
                 return -1;
             }
@@ -311,7 +390,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param string $subfolder
      * @return \Infonique\Newt\Domain\Model\FileReference|null
      */
-    public function setFileFromBase64($imageName, $imageBase64, $subfolder = null)
+    private function setFileFromBase64($imageName, $imageBase64, $subfolder = null)
     {
         if ($imageBase64 && strlen($imageBase64) < 10) {
             return null;

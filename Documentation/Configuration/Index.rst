@@ -82,6 +82,9 @@ Routing example
          -
            routePath: /delete
            _controller: 'Api::delete'
+         -
+           routePath: /list
+           _controller: 'Api::list'
        defaultController: 'Api::endpoints'
      PageTypeSuffix:
        type: PageType

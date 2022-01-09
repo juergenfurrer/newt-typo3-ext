@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Infonique\Newt\NewtApi;
 
-class MethodReadModel
+class MethodListModel
 {
     protected int $backendUserUid = 0;
 
     protected int $pageUid = 0;
 
-    protected int $uid = 0;
+    protected string $lastKnownItemId = '';
 
 
     /**
@@ -60,25 +60,25 @@ class MethodReadModel
     }
 
     /**
-     * Get the value of uid
+     * Get the value of lastKnownItemId
      *
-     * @return int
+     * @return string
      */
-    public function getUid(): int
+    public function getLastKnownItemId(): string
     {
-        return $this->uid;
+        return $this->lastKnownItemId;
     }
 
     /**
-     * Set the value of uid
+     * Set the value of lastKnownItemId
      *
-     * @param int $uid
+     * @param string $lastKnownItemId
      *
      * @return self
      */
-    public function setUid(int $uid): self
+    public function setLastKnownItemId(string $lastKnownItemId): self
     {
-        $this->uid = $uid;
+        $this->lastKnownItemId = $lastKnownItemId;
         return $this;
     }
 }

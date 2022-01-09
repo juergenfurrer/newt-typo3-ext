@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Infonique\Newt\Controller;
 
 use DateTimeZone;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
