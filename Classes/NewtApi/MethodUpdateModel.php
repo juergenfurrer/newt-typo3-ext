@@ -8,7 +8,7 @@ class MethodUpdateModel
 {
     protected int $backendUserUid = 0;
 
-    protected int $updateId = 0;
+    protected string $updateId = '';
 
     protected array $params = [];
 
@@ -40,9 +40,9 @@ class MethodUpdateModel
     /**
      * Get the value of updateId
      *
-     * @return int
+     * @return string
      */
-    public function getUpdateId(): int
+    public function getUpdateId(): string
     {
         return $this->updateId;
     }
@@ -50,14 +50,13 @@ class MethodUpdateModel
     /**
      * Set the value of updateId
      *
-     * @param int $updateId
+     * @param string $updateId
      *
      * @return self
      */
-    public function setUpdateId(int $updateId): self
+    public function setUpdateId(string $updateId): self
     {
         $this->updateId = $updateId;
-
         return $this;
     }
 
