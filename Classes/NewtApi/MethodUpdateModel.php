@@ -71,6 +71,19 @@ class MethodUpdateModel
     }
 
     /**
+     * Get the value of params
+     *
+     * @return string
+     */
+    public function getParam(string $key): string
+    {
+        if (isset($this->params[$key])) {
+            return $this->params[$key];
+        }
+        return "";
+    }
+
+    /**
      * Set the value of params
      *
      * @param array $params

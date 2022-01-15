@@ -10,9 +10,9 @@ interface EndpointInterface
      * Create new Item
      *
      * @param MethodCreateModel $model
-     * @return string
+     * @return Item
      */
-    public function methodCreate(MethodCreateModel $model): string;
+    public function methodCreate(MethodCreateModel $model): Item;
 
     /**
      * Read Item

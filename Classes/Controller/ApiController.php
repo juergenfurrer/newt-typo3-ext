@@ -136,7 +136,6 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function createAction()
     {
         $response = new ResponseCreate();
-        $result = 0;
 
         $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
         $userUid = $this->validateUser($userData);
@@ -219,17 +218,31 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $methodCreateModel->setBackendUserUid($userUid);
                             $methodCreateModel->setParams($prams);
                             $methodCreateModel->setPageUid($endpoint->getPageUid());
-                            $result = $endpointImplementation->methodCreate($methodCreateModel);
-                            $response->setCreatedId($result);
+                            $item = $endpointImplementation->methodCreate($methodCreateModel);
+                            $response->setItem($item);
+                            $response->setSuccess(!empty($item->getId()));
                         }
                     }
                 }
             }
-            $response->setSuccess(intval($result) > 0);
 
             $this->view->assign("response", $response);
             $this->view->setVariablesToRender([
                 "response"
+            ]);
+
+            $this->view->setConfiguration([
+                'response' => [
+                    '_descend' => [
+                        'item' => [
+                            '_descend' => [
+                                'values' => [
+                                    '_descendAll' => [],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ]);
         }
     }

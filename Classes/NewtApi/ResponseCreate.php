@@ -6,29 +6,30 @@ namespace Infonique\Newt\NewtApi;
 
 class ResponseCreate extends ResponseBase
 {
-    protected string $createdId = '';
+    protected Item $item;
 
 
     /**
-     * Get the value of createdId
+     * Get the value of item
      *
-     * @return string
+     * @return Item
      */
-    public function getCreatedId(): string
+    public function getItem(): Item
     {
-        return $this->createdId;
+        return $this->item;
     }
 
     /**
-     * Set the value of createdId
+     * Set the value of item
      *
-     * @param string $createdId
+     * @param Item $item
      *
      * @return self
      */
-    public function setCreatedId(string $createdId): self
+    public function setItem(Item $item): self
     {
-        $this->createdId = $createdId;
+        $this->item = $item;
         return $this;
     }
+
 }
