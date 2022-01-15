@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Infonique\Newt\Controller;
 
 use DateTimeZone;
+use Infonique\Newt\Domain\Model\Endpoint;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -76,7 +77,7 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ->setTargetPageType(intval($settings['apiTypeNum']))
             ->setCreateAbsoluteUri(true)
             ->buildFrontendUri();
-        $apiBaseUrl = trim($settings['apiBaseUrl']);
+        $apiBaseUrl = trim($settings['apiBaseUrl'] ?? '');
 
         $data = [];
         $data["name"] = !empty($settings['apiName']) ? substr($settings['apiName'], 0, 25) : '';
@@ -111,8 +112,24 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             }
         }
 
+        $listEndpoint = [];
         $endpoints = $this->endpointRepository->findAll();
-        $this->view->assign('endpoints', $endpoints);
+        /** @var Endpoint $endpoint */
+        foreach ($endpoints as $endpoint) {
+            $className = $endpoint->getEndpointClass();
+            $classExists = false;
+            try {
+                if (class_exists($className, true)) {
+                    $classExists = true;
+                }
+            } catch (\Exception $e) {
+                $classExists = false;
+            }
+            if ($classExists) {
+                $listEndpoint[] = $endpoint;
+            }
+        }
+        $this->view->assign('endpoints', $listEndpoint);
 
         $this->view->assign('tooken', $userToken);
         $this->view->assign('data', $data);

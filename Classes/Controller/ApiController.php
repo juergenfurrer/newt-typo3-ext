@@ -8,6 +8,7 @@ use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\NewtApi\Field;
 use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
+use Infonique\Newt\NewtApi\MethodDeleteModel;
 use Infonique\Newt\NewtApi\MethodListModel;
 use Infonique\Newt\NewtApi\MethodType;
 use Infonique\Newt\NewtApi\ResponseBase;
@@ -94,9 +95,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 }
             }
             $this->view->assign('endpoints', $json);
-            $this->view->setVariablesToRender(array(
+            $this->view->setVariablesToRender([
                 'endpoints'
-            ));
+            ]);
 
             $this->view->setConfiguration([
                 'endpoints' => [
@@ -238,9 +239,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function readAction()
     {
         $this->view->assign("response", new ResponseRead());
-        $this->view->setVariablesToRender(array(
+        $this->view->setVariablesToRender([
             "response"
-        ));
+        ]);
     }
 
     /**
@@ -249,9 +250,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function updateAction()
     {
         $this->view->assign("response", new ResponseUpdate());
-        $this->view->setVariablesToRender(array(
+        $this->view->setVariablesToRender([
             "response"
-        ));
+        ]);
     }
 
     /**
@@ -259,10 +260,61 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function deleteAction()
     {
-        $this->view->assign("response", new ResponseDelete());
-        $this->view->setVariablesToRender(array(
+        $response = new ResponseDelete();
+
+        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUser($userData);
+        if ($userUid < 1) {
+            return;
+        } else {
+            $endpointUid = 0;
+            if ($this->request->hasArgument('uid')) {
+                $endpointUid = $this->request->getArgument('uid');
+            }
+            /** @var Endpoint */
+            $endpoint = $this->endpointRepository->findByUid(intval($endpointUid));
+            if (!$endpoint) {
+                $response->setError(404, "Endpoint not found");
+            } else {
+                $currentMethod = $endpoint->getMethodByType(MethodType::DELETE);
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                    $response->setError(403, "User not allowed");
+                } else {
+                    $className = $endpoint->getEndpointClass();
+                    $classExists = false;
+                    try {
+                        if (class_exists($className)) {
+                            $classExists = true;
+                        }
+                    } catch (\Exception $e) {
+                        $classExists = false;
+                    }
+
+                    if (!$classExists) {
+                        $response->setError(404, "EndpointClass not found");
+                    } else {
+                        if (!empty($_POST["deleteId"])) {
+                            /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                            $endpointImplementation = new $className();
+                            $methodDeleteModel = new MethodDeleteModel();
+                            $methodDeleteModel->setDeleteId($_POST["deleteId"]);
+                            $res = $endpointImplementation->methodDelete($methodDeleteModel);
+                            if (! $res) {
+                                $response->setError(400, "Item could not be deleted");
+                            }
+                            $response->setSuccess($res);
+                        } else {
+                            $response->setError(400, "ID missing in request");
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->view->assign("response", $response);
+        $this->view->setVariablesToRender([
             "response"
-        ));
+        ]);
     }
 
     /**
@@ -309,6 +361,12 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $methodListModel = new MethodListModel();
                         $methodListModel->setBackendUserUid($userUid);
                         $methodListModel->setPageUid($endpoint->getPageUid());
+                        if (intval($_POST["pageSize"]) > 0) {
+                            $methodListModel->setPageSize(intval($_POST["pageSize"]));
+                        }
+                        if (!empty($_POST["lastKnownItemId"])) {
+                            $methodListModel->setLastKnownItemId($_POST["lastKnownItemId"]);
+                        }
                         $result = $endpointImplementation->methodList($methodListModel);
                         $response->setSuccess(true);
                     }
@@ -318,9 +376,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $this->view->assign("response", $response);
-        $this->view->setVariablesToRender(array(
+        $this->view->setVariablesToRender([
             "response"
-        ));
+        ]);
 
         $this->view->setConfiguration([
             'response' => [

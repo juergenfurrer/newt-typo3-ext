@@ -26,9 +26,9 @@ interface EndpointInterface
      * Update Item
      *
      * @param MethodUpdateModel $model
-     * @return bool
+     * @return Item
      */
-    public function methodUpdate(MethodUpdateModel $model): bool;
+    public function methodUpdate(MethodUpdateModel $model): Item;
 
     /**
      * Delete Item

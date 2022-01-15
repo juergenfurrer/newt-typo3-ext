@@ -12,6 +12,19 @@ class ItemValue
 
 
     /**
+     * Constructor
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function __construct($key = '', $value = '')
+    {
+        $this->key = $key;
+        $this->value = $value;
+    }
+
+
+    /**
      * Get the value of key
      *
      * @return string

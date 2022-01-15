@@ -12,6 +12,8 @@ class MethodListModel
 
     protected string $lastKnownItemId = '';
 
+    protected int $pageSize = 25;
+
 
     /**
      * Get the value of backendUserUid
@@ -79,6 +81,30 @@ class MethodListModel
     public function setLastKnownItemId(string $lastKnownItemId): self
     {
         $this->lastKnownItemId = $lastKnownItemId;
+        return $this;
+    }
+
+    /**
+     * Get the value of pageSize
+     *
+     * @return int
+     */
+    public function getPageSize(): int
+    {
+        return $this->pageSize;
+    }
+
+    /**
+     * Set the value of pageSize
+     *
+     * @param int $pageSize
+     *
+     * @return self
+     */
+    public function setPageSize(int $pageSize): self
+    {
+        $this->pageSize = $pageSize;
+
         return $this;
     }
 }

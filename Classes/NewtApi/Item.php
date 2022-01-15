@@ -111,4 +111,17 @@ class Item
         $this->values = $values;
         return $this;
     }
+
+    /**
+     * Add a value to values
+     *
+     * @param ItemValue $value
+     *
+     * @return self
+     */
+    public function addValue(ItemValue $value): self
+    {
+        $this->values[] = $value;
+        return $this;
+    }
 }

@@ -8,7 +8,7 @@ class MethodDeleteModel
 {
     protected int $backendUserUid = 0;
 
-    protected int $uid = 0;
+    protected string $deleteId = '';
 
 
     /**
@@ -35,25 +35,26 @@ class MethodDeleteModel
     }
 
     /**
-     * Get the value of uid
+     * Get the value of deleteId
      *
-     * @return int
+     * @return string
      */
-    public function getUid(): int
+    public function getDeleteId(): string
     {
-        return $this->uid;
+        return $this->deleteId;
     }
 
     /**
-     * Set the value of uid
+     * Set the value of deleteId
      *
-     * @param int $uid
+     * @param string $deleteId
      *
      * @return self
      */
-    public function setUid(int $uid): self
+    public function setDeleteId(string $deleteId): self
     {
-        $this->uid = $uid;
+        $this->deleteId = $deleteId;
+
         return $this;
     }
 }
