@@ -15,12 +15,16 @@ class ItemValue
      * Constructor
      *
      * @param string $key
-     * @param string $value
+     * @param mixed $value
      */
-    public function __construct($key = '', $value = '')
+    public function __construct($key = '', $value = null)
     {
         $this->key = $key;
-        $this->value = $value;
+        if ($value instanceof \DateTime) {
+            $this->value = $value->format(\DateTime::ATOM);
+        } else {
+            $this->value = strval($value);
+        }
     }
 
 

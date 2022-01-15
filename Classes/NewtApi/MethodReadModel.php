@@ -10,7 +10,7 @@ class MethodReadModel
 
     protected int $pageUid = 0;
 
-    protected int $readId = 0;
+    protected string $readId = "";
 
 
     /**
@@ -62,9 +62,9 @@ class MethodReadModel
     /**
      * Get the value of readId
      *
-     * @return int
+     * @return string
      */
-    public function getReadId(): int
+    public function getReadId(): string
     {
         return $this->readId;
     }
@@ -72,11 +72,11 @@ class MethodReadModel
     /**
      * Set the value of readId
      *
-     * @param int $readId
+     * @param string $readId
      *
      * @return self
      */
-    public function setReadId(int $readId): self
+    public function setReadId(string $readId): self
     {
         $this->readId = $readId;
 

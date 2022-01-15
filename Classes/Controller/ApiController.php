@@ -10,6 +10,7 @@ use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
 use Infonique\Newt\NewtApi\MethodDeleteModel;
 use Infonique\Newt\NewtApi\MethodListModel;
+use Infonique\Newt\NewtApi\MethodReadModel;
 use Infonique\Newt\NewtApi\MethodType;
 use Infonique\Newt\NewtApi\MethodUpdateModel;
 use Infonique\Newt\NewtApi\ResponseBase;
@@ -252,10 +253,76 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function readAction()
     {
-        $this->view->assign("response", new ResponseRead());
-        $this->view->setVariablesToRender([
-            "response"
-        ]);
+        $response = new ResponseRead();
+
+        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUser($userData);
+        if ($userUid < 1) {
+            return;
+        } else {
+            $endpointUid = 0;
+            if ($this->request->hasArgument('uid')) {
+                $endpointUid = $this->request->getArgument('uid');
+            }
+            /** @var Endpoint */
+            $endpoint = $this->endpointRepository->findByUid(intval($endpointUid));
+            if (!$endpoint) {
+                $response->setError(404, "Endpoint not found");
+            } else {
+                $currentMethod = $endpoint->getMethodByType(MethodType::READ);
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                    $response->setError(403, "User not allowed");
+                } else {
+                    $className = $endpoint->getEndpointClass();
+                    $classExists = false;
+                    try {
+                        if (class_exists($className)) {
+                            $classExists = true;
+                        }
+                    } catch (\Exception $e) {
+                        $classExists = false;
+                    }
+
+                    if (!$classExists) {
+                        $response->setError(404, "EndpointClass not found");
+                    } else {
+                        if ($this->request->hasHeader("readId")) {
+                            $readId = $this->request->getHeader("readId")[0];
+                        }
+                        if (!empty($readId)) {
+                            /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                            $endpointImplementation = new $className();
+                            $methodReadModel = new MethodReadModel();
+                            $methodReadModel->setReadId($readId);
+                            $item = $endpointImplementation->methodRead($methodReadModel);
+                            $response->setItem($item);
+                            $response->setSuccess($item->getId() == $readId);
+                        } else {
+                            $response->setError(400, "ID missing in request");
+                        }
+                    }
+                }
+            }
+
+            $this->view->assign("response", $response);
+            $this->view->setVariablesToRender([
+                "response"
+            ]);
+
+            $this->view->setConfiguration([
+                'response' => [
+                    '_descend' => [
+                        'item' => [
+                            '_descend' => [
+                                'values' => [
+                                    '_descendAll' => [],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+        }
     }
 
     /**
