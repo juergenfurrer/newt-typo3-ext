@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.4.1
+-------------
+Change Logo
+
 Version 1.4.0
 -------------
 Add list method
