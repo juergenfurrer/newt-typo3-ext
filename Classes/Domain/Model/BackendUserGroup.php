@@ -15,7 +15,7 @@ namespace Infonique\Newt\Domain\Model;
  */
 
 /**
- * BackendUser
+ * BackendUserGroup
  */
 class BackendUserGroup extends \TYPO3\CMS\Beuser\Domain\Model\BackendUserGroup
 {

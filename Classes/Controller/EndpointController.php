@@ -7,6 +7,7 @@ namespace Infonique\Newt\Controller;
 use DateTimeZone;
 use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\Domain\Model\Method;
+use Infonique\Newt\Domain\Model\UserData;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -44,18 +45,18 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     /**
-     * backendUserRepository
+     * userRepository
      *
-     * @var \Infonique\Newt\Domain\Repository\BackendUserRepository
+     * @var \Infonique\Newt\Domain\Repository\UserRepository
      */
-    protected $backendUserRepository = null;
+    protected $userRepository = null;
 
     /**
-     * @param \Infonique\Newt\Domain\Repository\BackendUserRepository $backendUserRepository
+     * @param \Infonique\Newt\Domain\Repository\UserRepository $userRepository
      */
-    public function injectBackenUserRepository(\Infonique\Newt\Domain\Repository\BackendUserRepository $backendUserRepository)
+    public function injectBackenUserRepository(\Infonique\Newt\Domain\Repository\UserRepository $userRepository)
     {
-        $this->backendUserRepository = $backendUserRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -65,6 +66,10 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function indexAction(): \Psr\Http\Message\ResponseInterface
     {
+        if ($GLOBALS['BE_USER']->user['uid'] < 1) {
+            return $this->htmlResponse();
+        }
+
         /** @var ObjectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
@@ -87,7 +92,7 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $userToken = $GLOBALS['BE_USER']->user['tx_newt_token'];
         $tokenIssed = $GLOBALS['BE_USER']->user['tx_newt_token_issued'];
         if (empty($userToken)) {
-            $userToken = $this->backendUserRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
+            $userToken = $this->userRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
         }
         $data["token"] = $userToken;
 
@@ -124,7 +129,11 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 if (class_exists($className, true)) {
                     /** @var Method $method */
                     foreach ($endpoint->getMethods() as $method) {
-                        if ($method->isUserAllowed($GLOBALS['BE_USER']->user['uid'], $GLOBALS['BE_USER']->userGroupsUID)) {
+                        $userData = new UserData();
+                        $userData->setUid($GLOBALS['BE_USER']->user['uid']);
+                        $userData->setUsergroups($GLOBALS['BE_USER']->userGroupsUID);
+                        $userData->setIsAdmin($GLOBALS['BE_USER']->user['admin'] > 0);
+                        if ($method->isUserAllowed($userData)) {
                             $methods[] = $method->getType();
                         }
                     }
@@ -153,7 +162,11 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function tokenRefreshAction()
     {
-        $this->backendUserRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
+        if ($GLOBALS['BE_USER']->user['uid'] < 1) {
+            return $this->htmlResponse();
+        }
+
+        $this->userRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
         $this->redirect("index");
     }
 }

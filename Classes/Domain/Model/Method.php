@@ -29,18 +29,18 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     protected $type = '';
 
     /**
-     * users
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUser>
-     */
-    protected $users = null;
-
-    /**
      * usergroups
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup>
      */
-    protected $usergroups = null;
+    protected $beusergroups = null;
+
+    /**
+     * usergroups
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup>
+     */
+    protected $feusergroups = null;
 
     /**
      * __construct
@@ -98,89 +98,84 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     }
 
     /**
-     * Adds a BackendUser
-     *
-     * @param \Infonique\Newt\Domain\Model\BackendUser $user
-     * @return void
-     */
-    public function addUser(\Infonique\Newt\Domain\Model\BackendUser $user)
-    {
-        $this->users->attach($user);
-    }
-
-    /**
-     * Removes a BackendUser
-     *
-     * @param \Infonique\Newt\Domain\Model\BackendUser $userToRemove The BackendUser to be removed
-     * @return void
-     */
-    public function removeUser(\Infonique\Newt\Domain\Model\BackendUser $userToRemove)
-    {
-        $this->users->detach($userToRemove);
-    }
-
-    /**
-     * Returns the users
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUser> $users
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Sets the users
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUser> $users
-     * @return void
-     */
-    public function setUsers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $users)
-    {
-        $this->users = $users;
-    }
-
-    /**
-     * Get the value of usergroups
+     * Get the value of beusergroups
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $users
      */
-    public function getUsergroups()
+    public function getBeusergroups()
     {
-        return $this->usergroups;
+        return $this->beusergroups;
     }
 
     /**
-     * Set the value of usergroups
+     * Set the value of beusergroups
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $usergroups
-     * @return void
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $feusergroups
+     * @return self
      */
-    public function setUsergroups(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $usergroups): self
+    public function setBeusergroups($beusergroups): self
     {
-        $this->usergroups = $usergroups;
+        $this->beusergroups = $beusergroups;
         return $this;
     }
 
     /**
+     * Get the value of feusergroups
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup> $users
+     */
+    public function getFeusergroups()
+    {
+        return $this->feusergroups;
+    }
+
+    /**
+     * Set the value of feusergroups
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup> $feusergroups
+     * @return self
+     */
+    public function setFeusergroups($feusergroups): self
+    {
+        $this->feusergroups = $feusergroups;
+        return $this;
+    }
+
+
+    /**
      * Check if the user is allowed for this method
      *
+     * @param UserData $userData
      * @return boolean
      */
-    public function isUserAllowed(int $userUid, $userGroups = [])
+    public function isUserAllowed(UserData $userData)
     {
-        foreach ($this->users as $user) {
-            if ($user->getUid() == $userUid) {
+        if ($userData->getType() == "BE") {
+            // BE-User
+            if ($userData->getIsAdmin()) {
+                // Admin is allowed
                 return true;
             }
-        }
-        foreach ($userGroups as $userGroup) {
-            foreach ($this->usergroups as $methodUsergroup) {
-                if ($methodUsergroup->getUid() == $userGroup) {
-                    return true;
+            foreach ($userData->getUsergroups() as $userGroup) {
+                foreach ($this->usergroups as $methodUsergroup) {
+                    if ($methodUsergroup->getUid() == $userGroup) {
+                        // User in Group
+                        return true;
+                    }
                 }
             }
+            return false;
+        } else {
+            // FE-User
+            foreach ($userData->getUsergroups() as $userGroup) {
+                foreach ($this->feusergroups as $methodUsergroup) {
+                    if ($methodUsergroup->getUid() == $userGroup) {
+                        // User in Group
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
-        return false;
     }
 }

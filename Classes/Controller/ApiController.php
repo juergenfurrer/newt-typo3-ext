@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Infonique\Newt\Controller;
 
 use Infonique\Newt\Domain\Model\Endpoint;
+use Infonique\Newt\Domain\Model\UserData;
 use Infonique\Newt\NewtApi\Field;
 use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
@@ -64,18 +65,18 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
 
     /**
-     * backendUserRepository
+     * userRepository
      *
-     * @var \Infonique\Newt\Domain\Repository\BackendUserRepository
+     * @var \Infonique\Newt\Domain\Repository\UserRepository
      */
-    protected $backendUserRepository = null;
+    protected $userRepository = null;
 
     /**
-     * @param \Infonique\Newt\Domain\Repository\BackendUserRepository $backendUserRepository
+     * @param \Infonique\Newt\Domain\Repository\UserRepository $userRepository
      */
-    public function injectBackenUserRepository(\Infonique\Newt\Domain\Repository\BackendUserRepository $backendUserRepository)
+    public function injectBackenUserRepository(\Infonique\Newt\Domain\Repository\UserRepository $userRepository)
     {
-        $this->backendUserRepository = $backendUserRepository;
+        $this->userRepository = $userRepository;
     }
 
 
@@ -84,14 +85,15 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function endpointsAction()
     {
-        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
-        $userUid = $this->validateUser($userData);
+        /** @var UserData */
+        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUserData($userData);
         if ($userUid > 0) {
             $endpoints = $this->endpointRepository->findAll();
             $json = [];
             /** @var Endpoint $endpoint */
             foreach ($endpoints as $endpoint) {
-                $data = $endpoint->getData($userUid, GeneralUtility::intExplode(",", $userData['usergroup']), $this->settings);
+                $data = $endpoint->getData($userData, $this->settings);
                 if ($data) {
                     $json[] = $data;
                 }
@@ -138,8 +140,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $response = new ResponseCreate();
 
-        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
-        $userUid = $this->validateUser($userData);
+        /** @var UserData */
+        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
         } else {
@@ -153,7 +156,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::CREATE);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userData)) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -255,8 +258,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $response = new ResponseRead();
 
-        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
-        $userUid = $this->validateUser($userData);
+        /** @var UserData */
+        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
         } else {
@@ -270,7 +274,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::READ);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userData)) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -332,8 +336,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $response = new ResponseUpdate();
 
-        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
-        $userUid = $this->validateUser($userData);
+        /** @var UserData */
+        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
         } else {
@@ -347,7 +352,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::UPDATE);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userData)) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -459,8 +464,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $response = new ResponseDelete();
 
-        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
-        $userUid = $this->validateUser($userData);
+        /** @var UserData */
+        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
         } else {
@@ -474,7 +480,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::DELETE);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userData)) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -525,8 +531,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = new ResponseList();
         $result = [];
 
-        $userData = $this->backendUserRepository->findUserDataByRequest($this->request);
-        $userUid = $this->validateUser($userData);
+        /** @var UserData */
+        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
         } else {
@@ -540,7 +547,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::LIST);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userData)) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -610,14 +617,14 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Validate the user-data and returns the user-uid in case it was successfully
      *
-     * @param array $userData
+     * @param UserData|null $userData
      * @return integer
      */
-    private function validateUser($userData): int
+    private function validateUserData(?UserData $userData): int
     {
         $response = new ResponseBase();
 
-        $userUid = intval($userData['uid']);
+        $userUid = $userData ? intval($userData->getUid()) : 0;
         if ($userUid < 1) {
             $response->setError(403, "User/Token not valid");
 
@@ -630,10 +637,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         // Check the User-Data
         $tokenExpiration = intval($this->settings['tokenExpiration']);
-        $tokenIssued = intval($userData['tx_newt_token_issued']);
-        if ($tokenExpiration > 0 && $tokenIssued > 0) {
+        $tokenIssued = $userData->getTokenIssued();
+        if ($tokenExpiration > 0 && $tokenIssued) {
             $now = new \DateTime();
-            $tokenExpireDate = new \DateTime('@' . $tokenIssued);
+            $tokenExpireDate = new \DateTime('@' . $tokenIssued->getTimestamp());
             $tokenExpireDate->add(new \DateInterval("PT{$tokenExpiration}S"));
             if ($tokenExpireDate->getTimestamp() < $now->getTimestamp()) {
                 $response->setError(403, "Token expired");

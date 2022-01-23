@@ -15,8 +15,8 @@ namespace Infonique\Newt\Domain\Model;
  */
 
 /**
- * BackendUser
+ * FrontendUserGroup
  */
-class BackendUser extends \TYPO3\CMS\Beuser\Domain\Model\BackendUser
+class FrontendUserGroup extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 }

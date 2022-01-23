@@ -18,7 +18,7 @@ return [
         'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_method.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'type, users, usergroups, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'type, --div--;LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.user_tab, beusergroups, feusergroups, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'hidden' => [
@@ -78,14 +78,14 @@ return [
                 'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getAvailableMethods',
             ],
         ],
-        'users' => [
+        'beusergroups' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.users',
+            'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.beusergroups',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
-                'foreign_table' => 'be_users',
-                'MM' => 'tx_newt_method_backenduser_mm',
+                'foreign_table' => 'be_groups',
+                'MM' => 'tx_newt_method_backendgroups_mm',
                 'size' => 10,
                 'autoSizeMax' => 30,
                 'maxitems' => 9999,
@@ -103,14 +103,14 @@ return [
                 ],
             ],
         ],
-        'usergroups' => [
+        'feusergroups' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.usergroups',
+            'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.feusergroups',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
-                'foreign_table' => 'be_groups',
-                'MM' => 'tx_newt_method_backendgroups_mm',
+                'foreign_table' => 'fe_groups',
+                'MM' => 'tx_newt_method_frontendgroups_mm',
                 'size' => 10,
                 'autoSizeMax' => 30,
                 'maxitems' => 9999,

@@ -64,12 +64,11 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the json-object of this object based on the need of the Newt App
      *
-     * @param integer $userUid
-     * @param array $userGroups
+     * @param UserData $userData
      * @param array $settings
      * @return object|null
      */
-    public function getData($userUid = 0, $userGroups = [], $settings = [])
+    public function getData(UserData $userData, $settings = [])
     {
         // Create an instance of the requested class
         $className = $this->getEndpointClass();
@@ -95,21 +94,19 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         /** @var \Infonique\Newt\Domain\Model\Method $method */
         foreach ($this->getMethods() as $method) {
             if (in_array($method->getType(), $endpointImplementation->getAvailableMethodTypes())) {
-                $allowed = false;
-                /** @var BackendUser $user */
-                foreach ($method->getUsers() as $user) {
-                    if ($user->getUid() == $userUid) {
-                        $allowed = true;
-                    }
-                }
-
-                /** @var BackendUserGroup $methodUserGroup */
-                foreach ($method->getUsergroups() as $methodUserGroup) {
-                    foreach ($userGroups as $userGroup) {
-                        if ($userGroup == $methodUserGroup->getUid()) {
-                            $allowed = true;
+                if ($userData->getType() == "BE") {
+                    // BE-User
+                    $allowed = $userData->getIsAdmin();
+                    /** @var BackendUserGroup $methodUserGroup */
+                    foreach ($method->getBeusergroups() as $methodUserGroup) {
+                        foreach ($userData->getUsergroups() as $userGroup) {
+                            if ($userGroup == $methodUserGroup->getUid()) {
+                                $allowed = true;
+                            }
                         }
                     }
+                } else {
+                    // FE-User
                 }
 
                 if ($allowed) {
