@@ -6,13 +6,20 @@
 Change log
 ==========
 
+Version 1.4.2
+-------------
+Add FE-Plugin
+
+
 Version 1.4.1
 -------------
 Change Logo
 
+
 Version 1.4.0
 -------------
 Add list method
+
 
 Version 1.3.0
 -------------
