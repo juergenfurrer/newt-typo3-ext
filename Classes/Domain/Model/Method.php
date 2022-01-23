@@ -29,14 +29,14 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     protected $type = '';
 
     /**
-     * usergroups
+     * beusergroups
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup>
      */
     protected $beusergroups = null;
 
     /**
-     * usergroups
+     * feusergroups
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup>
      */
@@ -157,7 +157,7 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
                 return true;
             }
             foreach ($userData->getUsergroups() as $userGroup) {
-                foreach ($this->usergroups as $methodUsergroup) {
+                foreach ($this->beusergroups as $methodUsergroup) {
                     if ($methodUsergroup->getUid() == $userGroup) {
                         // User in Group
                         return true;

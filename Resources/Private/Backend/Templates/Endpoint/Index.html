@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-md-3"><f:translate key="tx_newt_admin.index.token_isseud" /></div>
                         <div class="col-md-9">
-                            <f:format.date format="d.m.Y H:i:s">{tokenIssedDate}</f:format.date> ({timeZone})
+                            <f:format.date format="d.m.Y H:i:s">{tokenIssuedDate}</f:format.date> ({timeZone})
                         </div>
                     </div>
                 </li>
@@ -70,22 +70,30 @@
         </div>
     </div>
 
-    <h4><f:translate key="tx_newt_admin.index.endpoints" /></h4>
-    <table class="tx_newt table">
-        <tr>
-            <th><f:translate key="tx_newt_domain_model_endpoint.name" /></th>
-            <th><f:translate key="tx_newt_domain_model_endpoint.description" /></th>
-            <th><f:translate key="tx_newt_domain_model_endpoint.endpoint_class" /></th>
-        </tr>
-        <f:for each="{endpoints}" as="endpoint">
-            <tr>
-                <td>{endpoint.name}</td>
-                <td>{endpoint.description}</td>
-                <td>{endpoint.endpointClass}</td>
-            </tr>
-        </f:for>
-    </table>
-
+    <f:if condition="{endpoints}">
+        <f:then>
+            <h4><f:translate key="tx_newt_admin.index.endpoints" /></h4>
+            <table class="tx_newt table">
+                <tr>
+                    <th><f:translate key="tx_newt_domain_model_endpoint.name" /></th>
+                    <th><f:translate key="tx_newt_domain_model_endpoint.description" /></th>
+                    <th><f:translate key="tx_newt_domain_model_endpoint.endpoint_class" /></th>
+                </tr>
+                <f:for each="{endpoints}" as="endpoint">
+                    <tr>
+                        <td>{endpoint.name}</td>
+                        <td><f:format.nl2br>{endpoint.description}</f:format.nl2br></td>
+                        <td>{endpoint.endpointClass}</td>
+                    </tr>
+                </f:for>
+            </table>
+        </f:then>
+        <f:else>
+            <div class="alert alert-warning">
+                <f:translate key="tx_newt_admin.index.no_endpoints" />
+            </div>
+        </f:else>
+    </f:if>
 </f:section>
 
 </html>

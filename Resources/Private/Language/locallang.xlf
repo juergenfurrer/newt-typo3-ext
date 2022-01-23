@@ -27,12 +27,53 @@
 			<trans-unit id="tx_newt_admin.index.username" resname="tx_newt_admin.index.username">
 				<source>API-User:</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_admin.index.no_endpoints" resname="tx_newt_admin.index.no_endpoints">
+				<source>There are now Endpoints configured for you</source>
+			</trans-unit>
 			<trans-unit id="tx_newt_admin.tokenRefresh.message" resname="tx_newt_admin.tokenRefresh.message">
 				<source>This will generate a new Token for this user! All clients of this user will have to be reconfigured. Do you want to proceed?</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_admin.tokenRefresh.title" resname="tx_newt_admin.tokenRefresh.title">
 				<source>Create new Token</source>
 			</trans-unit>
+
+			<trans-unit id="tx_newt_config.index.endpoints" resname="tx_newt_config.index.endpoints">
+				<source>Endpoints:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.name" resname="tx_newt_config.index.name">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.scan" resname="tx_newt_config.index.scan">
+				<source>Scan this code with the Newt-App</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.token" resname="tx_newt_config.index.token">
+				<source>API-Token:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.token_expires" resname="tx_newt_config.index.token_expires">
+				<source>Token expires:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.token_isseud" resname="tx_newt_config.index.token_isseud">
+				<source>Token issued:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.url" resname="tx_newt_config.index.url">
+				<source>API-URL:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.username" resname="tx_newt_config.index.username">
+				<source>API-User:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.no_endpoints" resname="tx_newt_config.index.no_endpoints">
+				<source>There are now Endpoints configured for you</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.index.login_required" resname="tx_newt_config.index.login_required">
+				<source>You have to login first to see your Newt-Config</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.tokenRefresh.message" resname="tx_newt_config.tokenRefresh.message">
+				<source>With this button, you will create a new topken! All Newt-Clients of this user will have to be reconfigured.</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_config.tokenRefresh.title" resname="tx_newt_config.tokenRefresh.title">
+				<source>Create new Token</source>
+			</trans-unit>
+
 			<trans-unit id="tx_newt_domain_model_backenduser" resname="tx_newt_domain_model_backenduser">
 				<source>Backend User</source>
 			</trans-unit>

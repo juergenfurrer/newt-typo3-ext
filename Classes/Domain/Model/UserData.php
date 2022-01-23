@@ -39,10 +39,10 @@ class UserData
             $timeZoneUtc = new \DateTimeZone('UTC');
             $timeZoneDefault = date_default_timezone_get();
 
-            $tokenIssedDate = new \DateTime('@' . $data['tx_newt_token_issued'], $timeZoneUtc);
-            $tokenIssedDate->setTimezone(new \DateTimeZone($timeZoneDefault));
+            $tokenIssuedDate = new \DateTime('@' . $data['tx_newt_token_issued'], $timeZoneUtc);
+            $tokenIssuedDate->setTimezone(new \DateTimeZone($timeZoneDefault));
 
-            $this->tokenIssued = $tokenIssedDate;
+            $this->tokenIssued = $tokenIssuedDate;
         }
     }
 

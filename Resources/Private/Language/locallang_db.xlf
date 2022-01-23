@@ -39,6 +39,12 @@
 			<trans-unit id="tx_newt_domain_model_method.feusergroups" resname="tx_newt_domain_model_method.feusergroups">
 				<source>FE Usergroups</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_serverconfig.name" resname="tx_newt_serverconfig.name">
+				<source>FE-User Server-Config</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_serverconfig.description" resname="tx_newt_serverconfig.description">
+				<source>Shows the Server-Config for the current FE-User</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
