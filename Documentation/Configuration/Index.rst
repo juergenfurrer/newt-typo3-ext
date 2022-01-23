@@ -60,7 +60,18 @@ Routing example
 .. code-block:: yaml
 
    routeEnhancers:
-     ApiPlugin:
+     NewtServerconfigPlugin:
+       type: Extbase
+       extension: Newt
+       plugin: Serverconfig
+       routes:
+         -
+           routePath: /newt-serverconfig
+           _controller: 'Endpoint::index'
+         -
+           routePath: /newt-token-refresh
+           _controller: 'Endpoint::tokenRefresh'
+     NewtApiPlugin:
        type: Extbase
        extension: Newt
        plugin: Api
