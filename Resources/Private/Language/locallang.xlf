@@ -63,6 +63,9 @@
 			<trans-unit id="tx_newt_domain_model_method.users" resname="tx_newt_domain_model_method.users">
 				<source>Users</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_method.usergroups" resname="tx_newt_domain_model_method.usergroups">
+				<source>Usergroups</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

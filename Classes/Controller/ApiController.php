@@ -91,7 +91,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $json = [];
             /** @var Endpoint $endpoint */
             foreach ($endpoints as $endpoint) {
-                $data = $endpoint->getData($userUid, $this->settings);
+                $data = $endpoint->getData($userUid, GeneralUtility::intExplode(",", $userData['usergroup']), $this->settings);
                 if ($data) {
                     $json[] = $data;
                 }
@@ -153,7 +153,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::CREATE);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -270,7 +270,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::READ);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -347,7 +347,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::UPDATE);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -474,7 +474,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::DELETE);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();
@@ -540,7 +540,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $response->setError(404, "Endpoint not found");
             } else {
                 $currentMethod = $endpoint->getMethodByType(MethodType::LIST);
-                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid)) {
+                if (!$currentMethod || !$currentMethod->isUserAllowed($userUid, GeneralUtility::intExplode(",", $userData['usergroup']))) {
                     $response->setError(403, "User not allowed");
                 } else {
                     $className = $endpoint->getEndpointClass();

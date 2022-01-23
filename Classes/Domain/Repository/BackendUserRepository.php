@@ -35,7 +35,7 @@ class BackendUserRepository
         /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $userData = $connectionPool->getConnectionForTable('be_users')->select(
-            ['uid', 'tx_newt_token', 'tx_newt_token_issued'],
+            ['uid', 'usergroup', 'tx_newt_token', 'tx_newt_token_issued'],
             'be_users',
             [
                 'username' => $user,

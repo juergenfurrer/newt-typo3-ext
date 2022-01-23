@@ -6,6 +6,7 @@ namespace Infonique\Newt\Controller;
 
 use DateTimeZone;
 use Infonique\Newt\Domain\Model\Endpoint;
+use Infonique\Newt\Domain\Model\Method;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -118,14 +119,21 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         foreach ($endpoints as $endpoint) {
             $className = $endpoint->getEndpointClass();
             $classExists = false;
+            $methods = [];
             try {
                 if (class_exists($className, true)) {
+                    /** @var Method $method */
+                    foreach ($endpoint->getMethods() as $method) {
+                        if ($method->isUserAllowed($GLOBALS['BE_USER']->user['uid'], $GLOBALS['BE_USER']->userGroupsUID)) {
+                            $methods[] = $method->getType();
+                        }
+                    }
                     $classExists = true;
                 }
             } catch (\Exception $e) {
                 $classExists = false;
             }
-            if ($classExists) {
+            if ($classExists && count($methods) > 0) {
                 $listEndpoint[] = $endpoint;
             }
         }

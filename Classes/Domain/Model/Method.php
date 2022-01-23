@@ -36,6 +36,13 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     protected $users = null;
 
     /**
+     * usergroups
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup>
+     */
+    protected $usergroups = null;
+
+    /**
      * __construct
      */
     public function __construct()
@@ -123,21 +130,6 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     }
 
     /**
-     * Check if the user is allowed for this method
-     *
-     * @return boolean
-     */
-    public function isUserAllowed(int $userUid)
-    {
-        foreach ($this->users as $user) {
-            if ($user->getUid() == $userUid) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Sets the users
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUser> $users
@@ -146,5 +138,49 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     public function setUsers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $users)
     {
         $this->users = $users;
+    }
+
+    /**
+     * Get the value of usergroups
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $users
+     */
+    public function getUsergroups()
+    {
+        return $this->usergroups;
+    }
+
+    /**
+     * Set the value of usergroups
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $usergroups
+     * @return void
+     */
+    public function setUsergroups(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $usergroups): self
+    {
+        $this->usergroups = $usergroups;
+        return $this;
+    }
+
+    /**
+     * Check if the user is allowed for this method
+     *
+     * @return boolean
+     */
+    public function isUserAllowed(int $userUid, $userGroups = [])
+    {
+        foreach ($this->users as $user) {
+            if ($user->getUid() == $userUid) {
+                return true;
+            }
+        }
+        foreach ($userGroups as $userGroup) {
+            foreach ($this->usergroups as $methodUsergroup) {
+                if ($methodUsergroup->getUid() == $userGroup) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

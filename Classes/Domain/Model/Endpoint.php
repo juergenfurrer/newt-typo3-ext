@@ -65,10 +65,11 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Returns the json-object of this object based on the need of the Newt App
      *
      * @param integer $userUid
+     * @param array $userGroups
      * @param array $settings
      * @return object|null
      */
-    public function getData($userUid = 0, $settings = [])
+    public function getData($userUid = 0, $userGroups = [], $settings = [])
     {
         // Create an instance of the requested class
         $className = $this->getEndpointClass();
@@ -99,6 +100,15 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 foreach ($method->getUsers() as $user) {
                     if ($user->getUid() == $userUid) {
                         $allowed = true;
+                    }
+                }
+
+                /** @var BackendUserGroup $methodUserGroup */
+                foreach ($method->getUsergroups() as $methodUserGroup) {
+                    foreach ($userGroups as $userGroup) {
+                        if ($userGroup == $methodUserGroup->getUid()) {
+                            $allowed = true;
+                        }
                     }
                 }
 

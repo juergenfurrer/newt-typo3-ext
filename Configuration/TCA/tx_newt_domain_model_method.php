@@ -18,7 +18,7 @@ return [
         'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_method.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'type, users, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'type, users, usergroups, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'hidden' => [
@@ -102,9 +102,32 @@ return [
                     ],
                 ],
             ],
-
         ],
-
+        'usergroups' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.usergroups',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'be_groups',
+                'MM' => 'tx_newt_method_backendgroups_mm',
+                'size' => 10,
+                'autoSizeMax' => 30,
+                'maxitems' => 9999,
+                'multiple' => 0,
+                'fieldControl' => [
+                    'editPopup' => [
+                        'disabled' => false,
+                    ],
+                    'addRecord' => [
+                        'disabled' => false,
+                    ],
+                    'listModule' => [
+                        'disabled' => true,
+                    ],
+                ],
+            ],
+        ],
         'endpoint' => [
             'config' => [
                 'type' => 'passthrough',
