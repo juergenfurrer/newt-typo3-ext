@@ -8,6 +8,7 @@ class FieldType
 {
     const UNKNOWN  = 'unknown';
     const TEXT     = 'text';
+    const HIDDEN   = 'hidden';
     const INTEGER  = 'integer';
     const DECIMAL  = 'decimal';
     const PASSWORD = 'password';
@@ -21,4 +22,5 @@ class FieldType
     const IMAGE    = 'image';
     const FILE     = 'file';
     const BARCODE  = 'barcode';
+    const RATING   = 'rating';
 }

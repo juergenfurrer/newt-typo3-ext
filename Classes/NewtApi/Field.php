@@ -14,6 +14,8 @@ class Field
 
     private string $value = '';
 
+    private int $count = 0;
+
     private ?FieldValidation $validation = null;
 
     private array $items = [];
@@ -32,6 +34,9 @@ class Field
         $data["type"] = $this->getType();
         if (! empty($this->getValue())) {
             $data["value"] = $this->getValue();
+        }
+        if (! empty($this->getCount())) {
+            $data["count"] = $this->getCount();
         }
         if ($this->getValidation()) {
             $data["validation"] = $this->getValidation()->getData();
@@ -132,6 +137,30 @@ class Field
     public function setValue(string $value): self
     {
         $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * Get the value of count
+     *
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
+    /**
+     * Set the value of count
+     *
+     * @param int $count
+     *
+     * @return self
+     */
+    public function setCount(int $count): self
+    {
+        $this->count = $count;
+
         return $this;
     }
 

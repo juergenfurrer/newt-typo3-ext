@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 1.5.0
+-------------
+Add rating-field and label
+
+
 Version 1.4.2
 -------------
 Add FE-Plugin

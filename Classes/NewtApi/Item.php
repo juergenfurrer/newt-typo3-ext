@@ -12,6 +12,11 @@ class Item
 
     protected string $description = '';
 
+    protected string $label = '';
+
+    protected string $labelColor = LabelColor::UNKNOWN;
+
+
     /**
      * @var array<ItemValue>
      */
@@ -122,6 +127,54 @@ class Item
     public function addValue(ItemValue $value): self
     {
         $this->values[] = $value;
+        return $this;
+    }
+
+    /**
+     * Get the value of label
+     *
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set the value of label
+     *
+     * @param string $label
+     *
+     * @return self
+     */
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of labelColor
+     *
+     * @return string
+     */
+    public function getLabelColor(): string
+    {
+        return $this->labelColor;
+    }
+
+    /**
+     * Set the value of labelColor
+     *
+     * @param string $labelColor
+     *
+     * @return self
+     */
+    public function setLabelColor(string $labelColor): self
+    {
+        $this->labelColor = $labelColor;
+
         return $this;
     }
 }
