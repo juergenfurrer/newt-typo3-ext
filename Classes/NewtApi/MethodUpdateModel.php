@@ -13,7 +13,6 @@ class MethodUpdateModel
     protected array $params = [];
 
 
-
     /**
      * Get the value of backendUserUid
      *
