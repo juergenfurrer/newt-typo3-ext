@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 1.6.0
+-------------
+Add signatur-field
+
+
 Version 1.5.0
 -------------
 Add rating-field and label
