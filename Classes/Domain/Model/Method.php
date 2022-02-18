@@ -73,7 +73,8 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
      */
     public function initializeObject()
     {
-        $this->users = $this->users ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->beusergroups = $this->beusergroups ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->feusergroups = $this->feusergroups ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**

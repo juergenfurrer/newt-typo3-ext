@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 1.6.1
+-------------
+Bugfix
+
+
 Version 1.6.0
 -------------
 Add signatur-field
