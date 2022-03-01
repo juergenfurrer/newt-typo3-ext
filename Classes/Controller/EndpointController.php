@@ -65,9 +65,9 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function indexAction(): \Psr\Http\Message\ResponseInterface
+    public function indexAction()
     {
-        if (ApplicationType::fromRequest($this->request)->isFrontend()) {
+        if ($this->isFrontendRequest()) {
             // Request is from Frontend
             $userType = 'FE';
             $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
@@ -176,7 +176,9 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->view->assign('qr_content', json_encode((object)$data));
         }
 
-        return $this->htmlResponse();
+        if (method_exists($this, "htmlResponse")) {
+            return $this->htmlResponse();
+        }
     }
 
     /**
@@ -186,7 +188,7 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function tokenRefreshAction()
     {
-        if (ApplicationType::fromRequest($this->request)->isFrontend()) {
+        if ($this->isFrontendRequest()) {
             // Request is from Frontend
             $this->userRepository->updateFrontendUserToken($GLOBALS['TSFE']->fe_user->user['uid']);
         } else {
@@ -194,5 +196,19 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->userRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
         }
         $this->redirect("index");
+    }
+
+    /**
+     * return true, if request is from frontend
+     *
+     * @return boolean
+     */
+    private function isFrontendRequest(): bool
+    {
+        if (is_subclass_of($this->request, '\\Psr\\Http\\Message\\ServerRequestInterface')) {
+            return ApplicationType::fromRequest($this->request)->isFrontend();
+        } else {
+            return ! empty($GLOBALS['TSFE']);
+        }
     }
 }
