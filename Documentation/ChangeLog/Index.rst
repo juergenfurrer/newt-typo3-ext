@@ -6,9 +6,14 @@
 Change log
 ==========
 
-Version 1.6.2
+Version 1.6.3
 -------------
 Fix for TYPO3 V10
+
+
+Version 1.6.2
+-------------
+Bugfix
 
 
 Version 1.6.1
