@@ -24,4 +24,5 @@ class FieldType
     const BARCODE    = 'barcode';
     const RATING     = 'rating';
     const SIGNATURE  = 'signature';
+    const QRCODE     = 'qrcode';
 }

@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 1.7.0
+-------------
+Add qrcode-field
+
+
 Version 1.6.3
 -------------
 Fix for TYPO3 V10
