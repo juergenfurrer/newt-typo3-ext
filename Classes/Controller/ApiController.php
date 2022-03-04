@@ -6,7 +6,6 @@ namespace Infonique\Newt\Controller;
 
 use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\Domain\Model\UserData;
-use Infonique\Newt\Exception\FileStorageNotFoundException;
 use Infonique\Newt\NewtApi\Field;
 use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
@@ -178,7 +177,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $endpointImplementation = new $className();
                         $prams = [];
                         $isValid = true;
-                        $hasFileStorageError = false;
+                        $hasFileError = false;
                         /** @var Field $field */
                         foreach ($endpointImplementation->getAvailableFields() as $field) {
                             $fieldName = $field->getName();
@@ -205,10 +204,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                                 $extension = $pathinfo['extension'];
                                             }
                                         }
-                                        try {
-                                            $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
-                                        } catch (FileStorageNotFoundException $ex) {
-                                            $hasFileStorageError = true;
+                                        $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
+                                        if (! $prams[$fieldName]) {
+                                            $hasFileError = true;
                                         }
                                     }
                                 } else {
@@ -222,9 +220,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 }
                             }
                         }
-                        if ($hasFileStorageError) {
+                        if ($hasFileError) {
                             $response = new ResponseBase();
-                            $response->setError(400, "File storage not found");
+                            $response->setError(400, "File not saved");
                         } else if (!$isValid) {
                             $response = new ResponseBase();
                             $response->setError(400, "Form not valid");
@@ -249,6 +247,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->view->setConfiguration([
                 'response' => [
                     '_descend' => [
+                        'error' => [
+                            '_only' => ['code', 'message']
+                        ],
                         'item' => [
                             '_descend' => [
                                 'values' => [
@@ -326,6 +327,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->view->setConfiguration([
                 'response' => [
                     '_descend' => [
+                        'error' => [
+                            '_only' => ['code', 'message']
+                        ],
                         'item' => [
                             '_descend' => [
                                 'values' => [
@@ -386,7 +390,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $endpointImplementation = new $className();
                             $prams = [];
                             $isValid = true;
-                            $hasFileStorageError = false;
+                            $hasFileError = false;
                             /** @var Field $field */
                             foreach ($endpointImplementation->getAvailableFields() as $field) {
                                 $fieldName = $field->getName();
@@ -413,10 +417,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                                     $extension = $pathinfo['extension'];
                                                 }
                                             }
-                                            try {
-                                                $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
-                                            } catch (FileStorageNotFoundException $ex) {
-                                                $hasFileStorageError = true;
+                                            $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
+                                            if (! $prams[$fieldName]) {
+                                                $hasFileError = true;
                                             }
                                         }
                                     } else {
@@ -430,9 +433,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                     }
                                 }
                             }
-                            if ($hasFileStorageError) {
+                            if ($hasFileError) {
                                 $response = new ResponseBase();
-                                $response->setError(400, "File storage not found");
+                                $response->setError(400, "File not saved");
                             } else if (!$isValid) {
                                 $response = new ResponseBase();
                                 $response->setError(400, "Form not valid");
@@ -462,6 +465,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->view->setConfiguration([
                 'response' => [
                     '_descend' => [
+                        'error' => [
+                            '_only' => ['code', 'message']
+                        ],
                         'item' => [
                             '_descend' => [
                                 'values' => [
@@ -615,6 +621,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->setConfiguration([
             'response' => [
                 '_descend' => [
+                    'error' => [
+                        '_only' => ['code', 'message']
+                    ],
                     'items' => [
                         '_descendAll' => [
                             '_descend' => [
@@ -700,7 +709,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         if (! $storage) {
-            throw new FileStorageNotFoundException();
+            return null;
         }
 
         $folder = "newt" . ($subfolder ? ('/' . $subfolder) : '');
