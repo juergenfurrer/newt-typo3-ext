@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Infonique\Newt\Domain\Repository;
 
 use Infonique\Newt\Domain\Model\UserData;
+use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -30,8 +31,8 @@ class UserRepository
      */
     public function findUserDataByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request): ?UserData
     {
-        $user = $request->getHeader("user")[0];
-        $token = $request->getHeader("token")[0];
+        $user = Utils::getRequestHeader("user", $request);
+        $token = Utils::getRequestHeader("token", $request);
 
         /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);

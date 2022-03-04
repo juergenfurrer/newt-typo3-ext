@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 1.7.1
+-------------
+Bugfix
+
+
 Version 1.7.0
 -------------
 Add qrcode-field

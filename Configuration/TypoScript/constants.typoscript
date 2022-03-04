@@ -10,6 +10,8 @@ plugin.tx_newt {
     apiBaseUrl =
     # cat=plugin.tx_newt/settings/060; type=int; label=Token expiration in seconds (0 = infinit)
     tokenExpiration =
+    # cat=plugin.tx_newt/settings/070; type=int; label=File Storage-ID (if empty, the default-file-storage is used)
+    fileStorageId =
   }
   persistence {
     # cat=plugin.tx_newt//a; type=string; label=Default storage PID

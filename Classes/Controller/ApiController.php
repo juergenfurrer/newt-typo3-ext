@@ -6,6 +6,7 @@ namespace Infonique\Newt\Controller;
 
 use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\Domain\Model\UserData;
+use Infonique\Newt\Exception\FileStorageNotFoundException;
 use Infonique\Newt\NewtApi\Field;
 use Infonique\Newt\NewtApi\FieldType;
 use Infonique\Newt\NewtApi\MethodCreateModel;
@@ -20,6 +21,7 @@ use Infonique\Newt\NewtApi\ResponseDelete;
 use Infonique\Newt\NewtApi\ResponseList;
 use Infonique\Newt\NewtApi\ResponseRead;
 use Infonique\Newt\NewtApi\ResponseUpdate;
+use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -176,6 +178,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $endpointImplementation = new $className();
                         $prams = [];
                         $isValid = true;
+                        $hasFileStorageError = false;
                         /** @var Field $field */
                         foreach ($endpointImplementation->getAvailableFields() as $field) {
                             $fieldName = $field->getName();
@@ -202,7 +205,11 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                                 $extension = $pathinfo['extension'];
                                             }
                                         }
-                                        $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
+                                        try {
+                                            $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
+                                        } catch (FileStorageNotFoundException $ex) {
+                                            $hasFileStorageError = true;
+                                        }
                                     }
                                 } else {
                                     $prams[$fieldName] = $_POST[$fieldName];
@@ -215,7 +222,11 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 }
                             }
                         }
-                        if (!$isValid) {
+                        if ($hasFileStorageError) {
+                            $response = new ResponseBase();
+                            $response->setError(400, "File storage not found");
+                        } else if (!$isValid) {
+                            $response = new ResponseBase();
                             $response->setError(400, "Form not valid");
                         } else {
                             $methodCreateModel = new MethodCreateModel();
@@ -290,9 +301,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        if ($this->request->hasHeader("readId")) {
-                            $readId = $this->request->getHeader("readId")[0];
-                        }
+                        $readId = Utils::getRequestHeader("readId", $this->request);
                         if (!empty($readId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = new $className();
@@ -302,6 +311,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $response->setItem($item);
                             $response->setSuccess($item->getId() == $readId);
                         } else {
+                            $response = new ResponseBase();
                             $response->setError(400, "ID missing in request");
                         }
                     }
@@ -368,9 +378,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        if ($this->request->hasHeader("updateId")) {
-                            $updateId = $this->request->getHeader("updateId")[0];
-                        }
+                        $updateId = Utils::getRequestHeader("updateId", $this->request);
                         if (!empty($updateId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = new $className();
@@ -378,6 +386,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $endpointImplementation = new $className();
                             $prams = [];
                             $isValid = true;
+                            $hasFileStorageError = false;
                             /** @var Field $field */
                             foreach ($endpointImplementation->getAvailableFields() as $field) {
                                 $fieldName = $field->getName();
@@ -404,7 +413,11 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                                     $extension = $pathinfo['extension'];
                                                 }
                                             }
-                                            $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
+                                            try {
+                                                $prams[$fieldName] = $this->setFileFromBase64($fileName . "." . $extension, $_POST[$fieldName], "be_user_" . $userUid);
+                                            } catch (FileStorageNotFoundException $ex) {
+                                                $hasFileStorageError = true;
+                                            }
                                         }
                                     } else {
                                         $prams[$fieldName] = $_POST[$fieldName];
@@ -417,7 +430,11 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                     }
                                 }
                             }
-                            if (!$isValid) {
+                            if ($hasFileStorageError) {
+                                $response = new ResponseBase();
+                                $response->setError(400, "File storage not found");
+                            } else if (!$isValid) {
+                                $response = new ResponseBase();
                                 $response->setError(400, "Form not valid");
                             } else {
                                 $methodUpdateModel = new MethodUpdateModel();
@@ -429,6 +446,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 $response->setSuccess($item->getId() == $updateId);
                             }
                         } else {
+                            $response = new ResponseBase();
                             $response->setError(400, "ID missing in request");
                         }
 
@@ -496,9 +514,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        if ($this->request->hasHeader("deleteId")) {
-                            $deleteId = $this->request->getHeader("deleteId")[0];
-                        }
+                        $deleteId = Utils::getRequestHeader("deleteId", $this->request);
                         if (!empty($deleteId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = new $className();
@@ -569,15 +585,15 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $methodListModel->setBackendUserUid($userUid);
                         $methodListModel->setPageUid($endpoint->getPageUid());
 
-                        if ($this->request->hasHeader("pageSize")) {
-                            $pageSize = $this->request->getHeader("pageSize")[0];
+                        $pageSize = Utils::getRequestHeader("pageSize", $this->request);
+                        if ($pageSize) {
                             if (intval($pageSize) > 0) {
                                 $methodListModel->setPageSize(intval($pageSize));
                             }
                         }
 
-                        if ($this->request->hasHeader("lastKnownItemId")) {
-                            $lastKnownItemId = $this->request->getHeader("lastKnownItemId")[0];
+                        $lastKnownItemId = Utils::getRequestHeader("lastKnownItemId", $this->request);
+                        if ($lastKnownItemId) {
                             if (!empty($lastKnownItemId)) {
                                 $methodListModel->setLastKnownItemId($lastKnownItemId);
                             }
@@ -674,7 +690,19 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         /** @var StorageRepository */
         $storageRepository = $objectManager->get(StorageRepository::class);
 
-        $storage = $storageRepository->getDefaultStorage();
+        $fileStorageId = intval($this->settings['fileStorageId']);
+        if ($fileStorageId > 0) {
+            $storage = $storageRepository->findByUid($fileStorageId);
+        } else if (method_exists($storageRepository, 'getDefaultStorage')) {
+            $storage = $storageRepository->getDefaultStorage();
+        } else {
+            $storage = $storageRepository->findByUid(1);
+        }
+
+        if (! $storage) {
+            throw new FileStorageNotFoundException();
+        }
+
         $folder = "newt" . ($subfolder ? ('/' . $subfolder) : '');
         $targetFolder = null;
         if ($storage->hasFolder($folder)) {

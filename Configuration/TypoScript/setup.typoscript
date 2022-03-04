@@ -5,6 +5,7 @@ plugin.tx_newt {
     apiTypeNum = {$plugin.tx_newt.settings.apiTypeNum}
     apiBaseUrl = {$plugin.tx_newt.settings.apiBaseUrl}
     tokenExpiration = {$plugin.tx_newt.settings.tokenExpiration}
+    fileStorageId = {$plugin.tx_newt.settings.fileStorageId}
   }
   persistence {
     storagePid = {$plugin.tx_newt.persistence.storagePid}
