@@ -25,4 +25,5 @@ class FieldType
     const RATING     = 'rating';
     const SIGNATURE  = 'signature';
     const QRCODE     = 'qrcode';
+    const LOCATION   = 'location';
 }

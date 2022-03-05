@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 1.8.0
+-------------
+Add location-field
+
+
 Version 1.7.1
 -------------
 Bugfix
