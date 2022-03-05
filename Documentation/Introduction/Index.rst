@@ -6,6 +6,7 @@
 Introduction
 ============
 
+
 .. _what-it-does:
 
 What does it do?
@@ -15,7 +16,7 @@ The plugin allows you to implement the Newt-API into your TYPO3 installation.
 
 Newt is a mobile-app available for free to manage Data on any server (not only TYPO3)
 
-With this extension you are able to create simple Endpoints for the app and grant your backend-users individually
+With this extension you are able to create Endpoints for the app and grant the access to your backend-users individually
 
 The main goal is to insert data without login into TYPO3 and provide a unified UI on a native-app
 
@@ -28,6 +29,6 @@ Screenshots
 ===========
 
 .. figure:: ../Images/backend-01.jpg
-   :class: with-shadow
-   :alt: Newt-Server QR-Code
-   :width: 300px
+    :class: with-shadow
+    :alt: Newt-Server QR-Code
+    :width: 300px

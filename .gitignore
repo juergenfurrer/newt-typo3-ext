@@ -23,3 +23,5 @@
 /typo3temp/
 
 /vendor/
+
+/.vscode/

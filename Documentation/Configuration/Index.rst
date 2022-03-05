@@ -32,6 +32,9 @@ settings.apiBaseUrl                     string      Base-URL in case you use "/"
 settings.tokenExpiration                int         Token expiration in seconds (0 = infinit)
                                                     Insert here the lifetime of the token in seconds
 --------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
+settings.fileStorageId                  int         FileStorage to use for Image-Uploade
+                                                    Fallback to the default-storage
+--------------------------------------  ----------  ------------------------------------------------------------------  ---------------------------------------
 persistence.storagePid                  integer     Default storage PID
                                                     Defines the placement of the endpoint-configurations
 ======================================  ==========  ==================================================================  =======================================
@@ -108,30 +111,35 @@ Routing example
 Add Endpoints
 =============
 
-To add an endpoint, switch into list-view, chose the page or folder you like to add the endpoint
+To add an endpoint, switch into list-view, chose the storage-page (see persistence.storagePid)
 
 Click the plus-button, to add a new record and chose "Endpoint" under "Newt"
 
 Enter the Name and the description, the Client will see this labels.
 
-Chose the Endpoint Class from the list, if there is no entries, make shure, you have installed any Extension with at least one implementation.
+Chose the Endpoint Class from the list, if there is no entries, make sure, you have installed any Extension with at least one implementation.
 Here is a list of Extensions:
 
 .. code-block:: bash
 
-   EXT:newt4news
+    EXT:newt4news
 
 
-If you fill in the Page UID, the records created from the client will be stored on this page.
+If you fill in the Page UID, the records created with Newt will be stored on this page.
 
 Add at least one Method
 
 .. figure:: ../Images/backend-02.jpg
-   :class: with-shadow
-   :alt: Methods of this endpoint
+    :class: with-shadow
+    :alt: Methods of this endpoint
 
-Don't forget to add backend users to this method.
+Admin-Users will see all endpoints, all other users have to be granted by BE-Groups
+There is also a frontend-plugin available, if you like to grant the access to Newt for any FE-Users, you may add a FE-Group as well
+
+.. figure:: ../Images/backend-03.jpg
+    :class: with-shadow
+    :alt: Grant access with groups
 
 When this record is saved, the endpoint is configured, and the client is able to read the configuration of this endpoint
-And is able to create new records as you defined in the endpoint.
+and is able to create new records as you defined in the endpoint.
 

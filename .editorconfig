@@ -26,7 +26,8 @@ indent_size = 2
 
 # ReST files
 [*.rst]
-indent_size = 3
+indent_style = space
+indent_size = 4
 max_line_length = 80
 
 # SQL files
