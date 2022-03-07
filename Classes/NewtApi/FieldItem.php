@@ -11,6 +11,12 @@ class FieldItem
     private string $label = '';
 
 
+    public function __construct($value = '', $label = '')
+    {
+        $this->value = strval($value);
+        $this->label = strval($label);
+    }
+
     /**
      * Get the value of value
      *

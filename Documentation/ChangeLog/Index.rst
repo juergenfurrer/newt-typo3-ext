@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.9.0
+-------------
+Add multiselect
+
 Version 1.8.0
 -------------
 Add location-field

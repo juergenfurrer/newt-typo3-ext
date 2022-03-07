@@ -246,17 +246,25 @@ Select a velue from a list
     $select->setName("select");
     $select->setLabel("Select");
     $select->setType(FieldType::SELECT);
-    foreach (["Option 1", "Option 2", "Option 3"] as $val) {
-        $t = new FieldItem();
-        $t->setValue($val);
-        $t->setLabel($val);
-        $select->addItem($t);
+    foreach (["Option 1", "Option 2", "Option 3"] as $key => $val) {
+        $item = new FieldItem($key, $val);
+        $select->addItem($item);
     }
 
 .. figure:: ../Images/Screenshot_SELECT.png
     :class: with-shadow
     :width: 300px
     :alt: Select-Field
+
+.. code-block:: php
+    // Optional: in case of multiselect
+    $select->setCount(2); // Count of max values
+
+.. figure:: ../Images/Screenshot_SELECT2.png
+    :class: with-shadow
+    :width: 300px
+    :alt: Select-Field with count
+
 
 :Return value:
     String
