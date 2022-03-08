@@ -83,14 +83,16 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $shouldExport = false;
 
         /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-        $endpointImplementation = new $className();
+        $endpointImplementation = GeneralUtility::makeInstance($className);
 
-        $endpoint = new \Infonique\Newt\NewtApi\Endpoint();
+        /** @var \Infonique\Newt\NewtApi\Endpoint */
+        $endpoint = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Endpoint::class);
         $endpoint->setUid($this->getUid());
         $endpoint->setName($this->getName());
         $endpoint->setDescription($this->getDescription());
 
-        $configuration = new \Infonique\Newt\NewtApi\Configuration();
+        /** @var \Infonique\Newt\NewtApi\Configuration */
+        $configuration = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Configuration::class);
         /** @var \Infonique\Newt\Domain\Model\Method $method */
         foreach ($this->getMethods() as $method) {
             if (in_array($method->getType(), $endpointImplementation->getAvailableMethodTypes())) {
@@ -111,7 +113,8 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
                 if ($allowed) {
                     $shouldExport = true;
-                    $newtMethod = new \Infonique\Newt\NewtApi\Method();
+                    /** @var \Infonique\Newt\NewtApi\Method */
+                    $newtMethod = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Method::class);
                     $newtMethod->setType($method->getType());
 
                     /** @var ObjectManager */

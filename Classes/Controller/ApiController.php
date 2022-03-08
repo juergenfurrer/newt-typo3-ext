@@ -174,7 +174,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $response->setError(404, "EndpointClass not found");
                     } else {
                         /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                        $endpointImplementation = new $className();
+                        $endpointImplementation = GeneralUtility::makeInstance($className);
                         $prams = [];
                         $isValid = true;
                         $hasFileError = false;
@@ -305,7 +305,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $readId = Utils::getRequestHeader("readId", $this->request);
                         if (!empty($readId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                            $endpointImplementation = new $className();
+                            $endpointImplementation = GeneralUtility::makeInstance($className);
                             $methodReadModel = new MethodReadModel();
                             $methodReadModel->setReadId($readId);
                             $item = $endpointImplementation->methodRead($methodReadModel);
@@ -385,9 +385,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $updateId = Utils::getRequestHeader("updateId", $this->request);
                         if (!empty($updateId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                            $endpointImplementation = new $className();
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                            $endpointImplementation = new $className();
+                            $endpointImplementation = GeneralUtility::makeInstance($className());
                             $prams = [];
                             $isValid = true;
                             $hasFileError = false;
@@ -523,7 +521,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $deleteId = Utils::getRequestHeader("deleteId", $this->request);
                         if (!empty($deleteId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                            $endpointImplementation = new $className();
+                            $endpointImplementation = GeneralUtility::makeInstance($className);
                             $methodDeleteModel = new MethodDeleteModel();
                             $methodDeleteModel->setDeleteId($deleteId);
                             $res = $endpointImplementation->methodDelete($methodDeleteModel);
@@ -586,7 +584,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $response->setError(404, "EndpointClass not found");
                     } else {
                         /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                        $endpointImplementation = new $className();
+                        $endpointImplementation = GeneralUtility::makeInstance($className);
                         $methodListModel = new MethodListModel();
                         $methodListModel->setBackendUserUid($userUid);
                         $methodListModel->setPageUid($endpoint->getPageUid());
