@@ -55,7 +55,7 @@ Simple Text-Field, single line
 
 .. figure:: ../Images/Screenshot_TEXT.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Text-Field
 
 :Return value:
@@ -89,7 +89,7 @@ Field to enter a number (no text)
 
 .. figure:: ../Images/Screenshot_INTEGER.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Integer-Field
 
 :Return value:
@@ -109,7 +109,7 @@ Field to enter a decimal (no text)
 
 .. figure:: ../Images/Screenshot_DECIMAL.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Decimal-Field
 
 :Return value:
@@ -129,7 +129,7 @@ Works like any other password-field
 
 .. figure:: ../Images/Screenshot_PASSWORD.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Password-Field
 
 :Return value:
@@ -149,7 +149,7 @@ Multiline text-area
 
 .. figure:: ../Images/Screenshot_TEXTAREA.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Textarea-Field
 
 :Return value:
@@ -169,7 +169,7 @@ A checkbox to select on/off values
 
 .. figure:: ../Images/Screenshot_CHECKBOX.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Checkbox-Field
 
 :Return value:
@@ -189,7 +189,7 @@ Date picker to chose from a mini-calendar
 
 .. figure:: ../Images/Screenshot_DATE.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Date-Field
 
 :Return value:
@@ -209,7 +209,7 @@ Time picker to chose a time
 
 .. figure:: ../Images/Screenshot_TIME.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Time-Field
 
 :Return value:
@@ -229,7 +229,7 @@ Combined Date-Time picker
 
 .. figure:: ../Images/Screenshot_DATETIME.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Datetime-Field
 
 :Return value:
@@ -253,7 +253,7 @@ Select a velue from a list
 
 .. figure:: ../Images/Screenshot_SELECT.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Select-Field
 
 .. code-block:: php
@@ -262,7 +262,7 @@ Select a velue from a list
 
 .. figure:: ../Images/Screenshot_SELECT2.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Select-Field with count
 
 
@@ -283,7 +283,7 @@ Will only display a label, you can use this field for hints
 
 .. figure:: ../Images/Screenshot_LABEL.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Label-Field
 
 :Return value:
@@ -303,7 +303,7 @@ Te image-picker can be triggered from gallery or from the camera
 
 .. figure:: ../Images/Screenshot_IMAGE.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Image-Field
 
 :Return value:
@@ -323,7 +323,7 @@ Add files as attachement
 
 .. figure:: ../Images/Screenshot_FILE.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: File-Field
 
 :Return value:
@@ -343,7 +343,7 @@ Scan for barcodes: Code128, Code39, EAN13 or EAN8
 
 .. figure:: ../Images/Screenshot_BARCODE.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Barcode-Field
 
 :Return value:
@@ -364,7 +364,7 @@ Shows a rating field with an count of stars
 
 .. figure:: ../Images/Screenshot_RATING.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Rating-Field
 
 :Return value:
@@ -384,7 +384,7 @@ The signatur field opens a canvas, to paint on
 
 .. figure:: ../Images/Screenshot_SIGNATURE.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Signature-Field
 
 :Return value:
@@ -404,7 +404,7 @@ Scan QR-Codes and use the content
 
 .. figure:: ../Images/Screenshot_QRCODE.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: QR-Code-Field
 
 :Return value:
@@ -424,7 +424,7 @@ Mini-Map to chose the current-location of the user
 
 .. figure:: ../Images/Screenshot_LOCATION.png
     :class: with-shadow
-    :width: 300px
+    :width: 600px
     :alt: Location-Field
 
 :Return value:
