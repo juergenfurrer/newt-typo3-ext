@@ -29,7 +29,8 @@ Newt
     `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__ (Creative Commons)
     license
 
-Backend-Extension to manage the Newt-Access
+This TYPO3 extension implements the NEWT REST API and allows you to manage your
+TYPO3 instance via the NEWT Mobile App.
 
 **TYPO3**
 
