@@ -88,17 +88,25 @@ Routing example
            _arguments:
              endpointUid: uid
          -
-           routePath: /read
+           routePath: /read/{endpointUid}
            _controller: 'Api::read'
+           _arguments:
+             endpointUid: uid
          -
-           routePath: /update
+           routePath: /update/{endpointUid}
            _controller: 'Api::update'
+           _arguments:
+             endpointUid: uid
          -
-           routePath: /delete
+           routePath: /delete/{endpointUid}
            _controller: 'Api::delete'
+           _arguments:
+             endpointUid: uid
          -
-           routePath: /list
+           routePath: /list/{endpointUid}
            _controller: 'Api::list'
+           _arguments:
+             endpointUid: uid
        defaultController: 'Api::endpoints'
      PageTypeSuffix:
        type: PageType
