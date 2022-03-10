@@ -385,7 +385,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $updateId = Utils::getRequestHeader("updateId", $this->request);
                         if (!empty($updateId)) {
                             /** @var \Infonique\Newt\NewtApi\EndpointInterface */
-                            $endpointImplementation = GeneralUtility::makeInstance($className());
+                            $endpointImplementation = GeneralUtility::makeInstance($className);
                             $prams = [];
                             $isValid = true;
                             $hasFileError = false;
