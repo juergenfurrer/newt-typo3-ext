@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.9.1
+-------------
+Bugfix
+
 Version 1.9.0
 -------------
 Add multiselect
