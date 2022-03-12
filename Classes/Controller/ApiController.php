@@ -23,7 +23,6 @@ use Infonique\Newt\NewtApi\ResponseUpdate;
 use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -450,7 +449,6 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $response = new ResponseBase();
                             $response->setError(400, "ID missing in request");
                         }
-
                     }
                 }
             }
@@ -692,10 +690,8 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($imageBase64 && strlen($imageBase64) < 10) {
             return null;
         }
-        /** @var ObjectManager */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         /** @var StorageRepository */
-        $storageRepository = $objectManager->get(StorageRepository::class);
+        $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
 
         $fileStorageId = intval($this->settings['fileStorageId']);
         if ($fileStorageId > 0) {
@@ -727,7 +723,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (file_exists($tempFilePath)) {
             $movedNewFile = $storage->addFile($tempFilePath, $targetFolder, $imageName);
             /** @var \Infonique\Newt\Domain\Model\FileReference */
-            $newFileReference = $objectManager->get(\Infonique\Newt\Domain\Model\FileReference::class);
+            $newFileReference = GeneralUtility::makeInstance(\Infonique\Newt\Domain\Model\FileReference::class);
             $newFileReference->setFile($movedNewFile);
             if ($newFileReference) {
                 return $newFileReference;

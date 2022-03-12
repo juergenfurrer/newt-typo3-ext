@@ -32,7 +32,7 @@ class Field
         $data["name"] = $this->getName();
         $data["label"] = $this->getLabel();
         $data["type"] = $this->getType();
-        if (! empty($this->getValue())) {
+        if (! empty($this->getValue()) || strlen($this->getValue()) > 0) {
             $data["value"] = $this->getValue();
         }
         if (! empty($this->getCount())) {

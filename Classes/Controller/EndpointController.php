@@ -12,7 +12,6 @@ use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -88,11 +87,8 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
         if (intval($userUid) > 0) {
-            /** @var ObjectManager */
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
             /** @var ConfigurationManager */
-            $configurationManager = $objectManager->get(ConfigurationManager::class);
+            $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
             $conf = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
             $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
 
