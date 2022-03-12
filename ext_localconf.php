@@ -37,6 +37,13 @@ call_user_func(
             }'
         );
 
+        // Nodes
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['1647092550'] = [
+            'nodeName' => 'NewtEndpointHintElement',
+            'priority' => 40,
+            'class' => \Infonique\Newt\Form\Element\NewtEndpointHintElement::class,
+        ];
+
         /** @var \TYPO3\CMS\Core\Imaging\IconRegistry */
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
         $iconRegistry->registerIcon(

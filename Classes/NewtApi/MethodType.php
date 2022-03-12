@@ -6,10 +6,10 @@ namespace Infonique\Newt\NewtApi;
 
 class MethodType
 {
-    const UNKNOWN  = 'unknown';
-    const CREATE = 'create';
-    const READ = 'read';
-    const UPDATE = 'update';
-    const DELETE = 'delete';
-    const LIST = 'list';
+    const UNKNOWN = 'unknown';
+    const CREATE  = 'create';
+    const READ    = 'read';
+    const UPDATE  = 'update';
+    const DELETE  = 'delete';
+    const LIST    = 'list';
 }

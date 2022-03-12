@@ -18,6 +18,27 @@
 			<trans-unit id="tx_newt_domain_model_endpoint.methods" resname="tx_newt_domain_model_endpoint.methods">
 				<source>Methods</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.methods_available" resname="tx_newt_domain_model_endpoint.methods_available">
+				<source>Available methods for this endpoint:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.methods_available_none" resname="tx_newt_domain_model_endpoint.methods_available_none">
+				<source>There are no methods available for this endpoint:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.method.create" resname="tx_newt_domain_model_endpoint.method.create">
+				<source>CREATE</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.method.read" resname="tx_newt_domain_model_endpoint.method.read">
+				<source>READ</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.method.update" resname="tx_newt_domain_model_endpoint.method.update">
+				<source>UPDATE</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.method.delete" resname="tx_newt_domain_model_endpoint.method.delete">
+				<source>DELETE</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.method.list" resname="tx_newt_domain_model_endpoint.method.list">
+				<source>LIST</source>
+			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_endpoint.name" resname="tx_newt_domain_model_endpoint.name">
 				<source>Name</source>
 			</trans-unit>

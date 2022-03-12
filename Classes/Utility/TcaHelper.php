@@ -2,7 +2,12 @@
 
 namespace Infonique\Newt\Utility;
 
+use Infonique\Newt\Domain\Model\Endpoint;
+use Infonique\Newt\Domain\Repository\EndpointRepository;
+use Infonique\Newt\NewtApi\EndpointInterface;
 use ReflectionClass;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***
  *
@@ -41,8 +46,28 @@ class TcaHelper
     public function getAvailableMethods(array &$configuration, $a)
     {
         $refl = new ReflectionClass(\Infonique\Newt\NewtApi\MethodType::class);
-        foreach ($refl->getConstants() ?? [] as $key => $val) {
-            $configuration['items'][] = [$key, $val];
+
+        $endpointUid = intval($configuration['row']['endpoint']);
+        if ($endpointUid > 0) {
+            /** @var ObjectManager */
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            /** @var EndpointRepository */
+            $endpointRepository = $objectManager->get(EndpointRepository::class);
+            /** @var Endpoint */
+            $endpoint = $endpointRepository->findByUid($endpointUid);
+            if ($endpoint) {
+                /** @var EndpointInterface */
+                $endpointClass = GeneralUtility::makeInstance($endpoint->getEndpointClass());
+                if ($endpointClass) {
+                    foreach ($endpointClass->getAvailableMethodTypes() as $method) {
+                        foreach ($refl->getConstants() ?? [] as $key => $val) {
+                            if ($method == $val) {
+                                $configuration['items'][] = [$key, $val];
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -24,8 +24,14 @@ return [
         'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_endpoint.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'name, description, endpoint_class, page_uid, methods, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'name, description, --palette--;;endpointPalette, page_uid, methods, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
+    'palettes' => [
+        'endpointPalette' => [
+           'label' => '',
+           'showitem' => 'endpoint_class, endpoint_hint',
+        ],
+     ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => true,
@@ -132,6 +138,7 @@ return [
         'endpoint_class' => [
             'exclude' => true,
             'label' => $languageFile . 'tx_newt_domain_model_endpoint.endpoint_class',
+            'onChange' => 'reload',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -141,6 +148,13 @@ return [
                 'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getNewtClasses',
             ],
         ],
+        'endpoint_hint' => array(
+            'exclude' => FALSE,
+            'config' => array(
+                'type' => 'user',
+                'renderType' => 'NewtEndpointHintElement'
+            )
+        ),
         'page_uid' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
