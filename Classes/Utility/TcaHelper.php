@@ -55,7 +55,7 @@ class TcaHelper
             $endpointRepository = $objectManager->get(EndpointRepository::class);
             /** @var Endpoint */
             $endpoint = $endpointRepository->findByUid($endpointUid);
-            if ($endpoint) {
+            if ($endpoint && !empty($endpoint->getEndpointClass())) {
                 /** @var EndpointInterface */
                 $endpointClass = GeneralUtility::makeInstance($endpoint->getEndpointClass());
                 if ($endpointClass) {
