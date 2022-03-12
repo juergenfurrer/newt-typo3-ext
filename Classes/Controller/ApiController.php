@@ -184,11 +184,17 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 if ($field->getType() == FieldType::CHECKBOX) {
                                     $prams[$fieldName] = boolval($_POST[$fieldName]);
                                 } else if ($field->getType() == FieldType::DATETIME) {
-                                    $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
+                                    if (!empty($_POST[$fieldName])) {
+                                        $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
+                                    }
                                 } else if ($field->getType() == FieldType::DATE) {
-                                    $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
+                                    if (!empty($_POST[$fieldName])) {
+                                        $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
+                                    }
                                 } else if ($field->getType() == FieldType::TIME) {
-                                    $prams[$fieldName] = new \DateTime("1900-01-01 " . $_POST[$fieldName]);
+                                    if (!empty($_POST[$fieldName])) {
+                                        $prams[$fieldName] = new \DateTime("1900-01-01 " . $_POST[$fieldName]);
+                                    }
                                 } else if ($field->getType() == FieldType::IMAGE || $field->getType() == FieldType::FILE) {
                                     if (strlen($_POST[$fieldName]) > 0) {
                                         $token = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
