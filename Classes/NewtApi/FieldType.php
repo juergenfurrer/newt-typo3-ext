@@ -26,4 +26,5 @@ class FieldType
     const SIGNATURE  = 'signature';
     const QRCODE     = 'qrcode';
     const LOCATION   = 'location';
+    const DIVIDOR    = 'dividor';
 }
