@@ -9,6 +9,7 @@ use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\Domain\Model\Method;
 use Infonique\Newt\Domain\Model\UserData;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -99,10 +100,27 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 ->buildFrontendUri();
             $apiBaseUrl = trim($settings['apiBaseUrl'] ?? '');
 
+            $base = '/';
+            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+            $sites = $siteFinder->getAllSites();
+            // Get first site
+            if ($site = reset($sites)) {
+                $configuration = $site->getConfiguration();
+                $base = $configuration['base'];
+            }
+
             $data = [];
             $data["name"] = !empty($settings['apiName']) ? substr($settings['apiName'], 0, 25) : '';
             $data["user"] = $userName;
-            $data["url"] = $apiBaseUrl . $uri;
+            if ($apiBaseUrl != '') {
+                if ($base == '/' && substr($apiBaseUrl, -1, 1) != '/') {
+                    // in case of base = "/" whe have to add a slash to the url
+                    $apiBaseUrl .= '/';
+                }
+                $data["url"] = preg_replace('/^' . preg_quote($base, '/') . '/', $apiBaseUrl, $uri);;
+            } else {
+                $data["url"] = $uri;
+            }
             if (empty($userToken)) {
                 if ($userType == 'BE') {
                     $userToken = $this->userRepository->updateBackendUserToken($userUid);
