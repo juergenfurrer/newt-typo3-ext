@@ -290,6 +290,24 @@ Will only display a label, you can use this field for hints
    none
 
 
+DIVIDER
+-------
+Will show a divider
+
+.. code-block:: php
+
+   $divider = new Field();
+   $divider->setType(FieldType::DIVIDER);
+
+.. figure:: ../Images/Screenshot_DIVIDER.png
+   :class: with-shadow
+   :width: 600px
+   :alt: Divider-Field
+
+:Return value:
+   none
+
+
 IMAGE
 -----
 Te image-picker can be triggered from gallery or from the camera

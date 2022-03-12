@@ -8,7 +8,7 @@ Change log
 
 Version 1.9.2
 -------------
-Add dividor-field
+Add divider-field
 
 Version 1.9.1
 -------------
