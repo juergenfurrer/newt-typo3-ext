@@ -17,7 +17,7 @@ Here is a list of Extensions:
 
 .. code-block:: bash
 
-    EXT:newt4news
+   EXT:newt4news
 
 
 If you fill in the Page UID, the records created with Newt will be stored on this page.
@@ -25,15 +25,15 @@ If you fill in the Page UID, the records created with Newt will be stored on thi
 Add at least one Method
 
 .. figure:: ../../Images/backend-02.jpg
-    :class: with-shadow
-    :alt: Methods of this endpoint
+   :class: with-shadow
+   :alt: Methods of this endpoint
 
 Admin-Users will see all endpoints, all other users have to be granted by BE-Groups
 There is also a frontend-plugin available, if you like to grant the access to Newt for any FE-Users, you may add a FE-Group as well
 
 .. figure:: ../../Images/backend-03.jpg
-    :class: with-shadow
-    :alt: Grant access with groups
+   :class: with-shadow
+   :alt: Grant access with groups
 
 When this record is saved, the endpoint is configured, and the client is able to read the configuration of this endpoint
 and is able to create new records as you defined in the endpoint.

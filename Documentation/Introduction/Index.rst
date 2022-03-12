@@ -29,5 +29,5 @@ Screenshots
 ===========
 
 .. figure:: ../Images/backend-01.jpg
-    :class: with-shadow
-    :alt: Newt-Server QR-Code
+   :class: with-shadow
+   :alt: Newt-Server QR-Code

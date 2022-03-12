@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.9.2
+-------------
+Add dividor-field
+
 Version 1.9.1
 -------------
 Bugfix
