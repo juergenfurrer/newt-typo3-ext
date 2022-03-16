@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.9.3
+-------------
+Add html-field
+
 Version 1.9.2
 -------------
 Add divider-field

@@ -155,6 +155,25 @@ Multiline text-area
 :Return value:
    String
 
+HTML
+--------
+RichEditor for html-text
+
+.. code-block:: php
+
+   $textarea = new Field();
+   $textarea->setName("html");
+   $textarea->setLabel("HTML");
+   $textarea->setType(FieldType::HTML);
+
+.. figure:: ../Images/Screenshot_HTML.png
+   :class: with-shadow
+   :width: 600px
+   :alt: HTML-Field
+
+:Return value:
+   String
+
 
 CHECKBOX
 --------

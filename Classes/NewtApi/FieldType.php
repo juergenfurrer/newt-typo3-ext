@@ -27,4 +27,5 @@ class FieldType
     const QRCODE     = 'qrcode';
     const LOCATION   = 'location';
     const DIVIDER    = 'divider';
+    const HTML       = 'html';
 }
