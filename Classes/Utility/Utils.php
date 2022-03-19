@@ -40,4 +40,14 @@ class Utils
 
         return null;
     }
+
+    /**
+     * Returns a new UUID
+     *
+     * @return string
+     */
+    public static function getUuid(): string
+    {
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+    }
 }

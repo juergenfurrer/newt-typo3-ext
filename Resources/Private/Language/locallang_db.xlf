@@ -15,6 +15,9 @@
 			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class" resname="tx_newt_domain_model_endpoint.endpoint_class">
 				<source>Endpoint Class</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class.select" resname="tx_newt_domain_model_endpoint.endpoint_class.select">
+				<source> - Please select - </source>
+			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_endpoint.methods" resname="tx_newt_domain_model_endpoint.methods">
 				<source>Methods</source>
 			</trans-unit>

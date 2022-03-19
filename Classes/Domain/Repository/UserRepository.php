@@ -70,7 +70,7 @@ class UserRepository
      */
     public function updateBackendUserToken($userUid): string
     {
-        $userToken = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+        $userToken = Utils::getUuid();
         /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $connectionPool->getConnectionForTable('be_users')
@@ -88,7 +88,7 @@ class UserRepository
      */
     public function updateFrontendUserToken($userUid): string
     {
-        $userToken = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+        $userToken = Utils::getUuid();
         /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $connectionPool->getConnectionForTable('fe_users')

@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 1.9.4
+-------------
+Fix class-select
+
 Version 1.9.3
 -------------
 Add html-field
