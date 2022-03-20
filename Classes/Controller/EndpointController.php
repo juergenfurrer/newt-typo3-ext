@@ -67,11 +67,16 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function indexAction()
     {
+        /** @var ConfigurationManager */
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+        $conf = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
+
         if ($this->isFrontendRequest()) {
             // Request is from Frontend
             $userType = 'FE';
             $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
-            $userName = $GLOBALS['TSFE']->fe_user->user['username'];
+            $userName = $settings['feuserNamePrefix'] . $GLOBALS['TSFE']->fe_user->user['username'];
             $userGroups = GeneralUtility::intExplode(",", $GLOBALS['TSFE']->fe_user->user['usergroup']);
             $userToken = $GLOBALS['TSFE']->fe_user->user['tx_newt_token'];
             $tokenIssued = $GLOBALS['TSFE']->fe_user->user['tx_newt_token_issued'];
@@ -88,11 +93,6 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
         if (intval($userUid) > 0) {
-            /** @var ConfigurationManager */
-            $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
-            $conf = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-            $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
-
             $uri = $this->uriBuilder->reset()
                 ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))
                 ->setTargetPageType(intval($settings['apiTypeNum']))

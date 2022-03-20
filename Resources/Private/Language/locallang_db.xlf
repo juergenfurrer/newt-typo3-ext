@@ -63,11 +63,62 @@
 			<trans-unit id="tx_newt_domain_model_method.feusergroups" resname="tx_newt_domain_model_method.feusergroups">
 				<source>FE Usergroups</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification" resname="tx_newt_domain_model_notification">
+				<source>Notification</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.hidden" resname="tx_newt_domain_model_notification.hidden">
+				<source>Aktiv</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.title" resname="tx_newt_domain_model_notification.title">
+				<source>Title (will not be used for notification-title!)</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.message" resname="tx_newt_domain_model_notification.message">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.send_datetime" resname="tx_newt_domain_model_notification.send_datetime">
+				<source>Send datetime (empty = now)</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.result_tab" resname="tx_newt_domain_model_notification.result_tab">
+				<source>Result</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.result_datetime" resname="tx_newt_domain_model_notification.result_datetime">
+				<source>Result datetime</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.result" resname="tx_newt_domain_model_notification.result">
+				<source>Result</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.is_topic" resname="tx_newt_domain_model_notification.is_topic">
+				<source>Global message (to all subsriber)</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.be_recipient_tab" resname="tx_newt_domain_model_notification.be_recipient_tab">
+				<source>Backend Recipients</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.beusers" resname="tx_newt_domain_model_notification.beusers">
+				<source>BE-Users</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.beusergroups" resname="tx_newt_domain_model_notification.beusergroups">
+				<source>BE-Groups</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.fe_recipient_tab" resname="tx_newt_domain_model_notification.fe_recipient_tab">
+				<source>Frontend Recipients</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.feusers" resname="tx_newt_domain_model_notification.feusers">
+				<source>FE-Users</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_notification.feusergroups" resname="tx_newt_domain_model_notification.feusergroups">
+				<source>FE-Groups</source>
+			</trans-unit>
 			<trans-unit id="tx_newt_serverconfig.name" resname="tx_newt_serverconfig.name">
 				<source>FE-User Server-Config</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_serverconfig.description" resname="tx_newt_serverconfig.description">
 				<source>Shows the Server-Config for the current FE-User</source>
+			</trans-unit>
+			<trans-unit id="tx_scheduler.send_notification_task.name" resname="tx_scheduler.send_notification_task.name">
+				<source>Send Notifications</source>
+			</trans-unit>
+			<trans-unit id="tx_scheduler.send_notification_task.description" resname="tx_scheduler.send_notification_task.description">
+				<source>This task will send all open notifications</source>
 			</trans-unit>
 		</body>
 	</file>

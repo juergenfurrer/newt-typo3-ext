@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 2.0.0
+-------------
+Add notification (Push)
+
 Version 1.9.4
 -------------
 Fix class-select

@@ -15,10 +15,10 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'type',
-        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_method.gif'
+        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_method.png'
     ],
     'types' => [
-        '1' => ['showitem' => 'type, --div--;LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.user_tab, beusergroups, feusergroups, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'type, --div--;LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.user_tab, beusergroups, feusergroups, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'hidden' => [

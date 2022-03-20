@@ -96,20 +96,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         /** @var \Infonique\Newt\Domain\Model\Method $method */
         foreach ($this->getMethods() as $method) {
             if (in_array($method->getType(), $endpointImplementation->getAvailableMethodTypes())) {
-                if ($userData->getType() == "BE") {
-                    // BE-User
-                    $allowed = $userData->getIsAdmin();
-                    /** @var BackendUserGroup $methodUserGroup */
-                    foreach ($method->getBeusergroups() as $methodUserGroup) {
-                        foreach ($userData->getUsergroups() as $userGroup) {
-                            if ($userGroup == $methodUserGroup->getUid()) {
-                                $allowed = true;
-                            }
-                        }
-                    }
-                } else {
-                    // FE-User
-                }
+                $allowed = $method->isUserAllowed($userData);
 
                 if ($allowed) {
                     $shouldExport = true;

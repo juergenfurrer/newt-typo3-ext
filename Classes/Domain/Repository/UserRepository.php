@@ -29,35 +29,62 @@ class UserRepository
      * @param \TYPO3\CMS\Extbase\Mvc\Request $request
      * @return UserData|null
      */
-    public function findUserDataByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request): ?UserData
+    public function findUserDataByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request, string $feuserNamePrefix = ''): ?UserData
     {
         $user = Utils::getRequestHeader("user", $request);
         $token = Utils::getRequestHeader("token", $request);
 
-        /** @var ConnectionPool */
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $userData = $connectionPool->getConnectionForTable('be_users')->select(
-            ['uid', 'usergroup', 'admin', 'tx_newt_token', 'tx_newt_token_issued'],
-            'be_users',
-            [
-                'username' => $user,
-                'tx_newt_token' => $token,
-            ]
-        )->fetch();
-        if (is_countable($userData)) {
-            return new UserData($userData);
+        $tryBE = false;
+        $tryFE = false;
+        if (empty($feuserNamePrefix)) {
+            // try BE, then FE
+            $tryBE = true;
+            $tryFE = true;
+        } else {
+            $feuserNamePrefixLen = strlen($feuserNamePrefix);
+            if (!empty($user) && substr($user, 0, $feuserNamePrefixLen) == $feuserNamePrefix) {
+                // FE user only
+                $user = substr($user, $feuserNamePrefixLen);
+                $tryFE = true;
+            } else {
+                // BE user only
+                $tryBE = true;
+            }
         }
 
-        $userData = $connectionPool->getConnectionForTable('fe_users')->select(
-            ['uid', 'usergroup', 'tx_newt_token', 'tx_newt_token_issued'],
-            'fe_users',
-            [
-                'username' => $user,
-                'tx_newt_token' => $token,
-            ]
-        )->fetch();
-        if (is_countable($userData)) {
-            return new UserData($userData);
+        /** @var ConnectionPool */
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+
+        if ($tryBE) {
+            $userData = $connectionPool->getConnectionForTable('be_users')->select(
+                ['uid', 'usergroup', 'admin', 'tx_newt_token', 'tx_newt_token_issued'],
+                'be_users',
+                [
+                    'username' => $user,
+                    'tx_newt_token' => $token,
+                ]
+            )->fetch();
+            if (is_countable($userData)) {
+                $ud = new UserData($userData);
+                $ud->setType("BE");
+                return $ud;
+            }
+        }
+
+        if ($tryFE) {
+            $userData = $connectionPool->getConnectionForTable('fe_users')->select(
+                ['uid', 'usergroup', 'tx_newt_token', 'tx_newt_token_issued'],
+                'fe_users',
+                [
+                    'username' => $user,
+                    'tx_newt_token' => $token,
+                ]
+            )->fetch();
+            if (is_countable($userData)) {
+                $ud = new UserData($userData);
+                $ud->setType("FE");
+                return $ud;
+            }
         }
 
         return null;

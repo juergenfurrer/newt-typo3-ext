@@ -12,6 +12,10 @@ plugin.tx_newt {
     tokenExpiration =
     # cat=plugin.tx_newt/settings/070; type=int; label=File Storage-ID (if empty, the default-file-storage is used)
     fileStorageId =
+    # cat=plugin.tx_newt/settings/080; type=string; label=Loginname prefix for FE-Users
+    feuserNamePrefix = *
+    # cat=plugin.tx_newt/settings/090; type=string; label=Server-Secret (from newt.infonique.ch)
+    serverSecret =
   }
   persistence {
     # cat=plugin.tx_newt//a; type=string; label=Default storage PID

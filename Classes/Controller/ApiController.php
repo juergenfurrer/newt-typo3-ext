@@ -86,7 +86,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function endpointsAction()
     {
         /** @var UserData */
-        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid > 0) {
             $endpoints = $this->endpointRepository->findAll();
@@ -141,7 +141,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = new ResponseCreate();
 
         /** @var UserData */
-        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
@@ -276,7 +276,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = new ResponseRead();
 
         /** @var UserData */
-        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
@@ -356,7 +356,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = new ResponseUpdate();
 
         /** @var UserData */
-        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
@@ -499,7 +499,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = new ResponseDelete();
 
         /** @var UserData */
-        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;
@@ -564,7 +564,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $result = [];
 
         /** @var UserData */
-        $userData = $this->userRepository->findUserDataByRequest($this->request);
+        $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
             return;

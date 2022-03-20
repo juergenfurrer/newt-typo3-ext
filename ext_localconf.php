@@ -44,6 +44,13 @@ call_user_func(
             'class' => \Infonique\Newt\Form\Element\NewtEndpointHintElement::class,
         ];
 
+        // Tasks
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Infonique\Newt\Task\SendNotificationTask::class] = array(
+            'extension' => $extKey,
+            'title' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_scheduler.send_notification_task.name',
+            'description' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_scheduler.send_notification_task.description'
+        );
+
         /** @var \TYPO3\CMS\Core\Imaging\IconRegistry */
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
         $iconRegistry->registerIcon(
