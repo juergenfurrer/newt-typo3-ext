@@ -19,4 +19,14 @@ namespace Infonique\Newt\Domain\Repository;
  */
 class MethodRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+    /**
+     * Sets this Repo to ignore the StoragePage and SysLanguage
+     */
+    public function setDetachedQuerySettings()
+    {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setRespectStoragePage(FALSE);
+        $querySettings->setRespectSysLanguage(FALSE);
+        $this->setDefaultQuerySettings($querySettings);
+    }
 }

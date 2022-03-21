@@ -25,6 +25,17 @@ class NotificationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     protected $defaultOrderings = ['sendDatetime' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
 
     /**
+     * Sets this Repo to ignore the StoragePage and SysLanguage
+     */
+    public function setDetachedQuerySettings()
+    {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setRespectStoragePage(FALSE);
+        $querySettings->setRespectSysLanguage(FALSE);
+        $this->setDefaultQuerySettings($querySettings);
+    }
+
+    /**
      * Find all pending messages
      *
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|object[]

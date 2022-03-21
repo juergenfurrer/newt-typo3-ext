@@ -2,6 +2,12 @@
 
 namespace Infonique\Newt\Utility;
 
+use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+
 /***
  *
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -39,6 +45,46 @@ class Utils
         }
 
         return null;
+    }
+
+    /**
+     * Returns the ApiUrl
+     *
+     * @return string
+     */
+    public static function getApiUrl(UriBuilder $uriBuilder): string
+    {
+        /** @var ConfigurationManager */
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+        $conf = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
+
+        $uri = $uriBuilder->reset()
+                ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))
+                ->setTargetPageType(intval($settings['apiTypeNum']))
+                ->setCreateAbsoluteUri(true)
+                ->buildFrontendUri();
+        $apiBaseUrl = trim($settings['apiBaseUrl'] ?? '');
+
+        $base = '/';
+        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+        $sites = $siteFinder->getAllSites();
+
+        // Get first site
+        if ($site = reset($sites)) {
+            $configuration = $site->getConfiguration();
+            $base = $configuration['base'];
+        }
+
+        if ($apiBaseUrl != '') {
+            if ($base == '/' && substr($apiBaseUrl, -1, 1) != '/') {
+                // in case of base = "/" we have to add a slash to the url
+                $apiBaseUrl .= '/';
+            }
+            return preg_replace('/^' . preg_quote($base, '/') . '/', $apiBaseUrl, $uri);;
+        } else {
+            return $uri;
+        }
     }
 
     /**

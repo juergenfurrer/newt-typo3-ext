@@ -15,15 +15,15 @@ namespace Infonique\Newt\Domain\Repository;
  */
 
 /**
- * The repository for Endpoints
+ * The repository for BackendUser
  */
-class EndpointRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class BackendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
 {
 
     /**
      * @var array
      */
-    protected $defaultOrderings = ['sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING];
+    protected $defaultOrderings = ['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
 
     /**
      * Sets this Repo to ignore the StoragePage and SysLanguage
@@ -34,5 +34,21 @@ class EndpointRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $querySettings->setRespectStoragePage(FALSE);
         $querySettings->setRespectSysLanguage(FALSE);
         $this->setDefaultQuerySettings($querySettings);
+    }
+
+    /**
+     * Finds all users matching the given UserGroup ID
+     *
+     * @param string $usergroup_id
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<\Infonique\Newt\Domain\Model\BackendUser>
+     */
+    public function findByUsergroupId($usergroup_id)
+    {
+        $query = $this->createQuery();
+        $query = $query->matching(
+            $query->contains('backendUserGroups', $usergroup_id),
+        );
+
+        return $query->execute();
     }
 }

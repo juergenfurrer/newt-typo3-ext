@@ -8,8 +8,8 @@ use DateTimeZone;
 use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\Domain\Model\Method;
 use Infonique\Newt\Domain\Model\UserData;
+use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Http\ApplicationType;
-use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -93,34 +93,10 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
         if (intval($userUid) > 0) {
-            $uri = $this->uriBuilder->reset()
-                ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))
-                ->setTargetPageType(intval($settings['apiTypeNum']))
-                ->setCreateAbsoluteUri(true)
-                ->buildFrontendUri();
-            $apiBaseUrl = trim($settings['apiBaseUrl'] ?? '');
-
-            $base = '/';
-            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-            $sites = $siteFinder->getAllSites();
-            // Get first site
-            if ($site = reset($sites)) {
-                $configuration = $site->getConfiguration();
-                $base = $configuration['base'];
-            }
-
             $data = [];
             $data["name"] = !empty($settings['apiName']) ? substr($settings['apiName'], 0, 25) : '';
             $data["user"] = $userName;
-            if ($apiBaseUrl != '') {
-                if ($base == '/' && substr($apiBaseUrl, -1, 1) != '/') {
-                    // in case of base = "/" whe have to add a slash to the url
-                    $apiBaseUrl .= '/';
-                }
-                $data["url"] = preg_replace('/^' . preg_quote($base, '/') . '/', $apiBaseUrl, $uri);;
-            } else {
-                $data["url"] = $uri;
-            }
+            $data["url"] = Utils::getApiUrl($this->uriBuilder);
             if (empty($userToken)) {
                 if ($userType == 'BE') {
                     $userToken = $this->userRepository->updateBackendUserToken($userUid);
