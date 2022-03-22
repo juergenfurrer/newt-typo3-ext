@@ -1,3 +1,6 @@
+## Custom Sub-Categories
+# customsubcategory=newt_server=LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:configuration_customSubCategories_server
+
 plugin.tx_newt {
   settings {
     # cat=plugin.tx_newt/settings/010; type=string; label=Name of this API, this will be sent to the client, the user is able to change it (optional)
@@ -14,7 +17,10 @@ plugin.tx_newt {
     fileStorageId =
     # cat=plugin.tx_newt/settings/080; type=string; label=Loginname prefix for FE-Users
     feuserNamePrefix = *
-    # cat=plugin.tx_newt/settings/090; type=string; label=Server-Secret (from newt.infonique.ch)
+
+    # cat=plugin.tx_newt/newt_server/010; type=string; label=Server-Topic (eg example.com / Get from newt.infonique.ch)
+    serverTopic =
+    # cat=plugin.tx_newt/newt_server/020; type=string; label=Server-Secret (Get from newt.infonique.ch)
     serverSecret =
   }
   persistence {

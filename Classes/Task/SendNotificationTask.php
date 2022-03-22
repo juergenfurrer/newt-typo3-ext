@@ -12,12 +12,9 @@ use Infonique\Newt\Domain\Model\Notification;
 use Infonique\Newt\Domain\Repository\BackendUserRepository;
 use Infonique\Newt\Domain\Repository\FrontendUserRepository;
 use Infonique\Newt\Domain\Repository\NotificationRepository;
-use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class SendNotificationTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
@@ -52,11 +49,11 @@ class SendNotificationTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
                 foreach ($notifications as $notification) {
                     $currentNotification = $notification;
                     try {
-                        /** @var ObjectManager */
-                        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-                        $uriBuilder = $objectManager->get(UriBuilder::class);
-                        $url = Utils::getApiUrl($uriBuilder);
-                        $host = parse_url($url, PHP_URL_HOST);
+                        /** @var ConfigurationManager */
+                        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+                        $conf = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+                        $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
+                        $host = $settings['serverTopic'];
                         // Topic
                         if ($notification->getIsTopic()) {
                             $res = $this->sendNotificationTopic($host, $host, $notification->getMessage());

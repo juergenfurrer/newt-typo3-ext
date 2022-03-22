@@ -120,6 +120,9 @@
 			<trans-unit id="tx_scheduler.send_notification_task.description" resname="tx_scheduler.send_notification_task.description">
 				<source>This task will send all open notifications</source>
 			</trans-unit>
+			<trans-unit id="configuration_customSubCategories_server" resname="configuration_customSubCategories_server">
+				<source>Newt-Account</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
