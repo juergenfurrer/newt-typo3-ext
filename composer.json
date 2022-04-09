@@ -2,12 +2,12 @@
     "name": "infonique/newt",
     "type": "typo3-cms-extension",
     "description": "Backend-Extension to manage the Newt-Access",
-	"homepage": "https://extensions.typo3.org/extension/newt",
-	"support": {
-		"docs": "https://docs.typo3.org/p/infonique/newt/main/en-us/",
-		"issues": "https://github.com/juergenfurrer/newt-typo3-ext/issues",
-		"source": "https://github.com/juergenfurrer/newt-typo3-ext"
-	},
+    "homepage": "https://extensions.typo3.org/extension/newt",
+    "support": {
+        "docs": "https://docs.typo3.org/p/infonique/newt/main/en-us/",
+        "issues": "https://github.com/juergenfurrer/newt-typo3-ext/issues",
+        "source": "https://github.com/juergenfurrer/newt-typo3-ext"
+    },
     "authors": [
         {
             "name": "Juergen Furrer",
