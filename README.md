@@ -1,7 +1,7 @@
 [![Latest Stable Version](https://poser.pugx.org/infonique/newt/v/stable.svg)](https://extensions.typo3.org/extension/newt/)
 [![TYPO3 11](https://img.shields.io/badge/TYPO3-11-orange.svg?style=flat-square)](https://get.typo3.org/version/11)
 [![TYPO3 10](https://img.shields.io/badge/TYPO3-10-orange.svg?style=flat-square)](https://get.typo3.org/version/10)
-[![Total Downloads](https://poser.pugx.org/infonique/newt/d/total.svg)](https://packagist.org/packages/infonique/newt)
+[![Total Downloads](https://poser.pugx.org/infonique/newt/d/total)](https://packagist.org/packages/infonique/newt)
 [![Monthly Downloads](https://poser.pugx.org/infonique/newt/d/monthly)](https://packagist.org/packages/infonique/newt)
 
 # TYPO3 extension `newt`
