@@ -32,7 +32,10 @@ CREATE TABLE tx_newt_domain_model_endpoint (
 	description text NOT NULL DEFAULT '',
 	endpoint_class varchar(255) NOT NULL DEFAULT '',
 	methods int(11) unsigned NOT NULL DEFAULT '0',
-	page_uid varchar(11) NOT NULL DEFAULT ''
+	page_uid varchar(11) NOT NULL DEFAULT '',
+	option1 varchar(255) NOT NULL DEFAULT '',
+	option2 varchar(255) NOT NULL DEFAULT '',
+	option3 varchar(255) NOT NULL DEFAULT ''
 );
 
 CREATE TABLE tx_newt_domain_model_notification (

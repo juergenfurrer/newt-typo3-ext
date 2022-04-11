@@ -7,6 +7,21 @@ namespace Infonique\Newt\NewtApi;
 interface EndpointInterface
 {
     /**
+     * Pass the EndpointOptions to the class
+     *
+     * @param EndpointOptions $endpointOptions
+     * @return void
+     */
+    public function setEndpointOptions(EndpointOptions $endpointOptions): void;
+
+    /**
+     * Returns the hint for EndpointOptions
+     *
+     * @return string|null
+     */
+    public function getEndpointOptionsHint(): ?string;
+
+    /**
      * Create new Item
      *
      * @param MethodCreateModel $model

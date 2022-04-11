@@ -20,16 +20,20 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'name,description,endpoint_class',
+        'searchFields' => 'name,description,endpoint_class,option1,option2,option3',
         'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_endpoint.png'
     ],
     'types' => [
-        '1' => ['showitem' => 'name, description, --palette--;;endpointPalette, page_uid, methods, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'name, description, --palette--;;endpointPalette, --palette--;;optionsPalette, page_uid, methods, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'palettes' => [
         'endpointPalette' => [
            'label' => '',
            'showitem' => 'endpoint_class, endpoint_hint',
+        ],
+        'optionsPalette' => [
+           'label' => '',
+           'showitem' => 'option1, option2, option3, options_hint',
         ],
      ],
     'columns' => [
@@ -148,13 +152,50 @@ return [
                 'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getNewtClasses',
             ],
         ],
-        'endpoint_hint' => array(
+        'endpoint_hint' => [
             'exclude' => FALSE,
-            'config' => array(
+            'config' => [
                 'type' => 'user',
                 'renderType' => 'NewtEndpointHintElement'
-            )
-        ),
+            ]
+        ],
+        'option1' => [
+            'exclude' => true,
+            'label' => $languageFile . 'tx_newt_domain_model_endpoint.option1',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+                'default' => ''
+            ],
+        ],
+        'option2' => [
+            'exclude' => true,
+            'label' => $languageFile . 'tx_newt_domain_model_endpoint.option2',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+                'default' => ''
+            ],
+        ],
+        'option3' => [
+            'exclude' => true,
+            'label' => $languageFile . 'tx_newt_domain_model_endpoint.option3',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+                'default' => ''
+            ],
+        ],
+        'options_hint' => [
+            'exclude' => FALSE,
+            'config' => [
+                'type' => 'user',
+                'renderType' => 'NewtEndpointOptionsHintElement'
+            ]
+        ],
         'page_uid' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',

@@ -43,6 +43,11 @@ call_user_func(
             'priority' => 40,
             'class' => \Infonique\Newt\Form\Element\NewtEndpointHintElement::class,
         ];
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['1649659670'] = [
+            'nodeName' => 'NewtEndpointOptionsHintElement',
+            'priority' => 40,
+            'class' => \Infonique\Newt\Form\Element\NewtEndpointOptionsHintElement::class,
+        ];
 
         // Tasks
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Infonique\Newt\Task\SendNotificationTask::class] = array(
