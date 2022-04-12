@@ -468,3 +468,22 @@ Mini-Map to chose the current-location of the user
    String (lat,lng,accuracy)
 
 
+COLOR
+--------
+Color-Picker
+
+.. code-block:: php
+
+   $location = new Field();
+   $location->setName("color");
+   $location->setLabel("Color");
+   $location->setType(FieldType::COLOR);
+
+.. figure:: ../Images/Screenshot_COLOR.png
+   :class: with-shadow
+   :width: 600px
+   :alt: Color-Field
+
+:Return value:
+   String (HEX-Color eg: #FF00FF)
+
