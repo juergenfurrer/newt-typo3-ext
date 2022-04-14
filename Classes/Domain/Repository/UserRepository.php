@@ -27,9 +27,10 @@ class UserRepository
      * Find user-data from the request (header)
      *
      * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     * @param string|null $feuserNamePrefix
      * @return UserData|null
      */
-    public function findUserDataByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request, string $feuserNamePrefix = ''): ?UserData
+    public function findUserDataByRequest(\TYPO3\CMS\Extbase\Mvc\Request $request, ?string $feuserNamePrefix = null): ?UserData
     {
         $user = Utils::getRequestHeader("user", $request);
         $token = Utils::getRequestHeader("token", $request);

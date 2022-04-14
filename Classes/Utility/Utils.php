@@ -60,10 +60,10 @@ class Utils
         $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
 
         $uri = $uriBuilder->reset()
-                ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))
-                ->setTargetPageType(intval($settings['apiTypeNum']))
-                ->setCreateAbsoluteUri(true)
-                ->buildFrontendUri();
+            ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))
+            ->setTargetPageType(intval($settings['apiTypeNum']))
+            ->setCreateAbsoluteUri(true)
+            ->buildFrontendUri();
         $apiBaseUrl = trim($settings['apiBaseUrl'] ?? '');
 
         $base = '/';
@@ -84,6 +84,51 @@ class Utils
             return preg_replace('/^' . preg_quote($base, '/') . '/', $apiBaseUrl, $uri);;
         } else {
             return $uri;
+        }
+    }
+
+    /**
+     * REturns the maximum upload size in Bytes
+     *
+     * @return integer
+     */
+    public static function getFileUploadMaxSize(): int
+    {
+        static $max_size = -1;
+
+        if ($max_size < 0) {
+            // Start with post_max_size.
+            $post_max_size = Utils::parseIniSize(ini_get('post_max_size'));
+            if ($post_max_size > 0) {
+                $max_size = $post_max_size;
+            }
+
+            // If upload_max_size is less, then reduce. Except if upload_max_size is
+            // zero, which indicates no limit.
+            $upload_max = Utils::parseIniSize(ini_get('upload_max_filesize'));
+            if ($upload_max > 0 && $upload_max < $max_size) {
+                $max_size = $upload_max;
+            }
+        }
+
+        return $max_size;
+    }
+
+    /**
+     * Parse the ini-setting to bytes
+     *
+     * @param string $size
+     * @return integer
+     */
+    public static function parseIniSize($size): int
+    {
+        $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+        $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+        if ($unit) {
+            // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+            return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+        } else {
+            return round($size);
         }
     }
 

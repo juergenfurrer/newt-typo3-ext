@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infonique\Newt\Domain\Model;
 
+use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -90,6 +91,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $endpoint->setUid($this->getUid());
         $endpoint->setName($this->getName());
         $endpoint->setDescription($this->getDescription());
+        $endpoint->setMaxAllowedBytes(Utils::getFileUploadMaxSize());
 
         /** @var \Infonique\Newt\NewtApi\Configuration */
         $configuration = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Configuration::class);

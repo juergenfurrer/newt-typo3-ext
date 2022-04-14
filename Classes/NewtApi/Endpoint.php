@@ -12,6 +12,8 @@ class Endpoint
 
     protected string $description = '';
 
+    protected int $maxAllowedBytes = 0;
+
     protected ?Configuration $configuration = null;
 
 
@@ -26,6 +28,7 @@ class Endpoint
         $data["uid"] = $this->getUid();
         $data["name"] = $this->getName();
         $data["description"] = $this->getDescription();
+        $data["maxAllowedBytes"] = $this->getMaxAllowedBytes();
         if ($this->configuration) {
             $data["configuration"] = $this->configuration->getData();
         }
@@ -100,6 +103,30 @@ class Endpoint
     public function setDescription(string $description): self
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Get the value of maxAllowedBytes
+     *
+     * @return int
+     */
+    public function getMaxAllowedBytes(): int
+    {
+        return $this->maxAllowedBytes;
+    }
+
+    /**
+     * Set the value of maxAllowedBytes
+     *
+     * @param int $maxAllowedBytes
+     *
+     * @return self
+     */
+    public function setMaxAllowedBytes(int $maxAllowedBytes): self
+    {
+        $this->maxAllowedBytes = $maxAllowedBytes;
+
         return $this;
     }
 
