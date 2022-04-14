@@ -31,6 +31,10 @@ class FieldValidation
             $data["pattern"] = $this->getPattern();
         }
 
+        if (count($data) == 0) {
+            return null;
+        }
+
         return (object)$data;
     }
 

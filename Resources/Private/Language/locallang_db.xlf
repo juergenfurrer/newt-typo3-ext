@@ -18,6 +18,21 @@
 			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class.select" resname="tx_newt_domain_model_endpoint.endpoint_class.select">
 				<source> - Please select - </source>
 			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.option1" resname="tx_newt_domain_model_endpoint.option1">
+				<source>Option1</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.option2" resname="tx_newt_domain_model_endpoint.option2">
+				<source>Option2</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.option3" resname="tx_newt_domain_model_endpoint.option3">
+				<source>Option3</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.options_hint" resname="tx_newt_domain_model_endpoint.options_hint">
+				<source>Options-Hint:</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.options_hint_none" resname="tx_newt_domain_model_endpoint.options_hint_none">
+				<source>No options needed</source>
+			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_endpoint.methods" resname="tx_newt_domain_model_endpoint.methods">
 				<source>Methods</source>
 			</trans-unit>

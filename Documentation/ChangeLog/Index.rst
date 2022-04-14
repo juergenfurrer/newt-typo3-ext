@@ -6,9 +6,14 @@
 Change log
 ==========
 
+Version 2.1.0
+-------------
+Add color-field
+
 Version 2.0.0
 -------------
 Add notification (Push)
+Add options for additional settings
 
 Version 1.9.4
 -------------

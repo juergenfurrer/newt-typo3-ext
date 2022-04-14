@@ -72,9 +72,9 @@ class MethodUpdateModel
     /**
      * Get the value of params
      *
-     * @return string
+     * @return mixed
      */
-    public function getParam(string $key): string
+    public function getParam(string $key)
     {
         if (isset($this->params[$key])) {
             return $this->params[$key];

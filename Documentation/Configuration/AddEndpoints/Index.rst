@@ -17,8 +17,11 @@ Here is a list of Extensions:
 
 .. code-block:: bash
 
+   EXT:newt4dce
    EXT:newt4news
 
+
+Some extensions need options, see the hint in the options-pallette for more informations.
 
 If you fill in the Page UID, the records created with Newt will be stored on this page.
 

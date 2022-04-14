@@ -28,4 +28,5 @@ class FieldType
     const LOCATION   = 'location';
     const DIVIDER    = 'divider';
     const HTML       = 'html';
+    const COLOR      = 'color';
 }

@@ -31,12 +31,8 @@ class Configuration
         }
 
         $data = [];
-        if (count($methods) > 0) {
-            $data["methods"] = $methods;
-        }
-        if (count($fields) > 0) {
-            $data["fields"] = $fields;
-        }
+        $data["methods"] = $methods;
+        $data["fields"] = $fields;
 
         return (object)$data;
     }
