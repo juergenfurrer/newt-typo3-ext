@@ -9,6 +9,7 @@ Change log
 Version 2.1.0
 -------------
 Add color-field
+Introduce new interface
 
 Version 2.0.0
 -------------
