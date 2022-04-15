@@ -6,7 +6,7 @@
 Fields
 ======
 
-Here's an example of the method "getAvailableFields"
+Here's an example of the method :code:`getAvailableFields`
 
 .. code-block:: php
 

@@ -6,7 +6,7 @@
 Available Method Types
 ======================
 
-Here's an example of the method "getAvailableMethodTypes"
+Here's an example of the method :code:`getAvailableMethodTypes`
 
 .. code-block:: php
 
