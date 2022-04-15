@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Infonique\Newt\Domain\Model;
 
 use Infonique\Newt\Utility\Utils;
-use Infonique\Newt\NewtApi\EndpointOptions;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -48,15 +47,6 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $endpointClass = '';
 
-    /** @var string */
-    protected $option1 = '';
-
-    /** @var string */
-    protected $option2 = '';
-
-    /** @var string */
-    protected $option3 = '';
-
     /**
      * pageUid
      *
@@ -67,10 +57,18 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * methods
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\Method>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\Method>
      */
     protected $methods = null;
+
+    /**
+     * options
+     *
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\EndpointOption>
+     */
+    protected $options = null;
 
 
     /**
@@ -94,9 +92,13 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
         $shouldExport = false;
 
-        /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+        /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
         $endpointImplementation = GeneralUtility::makeInstance($className);
-        $endpointImplementation->setEndpointOptions($this->getEndpointOptions());
+        if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+            foreach ($this->getOptions() as $option) {
+                $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
+            }
+        }
 
         /** @var \Infonique\Newt\NewtApi\Endpoint */
         $endpoint = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Endpoint::class);
@@ -161,6 +163,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function initializeObject()
     {
         $this->methods = $this->methods ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->options = $this->options ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -257,11 +260,33 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the methods
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\Method> $methods
-     * @return void
+     * @return self
      */
-    public function setMethods(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $methods)
+    public function setMethods(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $methods): self
     {
         $this->methods = $methods;
+        return $this;
+    }
+
+    /**
+     * Get the value of options
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\EndpointOption> $methods
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Set the value of options
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\EndpointOption> $methods
+     */
+    public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options): self
+    {
+        $this->options = $options;
+        return $this;
     }
 
     /**
@@ -300,76 +325,5 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setEndpointClass(string $endpointClass)
     {
         $this->endpointClass = $endpointClass;
-    }
-
-    /**
-     * Returns the options as EndpointOptions
-     *
-     * @return EndpointOptions
-     */
-    public function getEndpointOptions(): EndpointOptions
-    {
-        $endpointOptions = new EndpointOptions();
-        $endpointOptions->setOption1($this->getOption1() ?? '');
-        $endpointOptions->setOption2($this->getOption2() ?? '');
-        $endpointOptions->setOption3($this->getOption3() ?? '');
-        return $endpointOptions;
-    }
-
-    /**
-     * Get the value of option1
-     */
-    public function getOption1()
-    {
-        return $this->option1;
-    }
-
-    /**
-     * Set the value of option1
-     *
-     * @return  self
-     */
-    public function setOption1($option1)
-    {
-        $this->option1 = $option1;
-        return $this;
-    }
-
-    /**
-     * Get the value of option2
-     */
-    public function getOption2()
-    {
-        return $this->option2;
-    }
-
-    /**
-     * Set the value of option2
-     *
-     * @return  self
-     */
-    public function setOption2($option2)
-    {
-        $this->option2 = $option2;
-        return $this;
-    }
-
-    /**
-     * Get the value of option3
-     */
-    public function getOption3()
-    {
-        return $this->option3;
-    }
-
-    /**
-     * Set the value of option3
-     *
-     * @return  self
-     */
-    public function setOption3($option3)
-    {
-        $this->option3 = $option3;
-        return $this;
     }
 }

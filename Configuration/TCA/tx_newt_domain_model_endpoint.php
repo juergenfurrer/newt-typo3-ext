@@ -20,7 +20,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'name,description,endpoint_class,option1,option2,option3',
+        'searchFields' => 'name,description,endpoint_class',
         'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_endpoint.png'
     ],
     'types' => [
@@ -33,7 +33,7 @@ return [
         ],
         'optionsPalette' => [
            'label' => '',
-           'showitem' => 'option1, option2, option3, options_hint',
+           'showitem' => 'options, options_hint',
         ],
      ],
     'columns' => [
@@ -159,34 +159,21 @@ return [
                 'renderType' => 'NewtEndpointHintElement'
             ]
         ],
-        'option1' => [
-            'exclude' => true,
-            'label' => $languageFile . 'tx_newt_domain_model_endpoint.option1',
+        'options' => [
+            'exclude' => false,
+            'label' => $languageFile . 'tx_newt_domain_model_endpoint.options',
             'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
-                'default' => ''
-            ],
-        ],
-        'option2' => [
-            'exclude' => true,
-            'label' => $languageFile . 'tx_newt_domain_model_endpoint.option2',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
-                'default' => ''
-            ],
-        ],
-        'option3' => [
-            'exclude' => true,
-            'label' => $languageFile . 'tx_newt_domain_model_endpoint.option3',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
-                'default' => ''
+                'type' => 'inline',
+                'foreign_table' => 'tx_newt_domain_model_endpointoption',
+                'foreign_field' => 'endpoint',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
             ],
         ],
         'options_hint' => [
@@ -225,7 +212,7 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_newt_domain_model_method',
                 'foreign_field' => 'endpoint',
-                'maxitems' => 9999,
+                'maxitems' => 99,
                 'appearance' => [
                     'collapseAll' => 0,
                     'levelLinksPosition' => 'top',
@@ -235,6 +222,5 @@ return [
                 ],
             ],
         ],
-
     ],
 ];

@@ -172,9 +172,13 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                        /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
                         $endpointImplementation = GeneralUtility::makeInstance($className);
-                        $endpointImplementation->setEndpointOptions($endpoint->getEndpointOptions());
+                        if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                            foreach ($endpoint->getOptions() as $option) {
+                                $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
+                            }
+                        }
                         $prams = [];
                         $isValid = true;
                         $hasFileError = false;
@@ -310,9 +314,13 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $readId = Utils::getRequestHeader("readId", $this->request);
                         if (!empty($readId)) {
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                            /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = GeneralUtility::makeInstance($className);
-                            $endpointImplementation->setEndpointOptions($endpoint->getEndpointOptions());
+                            if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                                foreach ($endpoint->getOptions() as $option) {
+                                    $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
+                                }
+                            }
                             $methodReadModel = new MethodReadModel();
                             $methodReadModel->setReadId($readId);
                             $item = $endpointImplementation->methodRead($methodReadModel);
@@ -391,9 +399,13 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $updateId = Utils::getRequestHeader("updateId", $this->request);
                         if (!empty($updateId)) {
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                            /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = GeneralUtility::makeInstance($className);
-                            $endpointImplementation->setEndpointOptions($endpoint->getEndpointOptions());
+                            if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                                foreach ($endpoint->getOptions() as $option) {
+                                    $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
+                                }
+                            }
                             $prams = [];
                             $isValid = true;
                             $hasFileError = false;
@@ -535,9 +547,13 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $deleteId = Utils::getRequestHeader("deleteId", $this->request);
                         if (!empty($deleteId)) {
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                            /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = GeneralUtility::makeInstance($className);
-                            $endpointImplementation->setEndpointOptions($endpoint->getEndpointOptions());
+                            if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                                foreach ($endpoint->getOptions() as $option) {
+                                    $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
+                                }
+                            }
                             $methodDeleteModel = new MethodDeleteModel();
                             $methodDeleteModel->setDeleteId($deleteId);
                             $res = $endpointImplementation->methodDelete($methodDeleteModel);
@@ -599,9 +615,13 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        /** @var \Infonique\Newt\NewtApi\EndpointInterface */
+                        /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
                         $endpointImplementation = GeneralUtility::makeInstance($className);
-                        $endpointImplementation->setEndpointOptions($endpoint->getEndpointOptions());
+                        if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                            foreach ($endpoint->getOptions() as $option) {
+                                $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
+                            }
+                        }
                         $methodListModel = new MethodListModel();
                         $methodListModel->setBackendUserUid($userUid);
                         $methodListModel->setPageUid($endpoint->getPageUid());

@@ -18,15 +18,6 @@
 			<trans-unit id="tx_newt_domain_model_endpoint.endpoint_class.select" resname="tx_newt_domain_model_endpoint.endpoint_class.select">
 				<source> - Please select - </source>
 			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.option1" resname="tx_newt_domain_model_endpoint.option1">
-				<source>Option1</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.option2" resname="tx_newt_domain_model_endpoint.option2">
-				<source>Option2</source>
-			</trans-unit>
-			<trans-unit id="tx_newt_domain_model_endpoint.option3" resname="tx_newt_domain_model_endpoint.option3">
-				<source>Option3</source>
-			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_endpoint.options_hint" resname="tx_newt_domain_model_endpoint.options_hint">
 				<source>Options-Hint:</source>
 			</trans-unit>
@@ -60,8 +51,20 @@
 			<trans-unit id="tx_newt_domain_model_endpoint.name" resname="tx_newt_domain_model_endpoint.name">
 				<source>Name</source>
 			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpoint.options" resname="tx_newt_domain_model_endpoint.options">
+				<source>Options</source>
+			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_endpoint.page_uid" resname="tx_newt_domain_model_endpoint.page_uid">
 				<source>Page UID</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpointoption" resname="tx_newt_domain_model_endpointoption">
+				<source>Endpoint option</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpointoption.option_name" resname="tx_newt_domain_model_endpointoption.option_name">
+				<source>Option name</source>
+			</trans-unit>
+			<trans-unit id="tx_newt_domain_model_endpointoption.option_value" resname="tx_newt_domain_model_endpointoption.option_value">
+				<source>Option value</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_method" resname="tx_newt_domain_model_method">
 				<source>Method</source>

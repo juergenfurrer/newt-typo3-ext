@@ -5,9 +5,10 @@ namespace Infonique\Newt\Utility;
 use Infonique\Newt\Domain\Model\Endpoint;
 use Infonique\Newt\Domain\Repository\EndpointRepository;
 use Infonique\Newt\NewtApi\EndpointInterface;
+use Infonique\Newt\NewtApi\EndpointOptionsInterface;
 use ReflectionClass;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***
  *
@@ -53,10 +54,8 @@ class TcaHelper
 
         $endpointUid = intval($configuration['row']['endpoint']);
         if ($endpointUid > 0) {
-            /** @var ObjectManager */
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             /** @var EndpointRepository */
-            $endpointRepository = $objectManager->get(EndpointRepository::class);
+            $endpointRepository = GeneralUtility::makeInstance(EndpointRepository::class);
             /** @var Endpoint */
             $endpoint = $endpointRepository->findByUid($endpointUid);
             if ($endpoint && !empty($endpoint->getEndpointClass())) {
@@ -73,5 +72,44 @@ class TcaHelper
                 }
             }
         }
+    }
+
+    /**
+     * Returns the needed options of the selected endpoint
+     *
+     * @param array $configuration
+     * @return void
+     */
+    public function getAvailableOptions(array &$configuration)
+    {
+        $endpointUid = intval($configuration['row']['endpoint']);
+        if ($endpointUid > 0) {
+            /** @var EndpointRepository */
+            $endpointRepository = GeneralUtility::makeInstance(EndpointRepository::class);
+            /** @var Endpoint */
+            $endpoint = $endpointRepository->findByUid($endpointUid);
+            if ($endpoint && !empty($endpoint->getEndpointClass())) {
+                /** @var EndpointOptionsInterface */
+                $endpointClass = GeneralUtility::makeInstance($endpoint->getEndpointClass());
+                if ($endpointClass instanceof EndpointOptionsInterface) {
+                    foreach ($endpointClass->getNeededOptions() as $key => $val) {
+                        $configuration['items'][] = [$key, $val];
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the title for options
+     *
+     * @param array $parameters
+     * @return void
+     */
+    public function optionsTitle(&$parameters)
+    {
+        $record = BackendUtility::getRecord($parameters['table'], $parameters['row']['uid']);
+        $newTitle = $record['option_name'] . ' = ' . $record['option_value'];
+        $parameters['title'] = $newTitle;
     }
 }
