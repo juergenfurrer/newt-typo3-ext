@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 2.1.1
+-------------
+Use SHA-256 instead of MD5
+
 Version 2.1.0
 -------------
 Add color-field
