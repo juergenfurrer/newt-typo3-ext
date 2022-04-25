@@ -65,28 +65,28 @@ class SendNotificationTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
                             foreach ($notification->getBeusers() as $beuser) {
                                 $backendUser = $backendUserRepository->findByUid($beuser->getUid());
                                 if ($backendUser) {
-                                    $userHashes[] = md5($backendUser->getUserName());
+                                    $userHashes[] = hash('sha256', $backendUser->getUserName());
                                 }
                             }
                             /** @var FrontendUser $feuser */
                             foreach ($notification->getFeusers() as $feuser) {
                                 $frontendUser = $frontendUserRepository->findByUid($feuser->getUid());
                                 if ($frontendUser) {
-                                    $userHashes[] = md5($frontendUser->getUserName());
+                                    $userHashes[] = hash('sha256', $frontendUser->getUserName());
                                 }
                             }
                             /** @var BackendUserGroup $beusergroup */
                             foreach ($notification->getBeusergroups() as $beusergroup) {
                                 $backendUsers = $backendUserRepository->findByUsergroupId($beusergroup->getUid());
                                 foreach ($backendUsers as $backendUser) {
-                                    $userHashes[] = md5($backendUser->getUserName());
+                                    $userHashes[] = hash('sha256', $backendUser->getUserName());
                                 }
                             }
                             /** @var FrontendUserGroup $feusergroup */
                             foreach ($notification->getFeusergroups() as $feusergroup) {
                                 $frontendUsers = $frontendUserRepository->findByUsergroupId($feusergroup->getUid());
                                 foreach ($frontendUsers as $frontendUser) {
-                                    $userHashes[] = md5($frontendUser->getUserName());
+                                    $userHashes[] = hash('sha256', $frontendUser->getUserName());
                                 }
                             }
                             $res = $this->sendNotificationUsers($host, array_unique($userHashes), $notification->getMessage());
