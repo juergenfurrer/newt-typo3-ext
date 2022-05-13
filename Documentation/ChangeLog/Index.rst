@@ -6,7 +6,7 @@
 Change log
 ==========
 
-Version 2.1.1
+Version 2.1.2
 -------------
 Use SHA-256 instead of MD5
 
