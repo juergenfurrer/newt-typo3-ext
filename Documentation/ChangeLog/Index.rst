@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 2.1.3
+-------------
+Add log to API-Calls
+
 Version 2.1.2
 -------------
 Use SHA-256 instead of MD5

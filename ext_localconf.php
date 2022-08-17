@@ -56,6 +56,13 @@ call_user_func(
             'description' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_scheduler.send_notification_task.description'
         );
 
+        // LOG
+        $GLOBALS['TYPO3_CONF_VARS']['LOG']['Infonique']['Newt']['Controller']['writerConfiguration'][\TYPO3\CMS\Core\Log\LogLevel::DEBUG] = [
+            \TYPO3\CMS\Core\Log\Writer\DatabaseWriter::class => [
+                'logTable' => 'tx_newt_log'
+            ],
+        ];
+
         /** @var \TYPO3\CMS\Core\Imaging\IconRegistry */
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
         $iconRegistry->registerIcon(

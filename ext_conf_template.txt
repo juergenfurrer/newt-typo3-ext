@@ -1,0 +1,2 @@
+# cat=Debug/010; type=boolean; label=Debug-Log
+debugLog = 0

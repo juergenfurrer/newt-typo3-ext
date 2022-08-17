@@ -128,3 +128,4 @@ Routing example
     :titlesonly:
 
     AddEndpoints/Index
+    ExtensionConfiguration/Index

@@ -21,6 +21,9 @@ use Infonique\Newt\NewtApi\ResponseList;
 use Infonique\Newt\NewtApi\ResponseRead;
 use Infonique\Newt\NewtApi\ResponseUpdate;
 use Infonique\Newt\Utility\Utils;
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogLevel;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -79,6 +82,54 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * Extension-Config
+     *
+     * @var array
+     */
+    private array $extConf = [];
+
+    /**
+     * Logger
+     *
+     * @var Logger
+     */
+    private Logger $logger;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+        $this->extConf = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newt'];
+    }
+
+    /**
+     * Returns true, if debugLog is set
+     *
+     * @return boolean
+     */
+    private function isDebugLog(): bool
+    {
+        if (is_array($this->extConf) && isset($this->extConf['debugLog'])) {
+            return intval($this->extConf['debugLog']) > 0;
+        }
+        return false;
+    }
+
+    /**
+     * Write log
+     *
+     * @param [type] $message
+     * @return void
+     */
+    private function writeLog($logLevel, $message, array $data = [])
+    {
+        if ($this->logger && $this->isDebugLog()) {
+            $this->logger->log($logLevel, $message, $data);
+        }
+    }
 
     /**
      * Returns the endpoints of this server
@@ -130,6 +181,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     ],
                 ],
             ]);
+
+            $this->writeLog(LogLevel::DEBUG, json_encode($json), [
+                "action" => $this->actionMethodName
+            ]);
         }
     }
 
@@ -144,6 +199,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
+            $this->writeLog(LogLevel::ERROR, "User not found", [
+                "action" => $this->actionMethodName
+            ]);
             return;
         } else {
             $endpointUid = 0;
@@ -270,6 +328,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     ],
                 ],
             ]);
+
+            $this->writeLog(LogLevel::DEBUG, json_encode($response), [
+                "action" => $this->actionMethodName
+            ]);
         }
     }
 
@@ -284,6 +346,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
+            $this->writeLog(LogLevel::ERROR, "User not found", [], [
+                "action" => $this->actionMethodName
+            ]);
             return;
         } else {
             $endpointUid = 0;
@@ -355,6 +420,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     ],
                 ],
             ]);
+
+            $this->writeLog(LogLevel::DEBUG, json_encode($response), [
+                "action" => $this->actionMethodName
+            ]);
         }
     }
 
@@ -369,6 +438,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
+            $this->writeLog("User not found", LogLevel::ERROR, [
+                "action" => $this->actionMethodName
+            ]);
             return;
         } else {
             $endpointUid = 0;
@@ -503,6 +575,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     ],
                 ],
             ]);
+
+            $this->writeLog(LogLevel::DEBUG, json_encode($response), [
+                "action" => $this->actionMethodName
+            ]);
         }
     }
 
@@ -517,6 +593,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
+            $this->writeLog(LogLevel::ERROR, "User not found", [
+                "action" => $this->actionMethodName
+            ]);
             return;
         } else {
             $endpointUid = 0;
@@ -573,6 +652,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->setVariablesToRender([
             "response"
         ]);
+
+        $this->writeLog(LogLevel::DEBUG, json_encode($response), [
+            "action" => $this->actionMethodName
+        ]);
     }
 
     /**
@@ -587,6 +670,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userData = $this->userRepository->findUserDataByRequest($this->request, $this->settings['feuserNamePrefix']);
         $userUid = $this->validateUserData($userData);
         if ($userUid < 1) {
+            $this->writeLog(LogLevel::ERROR, "User not found", [
+                "action" => $this->actionMethodName
+            ]);
             return;
         } else {
             $endpointUid = 0;
@@ -671,6 +757,10 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 ],
             ],
         ]);
+
+        $this->writeLog(LogLevel::DEBUG, json_encode($response), [
+            "action" => $this->actionMethodName
+        ]);
     }
 
 
@@ -692,6 +782,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->view->setVariablesToRender([
                 "response"
             ]);
+            $this->writeLog(LogLevel::ERROR, $response->getError(), [
+                "action" => $this->actionMethodName
+            ]);
             return -1;
         }
 
@@ -707,6 +800,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->view->assign("response", $response);
                 $this->view->setVariablesToRender([
                     "response"
+                ]);
+                $this->writeLog(LogLevel::ERROR, $response->getError(), [
+                    "action" => $this->actionMethodName
                 ]);
                 return -1;
             }
