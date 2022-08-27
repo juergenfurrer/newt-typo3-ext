@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 2.1.4
+-------------
+Fix property type for Logger
+
 Version 2.1.3
 -------------
 Add log to API-Calls

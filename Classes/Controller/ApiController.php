@@ -87,14 +87,14 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @var array
      */
-    private array $extConf = [];
+    private $extConf = [];
 
     /**
      * Logger
      *
-     * @var Logger
+     * @var \TYPO3\CMS\Core\Log\Logger
      */
-    private Logger $logger;
+    private $logger;
 
     /**
      * Constructor
@@ -121,7 +121,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Write log
      *
-     * @param [type] $message
+     * @param int $logLevel
+     * @param string $message
+     * @param array $data
      * @return void
      */
     private function writeLog($logLevel, $message, array $data = [])
