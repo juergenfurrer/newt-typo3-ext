@@ -23,6 +23,12 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  */
 class Utils
 {
+    public static function isTrue($val, $return_null=false)
+    {
+        $boolval = is_string($val) ? filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : (bool)$val;
+        return $boolval === null && !$return_null ? false : $boolval;
+    }
+
     public static function getRequestHeader(string $name, \TYPO3\CMS\Extbase\Mvc\Request $request): ?string
     {
         if (method_exists($request, 'getHeader')) {

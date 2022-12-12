@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 2.2.0
+-------------
+Fix boolean-values
+
 Version 2.1.4
 -------------
 Fix property type for Logger

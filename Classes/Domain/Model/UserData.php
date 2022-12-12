@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infonique\Newt\Domain\Model;
 
+use Infonique\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UserData
@@ -30,7 +31,7 @@ class UserData
             $this->usergroups = GeneralUtility::intExplode(",", $data['usergroup']);
         }
         if (isset($data['admin'])) {
-            $this->isAdmin = boolval($data['admin']);
+            $this->isAdmin = Utils::isTrue($data['admin']);
         }
         if (isset($data['tx_newt_token'])) {
             $this->token = $data['tx_newt_token'];

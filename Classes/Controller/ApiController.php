@@ -247,7 +247,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $fieldName = $field->getName();
                             if (isset($_POST[$fieldName])) {
                                 if ($field->getType() == FieldType::CHECKBOX) {
-                                    $prams[$fieldName] = boolval($_POST[$fieldName]);
+                                    $prams[$fieldName] = Utils::isTrue($_POST[$fieldName]);
                                 } else if ($field->getType() == FieldType::DATETIME) {
                                     if (!empty($_POST[$fieldName])) {
                                         $prams[$fieldName] = new \DateTime($_POST[$fieldName]);
@@ -489,7 +489,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 if (isset($_POST[$fieldName])) {
                                     if ($field->getType() == FieldType::CHECKBOX) {
                                         if (!empty($_POST[$fieldName])) {
-                                            $prams[$fieldName] = boolval($_POST[$fieldName]);
+                                            $prams[$fieldName] = Utils::isTrue($_POST[$fieldName]);
                                         }
                                     } else if ($field->getType() == FieldType::DATETIME) {
                                         if (!empty($_POST[$fieldName])) {
