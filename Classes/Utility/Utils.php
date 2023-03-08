@@ -32,7 +32,9 @@ class Utils
     public static function getRequestHeader(string $name, \TYPO3\CMS\Extbase\Mvc\Request $request): ?string
     {
         if (method_exists($request, 'getHeader')) {
-            return $request->getHeader($name)[0];
+            if (isset($request->getHeader($name)[0])) {
+                return $request->getHeader($name)[0];
+            }
         }
 
         $headers = [];
@@ -130,7 +132,7 @@ class Utils
     {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
-        if ($unit) {
+        if ($unit && isset($unit[0])) {
             // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
             return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
         } else {
