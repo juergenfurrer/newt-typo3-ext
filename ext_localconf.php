@@ -71,5 +71,5 @@ call_user_func(
             ['source' => 'EXT:newt/Resources/Public/Icons/user_plugin_serverconfig.svg']
         );
     },
-    $_EXTKEY ?? 'newt'
+    'newt'
 );

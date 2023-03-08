@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 2.2.1
+-------------
+Fix error in PHP 8
+
 Version 2.2.0
 -------------
 Fix boolean-values
