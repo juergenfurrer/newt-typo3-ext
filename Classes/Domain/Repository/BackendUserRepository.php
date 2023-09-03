@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Repository;
+namespace Swisscode\Newt\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -11,13 +12,13 @@ namespace Infonique\Newt\Domain\Repository;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
  * The repository for BackendUser
  */
-class BackendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
+class BackendUserRepository extends Repository
 {
 
     /**
@@ -40,7 +41,7 @@ class BackendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Backend
      * Finds all users matching the given UserGroup ID
      *
      * @param string $usergroup_id
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<\Infonique\Newt\Domain\Model\BackendUser>
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<\Swisscode\Newt\Domain\Model\BackendUser>
      */
     public function findByUsergroupId($usergroup_id)
     {

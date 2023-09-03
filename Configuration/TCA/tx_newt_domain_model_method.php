@@ -15,7 +15,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'type',
-        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_method.png'
+        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_method.png',
     ],
     'types' => [
         '1' => ['showitem' => 'type, --div--;LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_method.user_tab, beusergroups, feusergroups, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
@@ -75,7 +75,7 @@ return [
                 'size' => 1,
                 'minitems' => 1,
                 'maxitems' => 1,
-                'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getAvailableMethods',
+                'itemsProcFunc' => \Swisscode\Newt\Utility\TcaHelper::class . '->getAvailableMethods',
             ],
         ],
         'beusergroups' => [

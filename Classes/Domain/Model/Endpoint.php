@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Model;
+namespace Swisscode\Newt\Domain\Model;
 
-use Infonique\Newt\Utility\Utils;
+use Swisscode\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
@@ -58,7 +58,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * methods
      *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\Method>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\Method>
      */
     protected $methods = null;
 
@@ -66,7 +66,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * options
      *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\EndpointOption>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\EndpointOption>
      */
     protected $options = null;
 
@@ -92,32 +92,32 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
         $shouldExport = false;
 
-        /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
+        /** @var \Swisscode\Newt\NewtApi\EndpointInterface|\Swisscode\Newt\NewtApi\EndpointInterface */
         $endpointImplementation = GeneralUtility::makeInstance($className);
-        if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+        if ($endpointImplementation instanceof \Swisscode\Newt\NewtApi\EndpointOptionsInterface) {
             foreach ($this->getOptions() as $option) {
                 $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
             }
         }
 
-        /** @var \Infonique\Newt\NewtApi\Endpoint */
-        $endpoint = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Endpoint::class);
+        /** @var \Swisscode\Newt\NewtApi\Endpoint */
+        $endpoint = GeneralUtility::makeInstance(\Swisscode\Newt\NewtApi\Endpoint::class);
         $endpoint->setUid($this->getUid());
         $endpoint->setName($this->getName());
         $endpoint->setDescription($this->getDescription());
         $endpoint->setMaxAllowedBytes(Utils::getFileUploadMaxSize());
 
-        /** @var \Infonique\Newt\NewtApi\Configuration */
-        $configuration = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Configuration::class);
-        /** @var \Infonique\Newt\Domain\Model\Method $method */
+        /** @var \Swisscode\Newt\NewtApi\Configuration */
+        $configuration = GeneralUtility::makeInstance(\Swisscode\Newt\NewtApi\Configuration::class);
+        /** @var \Swisscode\Newt\Domain\Model\Method $method */
         foreach ($this->getMethods() as $method) {
             if (in_array($method->getType(), $endpointImplementation->getAvailableMethodTypes())) {
                 $allowed = $method->isUserAllowed($userData);
 
                 if ($allowed) {
                     $shouldExport = true;
-                    /** @var \Infonique\Newt\NewtApi\Method */
-                    $newtMethod = GeneralUtility::makeInstance(\Infonique\Newt\NewtApi\Method::class);
+                    /** @var \Swisscode\Newt\NewtApi\Method */
+                    $newtMethod = GeneralUtility::makeInstance(\Swisscode\Newt\NewtApi\Method::class);
                     $newtMethod->setType($method->getType());
 
                     /** @var ObjectManager */
@@ -211,10 +211,10 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Method
      *
-     * @param \Infonique\Newt\Domain\Model\Method $method
+     * @param \Swisscode\Newt\Domain\Model\Method $method
      * @return void
      */
-    public function addMethod(\Infonique\Newt\Domain\Model\Method $method)
+    public function addMethod(\Swisscode\Newt\Domain\Model\Method $method)
     {
         $this->methods->attach($method);
     }
@@ -222,10 +222,10 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Method
      *
-     * @param \Infonique\Newt\Domain\Model\Method $methodToRemove The Method to be removed
+     * @param \Swisscode\Newt\Domain\Model\Method $methodToRemove The Method to be removed
      * @return void
      */
-    public function removeMethod(\Infonique\Newt\Domain\Model\Method $methodToRemove)
+    public function removeMethod(\Swisscode\Newt\Domain\Model\Method $methodToRemove)
     {
         $this->methods->detach($methodToRemove);
     }
@@ -233,7 +233,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the methods
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\Method> $methods
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\Method> $methods
      */
     public function getMethods()
     {
@@ -244,7 +244,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Returns the methods
      *
      * @param string $methodType
-     * @return \Infonique\Newt\Domain\Model\Method|null $method
+     * @return \Swisscode\Newt\Domain\Model\Method|null $method
      */
     public function getMethodByType($methodType)
     {
@@ -259,7 +259,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the methods
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\Method> $methods
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\Method> $methods
      * @return self
      */
     public function setMethods(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $methods): self
@@ -271,7 +271,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Get the value of options
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\EndpointOption> $methods
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\EndpointOption> $methods
      */
     public function getOptions()
     {
@@ -281,7 +281,7 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Set the value of options
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\EndpointOption> $methods
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\EndpointOption> $methods
      */
     public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options): self
     {

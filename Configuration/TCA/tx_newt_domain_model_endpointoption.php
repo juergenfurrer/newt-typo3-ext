@@ -1,9 +1,11 @@
 <?php
+$languageFile = 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_endpointoption',
+        'title' => $languageFile . 'tx_newt_domain_model_endpointoption',
         'label' => 'title',
-        'label_userFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->optionsTitle',
+        'label_userFunc' => \Swisscode\Newt\Utility\TcaHelper::class . '->optionsTitle',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -69,14 +71,14 @@ return [
 
         'option_name' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_newt_domain_model_endpointoption.option_name',
+            'label' => $languageFile . 'tx_newt_domain_model_endpointoption.option_name',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'size' => 1,
                 'minitems' => 1,
                 'maxitems' => 1,
-                'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getAvailableOptions',
+                'itemsProcFunc' => \Swisscode\Newt\Utility\TcaHelper::class . '->getAvailableOptions',
             ],
         ],
         'option_value' => [

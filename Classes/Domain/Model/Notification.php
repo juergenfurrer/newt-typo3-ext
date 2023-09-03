@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Model;
+namespace Swisscode\Newt\Domain\Model;
 
 
 /**
@@ -11,7 +11,7 @@ namespace Infonique\Newt\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
@@ -67,28 +67,28 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     /**
      * beusers
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUser>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\BackendUser>
      */
     protected $beusers = null;
 
     /**
      * feusers
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUser>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\FrontendUser>
      */
     protected $feusers = null;
 
     /**
      * beusergroups
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\BackendUserGroup>
      */
     protected $beusergroups = null;
 
     /**
      * feusergroups
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\FrontendUserGroup>
      */
     protected $feusergroups = null;
 

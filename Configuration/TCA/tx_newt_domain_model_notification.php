@@ -17,13 +17,16 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,message',
-        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_notification.png'
+        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_notification.png',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
-        '1' => ['showitem' => 'title, message, send_datetime, is_topic, hidden, '.
-                                '--div--;' . $languageFile . 'tx_newt_domain_model_notification.be_recipient_tab, beusers, beusergroups,'.
-                                '--div--;' . $languageFile . 'tx_newt_domain_model_notification.fe_recipient_tab, feusers, feusergroups,'.
-                                '--div--;' . $languageFile . 'tx_newt_domain_model_notification.result_tab, result_datetime, result'],
+        '1' => ['showitem' => 'title, message, send_datetime, is_topic, hidden, ' .
+            '--div--;' . $languageFile . 'tx_newt_domain_model_notification.be_recipient_tab, beusers, beusergroups,' .
+            '--div--;' . $languageFile . 'tx_newt_domain_model_notification.fe_recipient_tab, feusers, feusergroups,' .
+            '--div--;' . $languageFile . 'tx_newt_domain_model_notification.result_tab, result_datetime, result'],
     ],
     'columns' => [
         'hidden' => [

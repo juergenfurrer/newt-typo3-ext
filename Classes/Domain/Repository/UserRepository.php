@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Repository;
+namespace Swisscode\Newt\Domain\Repository;
 
-use Infonique\Newt\Domain\Model\UserData;
-use Infonique\Newt\Utility\Utils;
+use Swisscode\Newt\Domain\Model\UserData;
+use Swisscode\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Repository;
+namespace Swisscode\Newt\Domain\Repository;
 
 
 /**
@@ -11,13 +11,13 @@ namespace Infonique\Newt\Domain\Repository;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
  * The repository for FrontendUsers
  */
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+class FrontendUserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
     /**
@@ -40,7 +40,7 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
      * Finds all users matching the given UserGroup ID
      *
      * @param string $usergroup_id
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<\Infonique\Newt\Domain\Model\FrontendUser>
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<\Swisscode\Newt\Domain\Model\FrontendUser>
      */
     public function findByUsergroupId($usergroup_id)
     {

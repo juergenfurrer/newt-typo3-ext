@@ -30,14 +30,6 @@ module.tx_newt_tools_newtadmin {
   persistence {
     storagePid = {$plugin.tx_newt.persistence.storagePid}
   }
-  view {
-    templateRootPaths.0 = EXT:newt/Resources/Private/Backend/Templates/
-    templateRootPaths.1 = {$module.tx_newt_admin.view.templateRootPath}
-    partialRootPaths.0 = EXT:newt/Resources/Private/Backend/Partials/
-    partialRootPaths.1 = {$module.tx_newt_admin.view.partialRootPath}
-    layoutRootPaths.0 = EXT:newt/Resources/Private/Backend/Layouts/
-    layoutRootPaths.1 = {$module.tx_newt_admin.view.layoutRootPath}
-  }
 }
 
 newt_api_page = PAGE

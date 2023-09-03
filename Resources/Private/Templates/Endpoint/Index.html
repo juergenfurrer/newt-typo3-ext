@@ -1,67 +1,92 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-    xmlns:infonique="http://typo3.org/ns/Infonique/Newt/ViewHelpers"
+    xmlns:swisscode="http://typo3.org/ns/Swisscode/Newt/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
-<f:layout name="Default" />
 
-<f:section name="content">
+<f:layout name="{layout}{layoutSufix}" />
+
+
+<f:section name="Buttons">
+</f:section>
+
+
+<f:section name="Content">
     <f:if condition="{data}">
         <f:then>
-            <h3><f:translate key="tx_newt_config.index.scan" /></h3>
+            <h3>
+                <f:translate key="tx_newt_config.index.scan" />
+            </h3>
 
             <div class="d-flex flex-row mb-3">
                 <div class="me-3 mr-3">
-                    <img src="{infonique:qrcode(content: '{qr_content}')}" class="qr-code">
+                    <img src="{swisscode:qrcode(content: '{qr_content}')}" class="qr-code">
                 </div>
                 <div class="flex-grow-1 align-self-center">
                     <ul class="list-group">
                         <f:if condition="{data.name}">
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="col-md-3"><f:translate key="tx_newt_config.index.name" /></div>
+                                    <div class="col-md-3">
+                                        <f:translate key="tx_newt_config.index.name" />
+                                    </div>
                                     <div class="col-md-9">{data.name}</div>
                                 </div>
                             </li>
                         </f:if>
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col-md-3"><f:translate key="tx_newt_config.index.url" /></div>
+                                <div class="col-md-3">
+                                    <f:translate key="tx_newt_config.index.url" />
+                                </div>
                                 <div class="col-md-9">{data.url}</div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col-md-3"><f:translate key="tx_newt_config.index.username" /></div>
+                                <div class="col-md-3">
+                                    <f:translate key="tx_newt_config.index.username" />
+                                </div>
                                 <div class="col-md-9">{data.user}</div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col-md-3"><f:translate key="tx_newt_config.index.token" /></div>
+                                <div class="col-md-3">
+                                    <f:translate key="tx_newt_config.index.token" />
+                                </div>
                                 <div class="col-md-9">{data.token}</div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-9">
-                                    <f:link.action action="tokenRefresh" class="btn btn-sm btn-danger t3js-modal-trigger"><f:translate key="tx_newt_config.tokenRefresh.title" /></f:link.action><br>
-                                    <small class="text-danger"><f:translate key="tx_newt_config.tokenRefresh.message" /></small>
+                                    <f:link.action action="tokenRefresh" class="btn btn-sm btn-danger t3js-modal-trigger">
+                                        <f:translate key="tx_newt_config.tokenRefresh.title" />
+                                    </f:link.action><br>
+                                    <small class="text-danger">
+                                        <f:translate key="tx_newt_config.tokenRefresh.message" />
+                                    </small>
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col-md-3"><f:translate key="tx_newt_config.index.token_isseud" /></div>
+                                <div class="col-md-3">
+                                    <f:translate key="tx_newt_config.index.token_isseud" />
+                                </div>
                                 <div class="col-md-9">
                                     <f:format.date format="d.m.Y H:i:s">{tokenIssuedDate}</f:format.date> ({timeZone})
                                 </div>
                             </div>
                         </li>
                         <f:if condition="{tokenExpireDate}">
-                            <li class="list-group-item {f:if(condition:'{tokenExpired}', then:'list-group-item-danger', else:'list-group-item-success')}">
+                            <li
+                                class="list-group-item {f:if(condition:'{tokenExpired}', then:'list-group-item-danger', else:'list-group-item-success')}">
                                 <div class="row">
-                                    <div class="col-md-3"><f:translate key="tx_newt_config.index.token_expires" /></div>
+                                    <div class="col-md-3">
+                                        <f:translate key="tx_newt_config.index.token_expires" />
+                                    </div>
                                     <div class="col-md-9">
                                         <f:format.date format="d.m.Y H:i:s">{tokenExpireDate}</f:format.date> ({timeZone})
                                     </div>
@@ -74,16 +99,63 @@
 
             <f:if condition="{endpoints}">
                 <f:then>
-                    <h4><f:translate key="tx_newt_config.index.endpoints" /></h4>
+                    <h4>
+                        <f:translate key="tx_newt_config.index.endpoints" />
+                    </h4>
                     <table class="tx_newt table">
                         <tr>
-                            <th><f:translate key="tx_newt_domain_model_endpoint.name" /></th>
-                            <th><f:translate key="tx_newt_domain_model_endpoint.description" /></th>
+                            <th>
+                                <f:translate key="tx_newt_endpoint.name" />
+                            </th>
+                            <th>
+                                <f:translate key="tx_newt_endpoint.description" />
+                            </th>
+                            <th>
+                                <f:translate key="tx_newt_endpoint.methods" />
+                            </th>
                         </tr>
                         <f:for each="{endpoints}" as="endpoint">
                             <tr>
-                                <td>{endpoint.name}</td>
-                                <td><f:format.nl2br>{endpoint.description}</f:format.nl2br></td>
+                                <td class="text-nowrap w-25">{endpoint.name}</td>
+                                <td class="w-75">
+                                    <f:format.nl2br>{endpoint.description}</f:format.nl2br>
+                                </td>
+                                <td class="text-nowrap">
+                                    <f:if condition="{endpoint.methods}">
+                                        <f:then>
+                                            <f:for each="{endpoint.methods}" as="method" iteration="i">
+                                                <f:switch expression="{method.type}">
+                                                    <f:case value="create">
+                                                        <f:variable name="color">success</f:variable>
+                                                    </f:case>
+                                                    <f:case value="read">
+                                                        <f:variable name="color">warning</f:variable>
+                                                    </f:case>
+                                                    <f:case value="list">
+                                                        <f:variable name="color">secondary</f:variable>
+                                                    </f:case>
+                                                    <f:case value="update">
+                                                        <f:variable name="color">info</f:variable>
+                                                    </f:case>
+                                                    <f:case value="delete">
+                                                        <f:variable name="color">danger</f:variable>
+                                                    </f:case>
+                                                    <f:defaultCase>
+                                                        <f:variable name="color">primary</f:variable>
+                                                    </f:defaultCase>
+                                                </f:switch>
+                                                <span class="badge bg-{color}">
+                                                    <f:translate key="tx_newt_endpoint.method.{method.type}" />
+                                                </span>
+                                            </f:for>
+                                        </f:then>
+                                        <f:else>
+                                            <span class="badge bg-danger">
+                                                <f:translate key="tx_newt_endpoint.no_methods" />
+                                            </span>
+                                        </f:else>
+                                    </f:if>
+                                </td>
                             </tr>
                         </f:for>
                     </table>

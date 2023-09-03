@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\NewtApi;
+namespace Swisscode\Newt\NewtApi;
 
 class MethodType
 {

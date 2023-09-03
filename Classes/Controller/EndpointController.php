@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Controller;
+namespace Swisscode\Newt\Controller;
 
 use DateTimeZone;
-use Infonique\Newt\Domain\Model\Endpoint;
-use Infonique\Newt\Domain\Model\Method;
-use Infonique\Newt\Domain\Model\UserData;
-use Infonique\Newt\Utility\Utils;
+use Swisscode\Newt\Domain\Model\Endpoint;
+use Swisscode\Newt\Domain\Model\Method;
+use Swisscode\Newt\Domain\Model\UserData;
+use Swisscode\Newt\Utility\Utils;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -20,79 +22,94 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
  * EndpointController
  */
-class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class EndpointController extends BaseController
 {
 
     /**
      * endpointRepository
      *
-     * @var \Infonique\Newt\Domain\Repository\EndpointRepository
+     * @var \Swisscode\Newt\Domain\Repository\EndpointRepository
      */
     protected $endpointRepository = null;
-
     /**
-     * @param \Infonique\Newt\Domain\Repository\EndpointRepository $endpointRepository
+     * @param \Swisscode\Newt\Domain\Repository\EndpointRepository $endpointRepository
      */
-    public function injectEndpointRepository(\Infonique\Newt\Domain\Repository\EndpointRepository $endpointRepository)
+    public function injectEndpointRepository(\Swisscode\Newt\Domain\Repository\EndpointRepository $endpointRepository)
     {
         $this->endpointRepository = $endpointRepository;
     }
 
-
     /**
      * userRepository
      *
-     * @var \Infonique\Newt\Domain\Repository\UserRepository
+     * @var \Swisscode\Newt\Domain\Repository\UserRepository
      */
     protected $userRepository = null;
-
     /**
-     * @param \Infonique\Newt\Domain\Repository\UserRepository $userRepository
+     * @param \Swisscode\Newt\Domain\Repository\UserRepository $userRepository
      */
-    public function injectBackenUserRepository(\Infonique\Newt\Domain\Repository\UserRepository $userRepository)
+    public function injectBackenUserRepository(\Swisscode\Newt\Domain\Repository\UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
     /**
+     * moduleTemplateFactory
+     *
+     * @var ModuleTemplateFactory
+     */
+    protected ModuleTemplateFactory $moduleTemplateFactory;
+    /**
+     * @param ModuleTemplateFactory $moduleTemplateFactory
+     */
+    public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory)
+    {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
+    }
+
+    /**
      * action index
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         /** @var ConfigurationManager */
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
         $conf = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
 
-        if ($this->isFrontendRequest()) {
+        $isfrontend = $this->isFrontendRequest();
+        $viewData = [];
+        $layout = "Default";
+        if ($isfrontend) {
             // Request is from Frontend
             $userType = 'FE';
-            $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
-            $userName = $settings['feuserNamePrefix'] . $GLOBALS['TSFE']->fe_user->user['username'];
-            $userGroups = GeneralUtility::intExplode(",", $GLOBALS['TSFE']->fe_user->user['usergroup']);
-            $userToken = $GLOBALS['TSFE']->fe_user->user['tx_newt_token'];
-            $tokenIssued = $GLOBALS['TSFE']->fe_user->user['tx_newt_token_issued'];
+            $userUid = intval($this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'uid'));
+            $userName = $settings['feuserNamePrefix'] . $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'username');
+            $userGroups = GeneralUtility::intExplode(",", $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'usergroup'));
+            $userToken = $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'tx_newt_token');
+            $tokenIssued = $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'tx_newt_token_issued');
             $userIsAdmin = false;
         } else {
             // Request is from Backend
             $userType = 'BE';
-            $userUid = $GLOBALS['BE_USER']->user['uid'];
-            $userName = $GLOBALS['BE_USER']->user['username'];
+            $userUid = intval($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'uid'));
+            $userName = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'username');
             $userGroups = $GLOBALS['BE_USER']->userGroupsUID;
-            $userToken = $GLOBALS['BE_USER']->user['tx_newt_token'];
-            $tokenIssued = $GLOBALS['BE_USER']->user['tx_newt_token_issued'];
-            $userIsAdmin = $GLOBALS['BE_USER']->user['admin'] > 0;
+            $userToken = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'tx_newt_token');
+            $tokenIssued = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'tx_newt_token_issued');
+            $userIsAdmin = intval($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'admin')) > 0;
+            $layout = "Module";
         }
 
-        if (intval($userUid) > 0) {
+        if ($userUid > 0) {
             $data = [];
             $data["name"] = !empty($settings['apiName']) ? substr($settings['apiName'], 0, 25) : '';
             $data["user"] = $userName;
@@ -110,23 +127,23 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             $timeZoneUtc = new DateTimeZone('UTC');
             $timeZoneDefault = date_default_timezone_get();
-            $this->view->assign('timeZone', $timeZoneDefault);
+            $viewData['timeZone'] = $timeZoneDefault;
 
             $tokenIssuedDate = new \DateTime('@' . $tokenIssued, $timeZoneUtc);
             $tokenIssuedDate->setTimezone(new \DateTimeZone($timeZoneDefault));
-            $this->view->assign('tokenIssuedDate', $tokenIssuedDate);
+            $viewData['tokenIssuedDate'] = $tokenIssuedDate;
 
             // Calculate if the token is expired
             if (intval($settings['tokenExpiration']) > 0) {
                 $tokenExpireDate = new \DateTime('@' . $tokenIssued, $timeZoneUtc);
                 $tokenExpireDate->setTimezone(new \DateTimeZone($timeZoneDefault));
                 $tokenExpireDate->add(new \DateInterval("PT{$settings['tokenExpiration']}S"));
-                $this->view->assign('tokenExpireDate', $tokenExpireDate);
+                $viewData['tokenExpireDate'] = $tokenExpireDate;
                 $data['expire'] = $tokenExpireDate->getTimestamp();
 
                 $now = new \DateTime();
                 if ($tokenExpireDate->getTimestamp() < $now->getTimestamp()) {
-                    $this->view->assign('tokenExpired', true);
+                    $viewData['tokenExpired'] = true;
                 }
             }
 
@@ -159,14 +176,25 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     $listEndpoint[] = $endpoint;
                 }
             }
-            $this->view->assign('endpoints', $listEndpoint);
+            $viewData['endpoints'] = $listEndpoint;
 
-            $this->view->assign('tooken', $userToken);
-            $this->view->assign('data', $data);
-            $this->view->assign('qr_content', json_encode((object)$data));
+            $viewData['tooken'] = $userToken;
+            $viewData['data'] = $data;
+            $viewData['qr_content'] = json_encode((object)$data);
         }
 
-        if (method_exists($this, "htmlResponse")) {
+        $viewData['layout'] = $layout;
+
+        if ($isfrontend) {
+            $this->view->assignMultiple($viewData);
+            return $this->htmlResponse();
+        } else if (Utils::isVersion12Plus()) {
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+            $moduleTemplate->assignMultiple($viewData);
+            return $moduleTemplate->renderResponse();
+        } else {
+            $viewData['layoutSufix'] = "Old";
+            $this->view->assignMultiple($viewData);
             return $this->htmlResponse();
         }
     }
@@ -180,12 +208,12 @@ class EndpointController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         if ($this->isFrontendRequest()) {
             // Request is from Frontend
-            $this->userRepository->updateFrontendUserToken($GLOBALS['TSFE']->fe_user->user['uid']);
+            $this->userRepository->updateFrontendUserToken($this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'uid'));
         } else {
             // Request is from Backend
-            $this->userRepository->updateBackendUserToken($GLOBALS['BE_USER']->user['uid']);
+            $this->userRepository->updateBackendUserToken($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'uid'));
         }
-        $this->redirect("index");
+        return $this->redirect("index");
     }
 
     /**

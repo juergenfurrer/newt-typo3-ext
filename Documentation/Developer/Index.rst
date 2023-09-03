@@ -10,7 +10,7 @@ To implement an endpoint into your own extension, you have to implement the :cod
 
 .. code-block:: php
 
-   class MyEndpoint implements \Infonique\Newt\NewtApi\EndpointInterface
+   class MyEndpoint implements \Swisscode\Newt\NewtApi\EndpointInterface
    {
       // implement the interface here
    }
@@ -22,7 +22,7 @@ If your endpoint needs some additional options, you have to implement the :code:
 
 .. code-block:: php
 
-   class MyEndpoint implements \Infonique\Newt\NewtApi\EndpointInterface, \Infonique\Newt\NewtApi\EndpointOptionsInterface
+   class MyEndpoint implements \Swisscode\Newt\NewtApi\EndpointInterface, \Swisscode\Newt\NewtApi\EndpointOptionsInterface
    {
       // implement the interface here
    }
@@ -34,7 +34,7 @@ For the Extension to know the available endpoint-implementations you have to add
 
 .. code-block:: php
 
-   $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['Newt']['Implementation'][] = \Infonique\Newt4News\Newt\NewsEndpoint::class;
+   $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['Newt']['Implementation'][] = \Swisscode\Newt4News\Newt\NewsEndpoint::class;
 
 
 .. toctree::

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Model;
+namespace Swisscode\Newt\Domain\Model;
 
 
 /**
@@ -11,7 +11,7 @@ namespace Infonique\Newt\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
@@ -31,14 +31,14 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     /**
      * beusergroups
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\BackendUserGroup>
      */
     protected $beusergroups = null;
 
     /**
      * feusergroups
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\FrontendUserGroup>
      */
     protected $feusergroups = null;
 
@@ -101,7 +101,7 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     /**
      * Get the value of beusergroups
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $users
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\BackendUserGroup> $users
      */
     public function getBeusergroups()
     {
@@ -111,7 +111,7 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     /**
      * Set the value of beusergroups
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\BackendUserGroup> $feusergroups
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\BackendUserGroup> $feusergroups
      * @return self
      */
     public function setBeusergroups($beusergroups): self
@@ -123,7 +123,7 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     /**
      * Get the value of feusergroups
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup> $users
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\FrontendUserGroup> $users
      */
     public function getFeusergroups()
     {
@@ -133,7 +133,7 @@ class Method extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     /**
      * Set the value of feusergroups
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Infonique\Newt\Domain\Model\FrontendUserGroup> $feusergroups
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Swisscode\Newt\Domain\Model\FrontendUserGroup> $feusergroups
      * @return self
      */
     public function setFeusergroups($feusergroups): self

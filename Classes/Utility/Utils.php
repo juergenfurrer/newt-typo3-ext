@@ -1,9 +1,10 @@
 <?php
 
-namespace Infonique\Newt\Utility;
+namespace Swisscode\Newt\Utility;
 
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -15,7 +16,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2022 Jürgen Furrer <juergen@infonique.ch>, infonique, furrer
+ *  (c) 2022 Jürgen Furrer <info@swisscode.sk>, SwissCode
  *
  ***/
 /**
@@ -148,5 +149,50 @@ class Utils
     public static function getUuid(): string
     {
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+    }
+
+
+    /**
+     * Check for TYPO3 Version 10
+     *
+     * @return bool True if TYPO3 is version 10
+     */
+    public static function isVersion10(): bool
+    {
+        $typo3versionAsInt = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getCurrentTypo3Version());
+        return $typo3versionAsInt > 10000000 && $typo3versionAsInt < 11000000;
+    }
+
+    /**
+     * Check for TYPO3 Version 11
+     *
+     * @return bool True if TYPO3 is version 11
+     */
+    public static function isVersion11(): bool
+    {
+        $typo3versionAsInt = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getCurrentTypo3Version());
+        return $typo3versionAsInt > 11000000 && $typo3versionAsInt < 12000000;
+    }
+
+    /**
+     * Check for TYPO3 Version 12
+     *
+     * @return bool True if TYPO3 is version 12
+     */
+    public static function isVersion12(): bool
+    {
+        $typo3versionAsInt = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getCurrentTypo3Version());
+        return $typo3versionAsInt > 12000000 && $typo3versionAsInt < 13000000;
+    }
+
+    /**
+     * Check for TYPO3 Version 12+
+     *
+     * @return bool True if TYPO3 is version 12+
+     */
+    public static function isVersion12Plus(): bool
+    {
+        $typo3versionAsInt = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getCurrentTypo3Version());
+        return $typo3versionAsInt >= 12000000;
     }
 }

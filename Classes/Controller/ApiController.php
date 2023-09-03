@@ -2,26 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Controller;
+namespace Swisscode\Newt\Controller;
 
-use Infonique\Newt\Domain\Model\Endpoint;
-use Infonique\Newt\Domain\Model\UserData;
-use Infonique\Newt\NewtApi\Field;
-use Infonique\Newt\NewtApi\FieldType;
-use Infonique\Newt\NewtApi\MethodCreateModel;
-use Infonique\Newt\NewtApi\MethodDeleteModel;
-use Infonique\Newt\NewtApi\MethodListModel;
-use Infonique\Newt\NewtApi\MethodReadModel;
-use Infonique\Newt\NewtApi\MethodType;
-use Infonique\Newt\NewtApi\MethodUpdateModel;
-use Infonique\Newt\NewtApi\ResponseBase;
-use Infonique\Newt\NewtApi\ResponseCreate;
-use Infonique\Newt\NewtApi\ResponseDelete;
-use Infonique\Newt\NewtApi\ResponseList;
-use Infonique\Newt\NewtApi\ResponseRead;
-use Infonique\Newt\NewtApi\ResponseUpdate;
-use Infonique\Newt\Utility\Utils;
-use TYPO3\CMS\Core\Log\Logger;
+use Swisscode\Newt\Domain\Model\Endpoint;
+use Swisscode\Newt\Domain\Model\UserData;
+use Swisscode\Newt\NewtApi\Field;
+use Swisscode\Newt\NewtApi\FieldType;
+use Swisscode\Newt\NewtApi\MethodCreateModel;
+use Swisscode\Newt\NewtApi\MethodDeleteModel;
+use Swisscode\Newt\NewtApi\MethodListModel;
+use Swisscode\Newt\NewtApi\MethodReadModel;
+use Swisscode\Newt\NewtApi\MethodType;
+use Swisscode\Newt\NewtApi\MethodUpdateModel;
+use Swisscode\Newt\NewtApi\ResponseBase;
+use Swisscode\Newt\NewtApi\ResponseCreate;
+use Swisscode\Newt\NewtApi\ResponseDelete;
+use Swisscode\Newt\NewtApi\ResponseList;
+use Swisscode\Newt\NewtApi\ResponseRead;
+use Swisscode\Newt\NewtApi\ResponseUpdate;
+use Swisscode\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Resource\StorageRepository;
@@ -33,13 +32,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2021 Jürgen Furrer <juergen@infonique.ch>
+ * (c) 2021 Jürgen Furrer <info@swisscode.sk>
  */
 
 /**
  * ApiController
  */
-class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class ApiController extends BaseController
 {
     /**
      * @var \TYPO3\CMS\Extbase\Mvc\View\JsonView
@@ -54,14 +53,14 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * endpointRepository
      *
-     * @var \Infonique\Newt\Domain\Repository\EndpointRepository
+     * @var \Swisscode\Newt\Domain\Repository\EndpointRepository
      */
     protected $endpointRepository = null;
 
     /**
-     * @param \Infonique\Newt\Domain\Repository\EndpointRepository $endpointRepository
+     * @param \Swisscode\Newt\Domain\Repository\EndpointRepository $endpointRepository
      */
-    public function injectEndpointRepository(\Infonique\Newt\Domain\Repository\EndpointRepository $endpointRepository)
+    public function injectEndpointRepository(\Swisscode\Newt\Domain\Repository\EndpointRepository $endpointRepository)
     {
         $this->endpointRepository = $endpointRepository;
     }
@@ -70,14 +69,14 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * userRepository
      *
-     * @var \Infonique\Newt\Domain\Repository\UserRepository
+     * @var \Swisscode\Newt\Domain\Repository\UserRepository
      */
     protected $userRepository = null;
 
     /**
-     * @param \Infonique\Newt\Domain\Repository\UserRepository $userRepository
+     * @param \Swisscode\Newt\Domain\Repository\UserRepository $userRepository
      */
-    public function injectBackenUserRepository(\Infonique\Newt\Domain\Repository\UserRepository $userRepository)
+    public function injectBackenUserRepository(\Swisscode\Newt\Domain\Repository\UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -232,9 +231,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
+                        /** @var \Swisscode\Newt\NewtApi\EndpointInterface|\Swisscode\Newt\NewtApi\EndpointInterface */
                         $endpointImplementation = GeneralUtility::makeInstance($className);
-                        if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                        if ($endpointImplementation instanceof \Swisscode\Newt\NewtApi\EndpointOptionsInterface) {
                             foreach ($endpoint->getOptions() as $option) {
                                 $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
                             }
@@ -381,9 +380,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $readId = Utils::getRequestHeader("readId", $this->request);
                         if (!empty($readId)) {
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
+                            /** @var \Swisscode\Newt\NewtApi\EndpointInterface|\Swisscode\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = GeneralUtility::makeInstance($className);
-                            if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                            if ($endpointImplementation instanceof \Swisscode\Newt\NewtApi\EndpointOptionsInterface) {
                                 foreach ($endpoint->getOptions() as $option) {
                                     $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
                                 }
@@ -473,9 +472,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $updateId = Utils::getRequestHeader("updateId", $this->request);
                         if (!empty($updateId)) {
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
+                            /** @var \Swisscode\Newt\NewtApi\EndpointInterface|\Swisscode\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = GeneralUtility::makeInstance($className);
-                            if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                            if ($endpointImplementation instanceof \Swisscode\Newt\NewtApi\EndpointOptionsInterface) {
                                 foreach ($endpoint->getOptions() as $option) {
                                     $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
                                 }
@@ -628,9 +627,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $deleteId = Utils::getRequestHeader("deleteId", $this->request);
                         if (!empty($deleteId)) {
-                            /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
+                            /** @var \Swisscode\Newt\NewtApi\EndpointInterface|\Swisscode\Newt\NewtApi\EndpointInterface */
                             $endpointImplementation = GeneralUtility::makeInstance($className);
-                            if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                            if ($endpointImplementation instanceof \Swisscode\Newt\NewtApi\EndpointOptionsInterface) {
                                 foreach ($endpoint->getOptions() as $option) {
                                     $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
                                 }
@@ -703,9 +702,9 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!$classExists) {
                         $response->setError(404, "EndpointClass not found");
                     } else {
-                        /** @var \Infonique\Newt\NewtApi\EndpointInterface|\Infonique\Newt\NewtApi\EndpointInterface */
+                        /** @var \Swisscode\Newt\NewtApi\EndpointInterface|\Swisscode\Newt\NewtApi\EndpointInterface */
                         $endpointImplementation = GeneralUtility::makeInstance($className);
-                        if ($endpointImplementation instanceof \Infonique\Newt\NewtApi\EndpointOptionsInterface) {
+                        if ($endpointImplementation instanceof \Swisscode\Newt\NewtApi\EndpointOptionsInterface) {
                             foreach ($endpoint->getOptions() as $option) {
                                 $endpointImplementation->addEndpointOption($option->getOptionName(), $option->getOptionValue());
                             }
@@ -820,7 +819,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param string $imageName
      * @param string $imageBase64
      * @param string $subfolder
-     * @return \Infonique\Newt\Domain\Model\FileReference|null
+     * @return \Swisscode\Newt\Domain\Model\FileReference|null
      */
     private function setFileFromBase64($imageName, $imageBase64, $subfolder = null)
     {
@@ -859,8 +858,8 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         if (file_exists($tempFilePath)) {
             $movedNewFile = $storage->addFile($tempFilePath, $targetFolder, $imageName);
-            /** @var \Infonique\Newt\Domain\Model\FileReference */
-            $newFileReference = GeneralUtility::makeInstance(\Infonique\Newt\Domain\Model\FileReference::class);
+            /** @var \Swisscode\Newt\Domain\Model\FileReference */
+            $newFileReference = GeneralUtility::makeInstance(\Swisscode\Newt\Domain\Model\FileReference::class);
             $newFileReference->setFile($movedNewFile);
             if ($newFileReference) {
                 return $newFileReference;

@@ -8,4 +8,4 @@ Known Problems
 
 - Not a lot of endpoints available
 
-- If you have any questions, please contact us (info@infonique.ch)
+- If you have any questions, please contact us (info@swisscode.sk)

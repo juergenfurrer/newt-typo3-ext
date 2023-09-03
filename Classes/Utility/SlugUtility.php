@@ -1,6 +1,6 @@
 <?php
 
-namespace Infonique\Newt\Utility;
+namespace Swisscode\Newt\Utility;
 
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

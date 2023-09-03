@@ -6,15 +6,15 @@ call_user_func(
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'Newt',
             'Api',
-            [\Infonique\Newt\Controller\ApiController::class => 'endpoints, create, read, update, delete, list'],
-            [\Infonique\Newt\Controller\ApiController::class => 'endpoints, create, read, update, delete, list']
+            [\Swisscode\Newt\Controller\ApiController::class => 'endpoints, create, read, update, delete, list'],
+            [\Swisscode\Newt\Controller\ApiController::class => 'endpoints, create, read, update, delete, list']
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'Newt',
             'Serverconfig',
-            [\Infonique\Newt\Controller\EndpointController::class => 'index, tokenRefresh'],
-            [\Infonique\Newt\Controller\EndpointController::class => 'index, tokenRefresh']
+            [\Swisscode\Newt\Controller\EndpointController::class => 'index, tokenRefresh'],
+            [\Swisscode\Newt\Controller\EndpointController::class => 'index, tokenRefresh']
         );
 
         // wizards
@@ -41,23 +41,23 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['1647092550'] = [
             'nodeName' => 'NewtEndpointHintElement',
             'priority' => 40,
-            'class' => \Infonique\Newt\Form\Element\NewtEndpointHintElement::class,
+            'class' => \Swisscode\Newt\Form\Element\NewtEndpointHintElement::class,
         ];
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['1649659670'] = [
             'nodeName' => 'NewtEndpointOptionsHintElement',
             'priority' => 40,
-            'class' => \Infonique\Newt\Form\Element\NewtEndpointOptionsHintElement::class,
+            'class' => \Swisscode\Newt\Form\Element\NewtEndpointOptionsHintElement::class,
         ];
 
         // Tasks
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Infonique\Newt\Task\SendNotificationTask::class] = array(
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Swisscode\Newt\Task\SendNotificationTask::class] = array(
             'extension' => $extKey,
             'title' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_scheduler.send_notification_task.name',
             'description' => 'LLL:EXT:newt/Resources/Private/Language/locallang_db.xlf:tx_scheduler.send_notification_task.description'
         );
 
         // LOG
-        $GLOBALS['TYPO3_CONF_VARS']['LOG']['Infonique']['Newt']['Controller']['writerConfiguration'][\TYPO3\CMS\Core\Log\LogLevel::DEBUG] = [
+        $GLOBALS['TYPO3_CONF_VARS']['LOG']['Swisscode']['Newt']['Controller']['writerConfiguration'][\TYPO3\CMS\Core\Log\LogLevel::DEBUG] = [
             \TYPO3\CMS\Core\Log\Writer\DatabaseWriter::class => [
                 'logTable' => 'tx_newt_log'
             ],

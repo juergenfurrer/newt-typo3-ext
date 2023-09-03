@@ -4,5 +4,8 @@ services:
     autoconfigure: true
     public: true
 
-  Infonique\Newt\Domain\Repository\:
+  Swisscode\Newt\Domain\Repository\:
     resource: '../Classes/Domain/Repository/*'
+
+  Swisscode\Newt\Controller\:
+    resource: '../Classes/Controller/*'

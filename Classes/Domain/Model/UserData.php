@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Domain\Model;
+namespace Swisscode\Newt\Domain\Model;
 
-use Infonique\Newt\Utility\Utils;
+use Swisscode\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UserData

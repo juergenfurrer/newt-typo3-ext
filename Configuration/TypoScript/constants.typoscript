@@ -18,24 +18,13 @@ plugin.tx_newt {
     # cat=plugin.tx_newt/settings/080; type=string; label=Loginname prefix for FE-Users
     feuserNamePrefix = *
 
-    # cat=plugin.tx_newt/newt_server/010; type=string; label=Server-Topic (eg example.com / Get from newt.infonique.ch)
+    # cat=plugin.tx_newt/newt_server/010; type=string; label=Server-Topic (eg example.com / Get from newt.sk)
     serverTopic =
-    # cat=plugin.tx_newt/newt_server/020; type=string; label=Server-Secret (Get from newt.infonique.ch)
+    # cat=plugin.tx_newt/newt_server/020; type=string; label=Server-Secret (Get from newt.sk)
     serverSecret =
   }
   persistence {
     # cat=plugin.tx_newt//a; type=string; label=Default storage PID
     storagePid =
-  }
-}
-
-module.tx_newt_admin {
-  view {
-    # cat=module.tx_newt_admin/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:newt/Resources/Private/Backend/Templates/
-    # cat=module.tx_newt_admin/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:newt/Resources/Private/Backend/Partials/
-    # cat=module.tx_newt_admin/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:newt/Resources/Private/Backend/Layouts/
   }
 }

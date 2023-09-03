@@ -10,7 +10,7 @@ Here's an example of the method :code:`getAvailableFields`
 
 .. code-block:: php
 
-   class MyEndpoint implements \Infonique\Newt\NewtApi\EndpointInterface
+   class MyEndpoint implements \Swisscode\Newt\NewtApi\EndpointInterface
    {
       public function getAvailableFields(): array
       {

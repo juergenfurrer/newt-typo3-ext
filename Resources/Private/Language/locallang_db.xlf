@@ -3,9 +3,6 @@
 	<file source-language="en" datatype="plaintext" original="EXT:newt/Resources/Private/Language/locallang_db.xlf" date="2022-01-05T20:01:01Z" product-name="newt">
 		<header/>
 		<body>
-			<trans-unit id="tx_newt_domain_model_backenduser" resname="tx_newt_domain_model_backenduser">
-				<source>Backend User</source>
-			</trans-unit>
 			<trans-unit id="tx_newt_domain_model_endpoint" resname="tx_newt_domain_model_endpoint">
 				<source>Endpoint</source>
 			</trans-unit>
@@ -127,10 +124,10 @@
 				<source>FE-Groups</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_serverconfig.name" resname="tx_newt_serverconfig.name">
-				<source>FE-User Server-Config</source>
+				<source>Newt-Config for FE-User</source>
 			</trans-unit>
 			<trans-unit id="tx_newt_serverconfig.description" resname="tx_newt_serverconfig.description">
-				<source>Shows the Server-Config for the current FE-User</source>
+				<source>Shows the Newt-Config for the current FE-User</source>
 			</trans-unit>
 			<trans-unit id="tx_scheduler.send_notification_task.name" resname="tx_scheduler.send_notification_task.name">
 				<source>Send Notifications</source>

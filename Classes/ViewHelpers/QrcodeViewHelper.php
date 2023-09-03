@@ -1,6 +1,6 @@
 <?php
 
-namespace Infonique\Newt\ViewHelpers;
+namespace Swisscode\Newt\ViewHelpers;
 
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;

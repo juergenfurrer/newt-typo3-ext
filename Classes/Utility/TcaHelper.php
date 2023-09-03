@@ -1,11 +1,11 @@
 <?php
 
-namespace Infonique\Newt\Utility;
+namespace Swisscode\Newt\Utility;
 
-use Infonique\Newt\Domain\Model\Endpoint;
-use Infonique\Newt\Domain\Repository\EndpointRepository;
-use Infonique\Newt\NewtApi\EndpointInterface;
-use Infonique\Newt\NewtApi\EndpointOptionsInterface;
+use Swisscode\Newt\Domain\Model\Endpoint;
+use Swisscode\Newt\Domain\Repository\EndpointRepository;
+use Swisscode\Newt\NewtApi\EndpointInterface;
+use Swisscode\Newt\NewtApi\EndpointOptionsInterface;
 use ReflectionClass;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2020 Jürgen Furrer <juergen@infonique.ch>, infonique, furrer
+ *  (c) 2020 Jürgen Furrer <info@swisscode.sk>, SwissCode
  *
  ***/
 /**
@@ -50,7 +50,7 @@ class TcaHelper
      */
     public function getAvailableMethods(array &$configuration)
     {
-        $refl = new ReflectionClass(\Infonique\Newt\NewtApi\MethodType::class);
+        $refl = new ReflectionClass(\Swisscode\Newt\NewtApi\MethodType::class);
 
         $endpointUid = intval($configuration['row']['endpoint']);
         if ($endpointUid > 0) {

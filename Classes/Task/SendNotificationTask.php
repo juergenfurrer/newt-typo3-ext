@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Infonique\Newt\Task;
+namespace Swisscode\Newt\Task;
 
 use DateTime;
-use Infonique\Newt\Domain\Model\BackendUser;
-use Infonique\Newt\Domain\Model\FrontendUser;
-use Infonique\Newt\Domain\Model\FrontendUserGroup;
-use Infonique\Newt\Domain\Model\Notification;
-use Infonique\Newt\Domain\Repository\BackendUserRepository;
-use Infonique\Newt\Domain\Repository\FrontendUserRepository;
-use Infonique\Newt\Domain\Repository\NotificationRepository;
+use Swisscode\Newt\Domain\Model\BackendUser;
+use Swisscode\Newt\Domain\Model\FrontendUser;
+use Swisscode\Newt\Domain\Model\FrontendUserGroup;
+use Swisscode\Newt\Domain\Model\Notification;
+use Swisscode\Newt\Domain\Repository\BackendUserRepository;
+use Swisscode\Newt\Domain\Repository\FrontendUserRepository;
+use Swisscode\Newt\Domain\Repository\NotificationRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -130,7 +130,7 @@ class SendNotificationTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
         $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
 
         if (isset($settings['serverSecret']) && ! empty($settings['serverSecret'])) {
-            $url = "https://newt.infonique.ch/notification/topic";
+            $url = "https://newt.sk/notification/topic";
             $fields = [
                 'host' => $host,
                 'secret' => $settings['serverSecret'],
@@ -169,7 +169,7 @@ class SendNotificationTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
         $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
 
         if (isset($settings['serverSecret']) && ! empty($settings['serverSecret'])) {
-            $url = "https://newt.infonique.ch/notification/user";
+            $url = "https://newt.sk/notification/user";
             $fields = [
                 'host' => $host,
                 'secret' => $settings['serverSecret'],
@@ -208,7 +208,7 @@ class SendNotificationTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
         $settings = $conf['plugin.']['tx_newt.']['settings.'] ?? [];
 
         if (isset($settings['serverSecret']) && ! empty($settings['serverSecret'])) {
-            $url = "https://newt.infonique.ch/notification/user";
+            $url = "https://newt.sk/notification/user";
             $fields = [
                 'host' => $host,
                 'secret' => $settings['serverSecret'],

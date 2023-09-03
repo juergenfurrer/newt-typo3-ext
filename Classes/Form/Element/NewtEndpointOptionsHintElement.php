@@ -1,8 +1,8 @@
 <?php
 declare(strict_types = 1);
-namespace Infonique\Newt\Form\Element;
+namespace Swisscode\Newt\Form\Element;
 
-use Infonique\Newt\NewtApi\EndpointOptionsInterface;
+use Swisscode\Newt\NewtApi\EndpointOptionsInterface;
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

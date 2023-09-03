@@ -39,29 +39,16 @@ settings.feuserNamePrefix              string      Loginname prefix for FE-Users
                                                    This will be used to differate between backend-user and fe-users
 -------------------------------------  ----------  -------------------------------------------------------------------  ---------------------------------------
 settings.serverTopic                   string      Server-Topic, normaly this will be the host of your API-Server
-                                                   You will get this by login into newt.infonique.ch
+                                                   You will get this by login into newt.sk
 -------------------------------------  ----------  -------------------------------------------------------------------  ---------------------------------------
-settings.serverSecret                  string      Server-Secret is used to verify API-Calls to newt.infonique.ch
-                                                   You will get this by login into newt.infonique.ch
+settings.serverSecret                  string      Server-Secret is used to verify API-Calls to newt.sk
+                                                   You will get this by login into newt.sk
 -------------------------------------  ----------  -------------------------------------------------------------------  ---------------------------------------
 persistence.storagePid                 integer     Default storage PID
                                                    Defines the placement of the endpoint-configurations
 =====================================  ==========  ===================================================================  =======================================
 
 [tsref:plugin.tx_newt]
-
-
-=====================================  ==========  ===================================================================  =======================================
-Property:                              Data type:  Description:                                                         Default:
-=====================================  ==========  ===================================================================  =======================================
-view.templateRootPath                  string      Defines the path where the admin-template are located                EXT:newt/Resources/Backend/Templates/
--------------------------------------  ----------  -------------------------------------------------------------------  ---------------------------------------
-view.partialRootPath                   string      Defines the path where the admin-partials are located                EXT:newt/Resources/Backend/Partials/
--------------------------------------  ----------  -------------------------------------------------------------------  ---------------------------------------
-view.layoutRootPath                    string      Defines the path where the admin-layout are located                  EXT:newt/Resources/Backend/Layouts/
-=====================================  ==========  ===================================================================  =======================================
-
-[tsref:plugin.tx_newt_admin]
 
 
 

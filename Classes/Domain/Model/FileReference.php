@@ -1,6 +1,6 @@
 <?php
 
-namespace Infonique\Newt\Domain\Model;
+namespace Swisscode\Newt\Domain\Model;
 
 /***
  *
@@ -9,7 +9,7 @@ namespace Infonique\Newt\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Jürgen Furrer <juergen@infonique.ch>, infonique, furrer
+ *  (c) 2021 Jürgen Furrer <info@swisscode.sk>, SwissCode
  *
  ***/
 /**

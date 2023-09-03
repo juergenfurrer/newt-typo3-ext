@@ -21,21 +21,24 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name,description,endpoint_class',
-        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_endpoint.png'
+        'iconfile' => 'EXT:newt/Resources/Public/Icons/tx_newt_domain_model_endpoint.png',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'name, description, --palette--;;endpointPalette, --palette--;;optionsPalette, page_uid, methods, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'palettes' => [
         'endpointPalette' => [
-           'label' => '',
-           'showitem' => 'endpoint_class, endpoint_hint',
+            'label' => '',
+            'showitem' => 'endpoint_class, endpoint_hint',
         ],
         'optionsPalette' => [
-           'label' => '',
-           'showitem' => 'options, options_hint',
+            'label' => '',
+            'showitem' => 'options, options_hint',
         ],
-     ],
+    ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => true,
@@ -149,7 +152,7 @@ return [
                 'size' => 1,
                 'minitems' => 1,
                 'maxitems' => 1,
-                'itemsProcFunc' => \Infonique\Newt\Utility\TcaHelper::class . '->getNewtClasses',
+                'itemsProcFunc' => \Swisscode\Newt\Utility\TcaHelper::class . '->getNewtClasses',
             ],
         ],
         'endpoint_hint' => [

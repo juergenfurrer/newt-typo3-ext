@@ -34,9 +34,9 @@ He can then use these endpoints as long as the token is valid.
 Examples
 ========
 
-.. figure:: ../Images/demo-infonique.png
+.. figure:: ../Images/demo-swisscode.png
    :class: with-shadow
-   :alt: infonique.ch
+   :alt: swisscode.sk
 
 
 .. _editor-faq:
