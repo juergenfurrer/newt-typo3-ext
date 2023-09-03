@@ -6,6 +6,11 @@
 Change log
 ==========
 
+Version 3.0.0
+-------------
+Add TYPO3 V12 support
+Drop TYPO3 V10 support
+
 Version 2.2.2
 -------------
 Fix warnings in PHP 8
