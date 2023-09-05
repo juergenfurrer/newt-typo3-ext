@@ -92,21 +92,25 @@ class EndpointController extends BaseController
             // Request is from Frontend
             $userType = 'FE';
             $userUid = intval($this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'uid'));
-            $userName = $settings['feuserNamePrefix'] . $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'username');
-            $userGroups = GeneralUtility::intExplode(",", $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'usergroup'));
-            $userToken = $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'tx_newt_token');
-            $tokenIssued = $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'tx_newt_token_issued');
-            $userIsAdmin = false;
+            if ($userUid > 0) {
+                $userName = $settings['feuserNamePrefix'] . $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'username');
+                $userGroups = GeneralUtility::intExplode(",", $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'usergroup'));
+                $userToken = $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'tx_newt_token');
+                $tokenIssued = $this->getArrayKeyValue($GLOBALS['TSFE']->fe_user->user, 'tx_newt_token_issued');
+                $userIsAdmin = false;
+            }
         } else {
             // Request is from Backend
             $userType = 'BE';
             $userUid = intval($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'uid'));
-            $userName = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'username');
-            $userGroups = $GLOBALS['BE_USER']->userGroupsUID;
-            $userToken = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'tx_newt_token');
-            $tokenIssued = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'tx_newt_token_issued');
-            $userIsAdmin = intval($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'admin')) > 0;
-            $layout = "Module";
+            if ($userUid > 0) {
+                $userName = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'username');
+                $userGroups = $GLOBALS['BE_USER']->userGroupsUID;
+                $userToken = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'tx_newt_token');
+                $tokenIssued = $this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'tx_newt_token_issued');
+                $userIsAdmin = intval($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'admin')) > 0;
+                $layout = "Module";
+            }
         }
 
         if ($userUid > 0) {

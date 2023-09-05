@@ -6,6 +6,10 @@
 Change log
 ==========
 
+Version 3.0.2
+-------------
+Fix error when not logged in
+
 Version 3.0.1
 -------------
 Update readme
