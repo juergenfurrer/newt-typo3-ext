@@ -197,7 +197,7 @@ class EndpointController extends BaseController
             $moduleTemplate->assignMultiple($viewData);
             return $moduleTemplate->renderResponse();
         } else {
-            $viewData['layoutSufix'] = "Old";
+            $viewData['layoutSuffix'] = "Old";
             $this->view->assignMultiple($viewData);
             return $this->htmlResponse();
         }
