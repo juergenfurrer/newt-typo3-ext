@@ -8,10 +8,10 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'info@swisscode.sk',
     'state' => 'stable',
     'clearCacheOnLoad' => true,
-    'version' => '3.0.2',
+    'version' => '3.0.3',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.5.0-12.9.99',
+            'typo3' => '11.5.0-11.99.99',
         ],
         'conflicts' => [],
         'suggests' => [],
