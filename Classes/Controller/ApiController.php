@@ -187,6 +187,8 @@ class ApiController extends BaseController
                 "action" => $this->actionMethodName
             ]);
         }
+
+        return $this->jsonResponse();
     }
 
     /**
@@ -334,6 +336,8 @@ class ApiController extends BaseController
                 "action" => $this->actionMethodName
             ]);
         }
+
+        return $this->jsonResponse();
     }
 
     /**
@@ -426,6 +430,8 @@ class ApiController extends BaseController
                 "action" => $this->actionMethodName
             ]);
         }
+
+        return $this->jsonResponse();
     }
 
     /**
@@ -581,6 +587,8 @@ class ApiController extends BaseController
                 "action" => $this->actionMethodName
             ]);
         }
+
+        return $this->jsonResponse();
     }
 
     /**
@@ -657,6 +665,8 @@ class ApiController extends BaseController
         $this->writeLog(LogLevel::DEBUG, json_encode($response), [
             "action" => $this->actionMethodName
         ]);
+
+        return $this->jsonResponse();
     }
 
     /**
@@ -762,6 +772,8 @@ class ApiController extends BaseController
         $this->writeLog(LogLevel::DEBUG, json_encode($response), [
             "action" => $this->actionMethodName
         ]);
+
+        return $this->jsonResponse();
     }
 
 

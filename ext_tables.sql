@@ -33,7 +33,7 @@ CREATE TABLE tx_newt_domain_model_endpoint (
 	endpoint_class varchar(255) NOT NULL DEFAULT '',
 	options int(11) unsigned NOT NULL DEFAULT '0',
 	methods int(11) unsigned NOT NULL DEFAULT '0',
-	page_uid varchar(11) NOT NULL DEFAULT ''
+	page_uid varchar(11) NOT NULL DEFAULT '',
 );
 
 CREATE TABLE tx_newt_domain_model_endpointoption (

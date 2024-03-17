@@ -17,16 +17,6 @@ namespace Swisscode\Newt\Domain\Repository;
 /**
  * The repository for Methods
  */
-class MethodRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class MethodRepository extends BaseRepository
 {
-    /**
-     * Sets this Repo to ignore the StoragePage and SysLanguage
-     */
-    public function setDetachedQuerySettings()
-    {
-        $querySettings = $this->createQuery()->getQuerySettings();
-        $querySettings->setRespectStoragePage(FALSE);
-        $querySettings->setRespectSysLanguage(FALSE);
-        $this->setDefaultQuerySettings($querySettings);
-    }
 }

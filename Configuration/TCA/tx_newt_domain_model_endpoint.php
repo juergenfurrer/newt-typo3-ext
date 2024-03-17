@@ -11,9 +11,6 @@ return [
         'cruser_id' => 'cruser_id',
         'sortby' => 'sorting',
         'versioningWS' => true,
-        'languageField' => 'sys_language_uid',
-        'transOrigPointerField' => 'l10n_parent',
-        'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',
@@ -40,42 +37,6 @@ return [
         ],
     ],
     'columns' => [
-        'sys_language_uid' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ]
-                ],
-                'default' => 0,
-            ],
-        ],
-        'l10n_parent' => [
-            'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'default' => 0,
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_newt_domain_model_endpoint',
-                'foreign_table_where' => 'AND {#tx_newt_domain_model_endpoint}.{#pid}=###CURRENT_PID### AND {#tx_newt_domain_model_endpoint}.{#sys_language_uid} IN (-1,0)',
-            ],
-        ],
-        'l10n_diffsource' => [
-            'config' => [
-                'type' => 'passthrough',
-            ],
-        ],
         'hidden' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.visible',
@@ -156,7 +117,7 @@ return [
             ],
         ],
         'endpoint_hint' => [
-            'exclude' => FALSE,
+            'exclude' => false,
             'config' => [
                 'type' => 'user',
                 'renderType' => 'NewtEndpointHintElement'
@@ -180,7 +141,7 @@ return [
             ],
         ],
         'options_hint' => [
-            'exclude' => FALSE,
+            'exclude' => false,
             'config' => [
                 'type' => 'user',
                 'renderType' => 'NewtEndpointOptionsHintElement'
@@ -188,7 +149,6 @@ return [
         ],
         'page_uid' => [
             'exclude' => false,
-            'l10n_mode' => 'exclude',
             'label' => $languageFile . 'tx_newt_domain_model_endpoint.page_uid',
             'config' => [
                 'type' => 'select',

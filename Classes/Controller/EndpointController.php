@@ -43,6 +43,7 @@ class EndpointController extends BaseController
     public function injectEndpointRepository(\Swisscode\Newt\Domain\Repository\EndpointRepository $endpointRepository)
     {
         $this->endpointRepository = $endpointRepository;
+        $this->endpointRepository->setDetachedQuerySettings();
     }
 
     /**
@@ -217,6 +218,7 @@ class EndpointController extends BaseController
             // Request is from Backend
             $this->userRepository->updateBackendUserToken($this->getArrayKeyValue($GLOBALS['BE_USER']->user, 'uid'));
         }
+
         return $this->redirect("index");
     }
 

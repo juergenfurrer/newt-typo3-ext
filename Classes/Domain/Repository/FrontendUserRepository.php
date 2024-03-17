@@ -17,24 +17,13 @@ namespace Swisscode\Newt\Domain\Repository;
 /**
  * The repository for FrontendUsers
  */
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class FrontendUserRepository extends BaseRepository
 {
 
     /**
      * @var array
      */
     protected $defaultOrderings = ['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
-
-    /**
-     * Sets this Repo to ignore the StoragePage and SysLanguage
-     */
-    public function setDetachedQuerySettings()
-    {
-        $querySettings = $this->createQuery()->getQuerySettings();
-        $querySettings->setRespectStoragePage(FALSE);
-        $querySettings->setRespectSysLanguage(FALSE);
-        $this->setDefaultQuerySettings($querySettings);
-    }
 
     /**
      * Finds all users matching the given UserGroup ID

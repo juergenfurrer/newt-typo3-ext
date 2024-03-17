@@ -7,7 +7,6 @@ namespace Swisscode\Newt\Domain\Model;
 use Swisscode\Newt\Utility\Utils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * This file is part of the "Newt" Extension for TYPO3 CMS.
@@ -120,10 +119,8 @@ class Endpoint extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                     $newtMethod = GeneralUtility::makeInstance(\Swisscode\Newt\NewtApi\Method::class);
                     $newtMethod->setType($method->getType());
 
-                    /** @var ObjectManager */
-                    $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
                     /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
-                    $uriBuilder = $objectManager->get(UriBuilder::class);
+                    $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
                     $uri = $uriBuilder->reset()
                         ->setCreateAbsoluteUri(true)
                         ->setTargetPageUid(intval($settings['apiPageId'] ?? 1))

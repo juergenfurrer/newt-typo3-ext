@@ -1,10 +1,10 @@
 <?php
 return [
-    'tools_NewtAdmin' => [
+    'tools_newt' => [
         'parent' => 'tools',
-        'access' => 'admin,user',
+        'access' => 'user,group',
+        'path' => '/module/tools/newt',
         'iconIdentifier' => 'newt-admin-module',
-        'path' => '/module/web/NewtAdmin',
         'labels' => 'LLL:EXT:newt/Resources/Private/Language/locallang_admin.xlf',
         'extensionName' => 'Newt',
         'controllerActions' => [

@@ -17,22 +17,11 @@ namespace Swisscode\Newt\Domain\Repository;
 /**
  * The repository for Endpoints
  */
-class EndpointRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class EndpointRepository extends BaseRepository
 {
 
     /**
      * @var array
      */
     protected $defaultOrderings = ['sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING];
-
-    /**
-     * Sets this Repo to ignore the StoragePage and SysLanguage
-     */
-    public function setDetachedQuerySettings()
-    {
-        $querySettings = $this->createQuery()->getQuerySettings();
-        $querySettings->setRespectStoragePage(FALSE);
-        $querySettings->setRespectSysLanguage(FALSE);
-        $this->setDefaultQuerySettings($querySettings);
-    }
 }

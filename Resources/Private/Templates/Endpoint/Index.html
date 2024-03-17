@@ -1,8 +1,4 @@
-<html
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-    xmlns:swisscode="http://typo3.org/ns/Swisscode/Newt/ViewHelpers"
-    data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns:swisscode="http://typo3.org/ns/Swisscode/Newt/ViewHelpers" data-namespace-typo3-fluid="true">
 
 
 <f:layout name="{layout}{layoutSuffix}" />
@@ -81,8 +77,7 @@
                             </div>
                         </li>
                         <f:if condition="{tokenExpireDate}">
-                            <li
-                                class="list-group-item {f:if(condition:'{tokenExpired}', then:'list-group-item-danger', else:'list-group-item-success')}">
+                            <li class="list-group-item {f:if(condition:'{tokenExpired}', then:'list-group-item-danger', else:'list-group-item-success')}">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <f:translate key="tx_newt_config.index.token_expires" />
@@ -132,7 +127,7 @@
                                                         <f:variable name="color">warning</f:variable>
                                                     </f:case>
                                                     <f:case value="list">
-                                                        <f:variable name="color">secondary</f:variable>
+                                                        <f:variable name="color">black</f:variable>
                                                     </f:case>
                                                     <f:case value="update">
                                                         <f:variable name="color">info</f:variable>
@@ -144,9 +139,11 @@
                                                         <f:variable name="color">primary</f:variable>
                                                     </f:defaultCase>
                                                 </f:switch>
-                                                <span class="badge bg-{color}">
-                                                    <f:translate key="tx_newt_endpoint.method.{method.type}" />
-                                                </span>
+                                                <div>
+                                                    <span class="badge bg-{color} text-white w-100">
+                                                        <f:translate key="tx_newt_endpoint.method.{method.type}" />
+                                                    </span>
+                                                </div>
                                             </f:for>
                                         </f:then>
                                         <f:else>
